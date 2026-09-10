@@ -1,0 +1,643 @@
+<!DOCTYPE html> <!-- Use modern HTML document rules. -->
+<html lang="en"> <!-- Start the English-language webpage. -->
+<head> <!-- Start page settings and stylesheet links. -->
+  <meta charset="UTF-8"> <!-- Set page encoding or mobile viewport behavior. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Set page encoding or mobile viewport behavior. -->
+  <title>butttercloud — Homemade. Handmade. Worth the wait.</title> <!-- Name the browser tab. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Load the linked fonts or stylesheet. -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Load the linked fonts or stylesheet. -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Pacifico&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet"> <!-- Load the linked fonts or stylesheet. -->
+  <link rel="stylesheet" href="styles.css?v=customer-reviews-api-2"> <!-- Load the linked fonts or stylesheet. -->
+</head> <!-- Close the head container. -->
+<body> <!-- Start the visible webpage. -->
+  <div id="smooth-wrapper"> <!-- Group these elements for layout or behavior for smooth wrapper. -->
+    <div id="smooth-content"> <!-- Group these elements for layout or behavior for smooth content. -->
+      <!-- Ambient decorative clouds — purely visual, sit behind all content -->
+      <div class="ambient-clouds" aria-hidden="true"> <!-- Group these elements for layout or behavior for ambient clouds. -->
+        <div class="ambient-cloud ambient-cloud--1"></div> <!-- Group these elements for layout or behavior for ambient cloud ambient cloud  1. -->
+        <div class="ambient-cloud ambient-cloud--2"></div> <!-- Group these elements for layout or behavior for ambient cloud ambient cloud  2. -->
+        <div class="ambient-cloud ambient-cloud--3"></div> <!-- Group these elements for layout or behavior for ambient cloud ambient cloud  3. -->
+      </div> <!-- Close the div container. -->
+
+
+      <!-- ===== Sticky Header ===== -->
+      <header class="site-header" id="site-header"> <!-- Start the top navigation area. -->
+        <a href="#top" class="brand-mark"> <!-- Provide this navigation or contact link. -->
+          <img src="logo.png" alt="butttercloud logo" class="logo-mark"> <!-- Display this image with its accessible description. -->
+        </a> <!-- Close the a container. -->
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation"> <!-- Group the main navigation links. -->
+          <a href="#story">Story</a> <!-- Provide this navigation or contact link. -->
+          <a href="#menu">Menu</a> <!-- Provide this navigation or contact link. -->
+          <a href="#gallery">Gallery</a> <!-- Provide this navigation or contact link. -->
+          <a href="#pre-orders">Pre-Orders</a> <!-- Provide this navigation or contact link. -->
+          <a href="#reviews">Reviews</a> <!-- Provide this navigation or contact link. -->
+          <a href="#faq">FAQ</a> <!-- Provide this navigation or contact link. -->
+          <a href="#place-order" class="nav-cta">Order Now</a> <!-- Provide this navigation or contact link. -->
+        </nav> <!-- Close the nav container. -->
+
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"> <!-- Provide a clickable or keyboard-accessible button for nav toggle. -->
+          <span></span><span></span><span></span> <!-- Display this short label or decorative element. -->
+        </button> <!-- Close the button container. -->
+      </header> <!-- Close the header container. -->
+
+      <!-- ===== Floating Cart ===== -->
+      <button type="button" class="cart-fab" id="cart-fab" aria-label="View cart"> <!-- Provide a clickable or keyboard-accessible button for cart fab. -->
+        <span class="cart-fab-icon" aria-hidden="true">🛒</span> <!-- Display this short label or decorative element for cart fab icon. -->
+        <span class="cart-fab-count" id="cart-fab-count" hidden>0</span> <!-- Display this short label or decorative element for cart fab count. -->
+      </button> <!-- Close the button container. -->
+
+      <div class="cart-panel" id="cart-panel" data-lenis-prevent hidden> <!-- Group these elements for layout or behavior for cart panel. -->
+        <div class="cart-panel-header"> <!-- Group these elements for layout or behavior for cart panel header. -->
+          <h3>your cart</h3> <!-- Display this subsection heading. -->
+          <button type="button" class="cart-close-btn" id="cart-close-btn" aria-label="Close cart">&times;</button> <!-- Provide a clickable or keyboard-accessible button for cart close btn. -->
+        </div> <!-- Close the div container. -->
+        <div class="cart-panel-body" id="cart-panel-body"> <!-- Group these elements for layout or behavior for cart panel body. -->
+          <p class="cart-empty">Nothing here yet — pick something sweet from the menu.</p> <!-- Display this message or description for cart empty. -->
+        </div> <!-- Close the div container. -->
+        <div class="cart-panel-footer"> <!-- Group these elements for layout or behavior for cart panel footer. -->
+          <div class="cart-total-row"> <!-- Group these elements for layout or behavior for cart total row. -->
+            <span>Total</span> <!-- Display this short label or decorative element. -->
+            <span id="cart-total">Rs. 0</span> <!-- Display this short label or decorative element for cart total. -->
+          </div> <!-- Close the div container. -->
+          <a href="#place-order" class="btn-primary cart-checkout-btn" id="cart-checkout-btn">Checkout</a> <!-- Provide this navigation or contact link. -->
+        </div> <!-- Close the div container. -->
+      </div> <!-- Close the div container. -->
+      <div class="cart-overlay" id="cart-overlay" hidden></div> <!-- Group these elements for layout or behavior for cart overlay. -->
+
+      <!-- ===== Mascot Companion ===== -->
+      <button type="button" class="mascot-companion" id="mascot-companion" aria-label="Say hi to the butttercloud mascot"> <!-- Provide a clickable or keyboard-accessible button for mascot companion. -->
+        <img src="mascot/companion-idle.webp" alt="" id="mascot-companion-img"> <!-- Display this image with its accessible description. -->
+      </button> <!-- Close the button container. -->
+
+      <!-- ===== Custom Cursor ===== -->
+      <div class="custom-cursor" aria-hidden="true"> <!-- Group these elements for layout or behavior for custom cursor. -->
+        <svg class="cursor-cloud" viewBox="0 0 32 24" aria-hidden="true" focusable="false"> <!-- Draw the small blue cloud cursor. -->
+          <path d="M8 20C4.4 20 2 17.6 2 14.5C2 11.7 4 9.5 6.7 9.1C7.2 5.6 9.9 3 13.3 3C16.3 3 18.9 4.9 19.8 7.5C20.5 7.2 21.2 7 22 7C24.8 7 27 9.1 27.2 11.8C29 12.3 30 13.7 30 15.7C30 18.2 28 20 25.3 20Z"/> <!-- Define the outline of the cloud shape. -->
+        </svg> <!-- Close the svg container. -->
+      </div> <!-- Close the div container. -->
+
+      <main id="top"> <!-- Group the main page sections. -->
+        <!-- ===== Hero ===== -->
+        <section id="hero" class="hero-section"> <!-- Group this section of the page for hero. -->
+          <div class="hero-bubbles" aria-hidden="true"> <!-- Group these decorative bubbles for layout or behavior for hero bubbles. -->
+            <span class="bubble bubble--sm bubble--primary" style="top: 12%; left: 8%;"></span> <!-- Place one small decorative bubble. -->
+            <span class="bubble bubble--md bubble--accent" style="top: 68%; left: 14%;"></span> <!-- Place one medium decorative bubble. -->
+            <span class="bubble bubble--lg bubble--primary" style="top: 22%; left: 82%;"></span> <!-- Place one large decorative bubble. -->
+            <span class="bubble bubble--sm bubble--accent" style="top: 78%; left: 88%;"></span> <!-- Place one small decorative bubble. -->
+            <span class="bubble bubble--md bubble--deep" style="top: 6%; left: 46%;"></span> <!-- Place one medium decorative bubble. -->
+            <span class="bubble bubble--sm bubble--primary" style="top: 88%; left: 52%;"></span> <!-- Place one small decorative bubble. -->
+            <span class="bubble bubble--lg bubble--accent" style="top: 46%; left: 4%;"></span> <!-- Place one large decorative bubble. -->
+            <span class="bubble bubble--md bubble--accent" style="top: 38%; left: 94%;"></span> <!-- Place one medium decorative bubble. -->
+          </div> <!-- Close the div container. -->
+          <div class="hero-container"> <!-- Group these elements for layout or behavior for hero container. -->
+            <div class="hero-content"> <!-- Group these elements for layout or behavior for hero content. -->
+              <h1 class="hero-title">butttercloud</h1> <!-- Display the main brand heading. -->
+              <p class="hero-description">Homemade. Handmade. Worth the wait.</p> <!-- Display this message or description for hero description. -->
+              <div class="hero-actions"> <!-- Group these elements for layout or behavior for hero actions. -->
+                <a href="#menu" class="btn btn-primary">View Menu</a> <!-- Provide this navigation or contact link. -->
+              </div> <!-- Close the div container. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+        </section> <!-- Close the section container. -->
+
+        <!-- ===== Story ===== -->
+        <div class="story-runway"> <!-- Reserve the vertical distance needed to hold the Story stage. -->
+          <section class="story" id="story" aria-label="Why butttercloud cakes are made the way they are"> <!-- Group this section of the page for story. -->
+            <h2 class="story-heading">the tea, spilled</h2> <!-- Display this section heading for story heading. -->
+
+            <div class="story-thread" aria-hidden="true"></div> <!-- Group these elements for layout or behavior for story thread. -->
+
+            <div class="story-track"> <!-- Group these elements for layout or behavior for story track. -->
+
+              <article class="beat" data-beat="1"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat1.webp" alt="Mascot waving hello" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>hii <span aria-hidden="true">👋</span> here's the tea on why cakes aren't cheap. quick read, promise.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+              <article class="beat" data-beat="2"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat2.webp" alt="Mascot holding up a freshly baked cake" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>nothing's pre-made. your order gets baked when you order it — not sitting around for days pretending it's "fresh."</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+              <article class="beat" data-beat="3"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat3.webp" alt="Mascot surrounded by small piles of ingredients, looking exasperated" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>and "just buy in bulk" isn't a thing when you're one person making one order at a time. bulk ingredients would expire before i even touch half of them.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+              <article class="beat" data-beat="4"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat4.webp" alt="Mascot checking the clock next to a stand mixer, looking tired" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>the oven and mixer don't run on vibes. i'm working around actual electricity timings — baking is not a "mix and done" situation.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+              <article class="beat" data-beat="5"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat5.webp" alt="Mascot stressed and sweating while holding a cake" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>still a student at COTHM, first year almost done <span aria-hidden="true">🎓</span> — so yes, i stress over every cake. if it's not right, i redo it. your order gets my full attention, not leftovers.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+              <article class="beat" data-beat="6"> <!-- Group one story card for beat. -->
+                <div class="beat-figure"> <!-- Group these elements for layout or behavior for beat figure. -->
+                  <img src="mascot/beat6.webp" alt="Mascot confidently giving a thumbs up while presenting a finished cake" loading="lazy"> <!-- Display this image with its accessible description. -->
+                </div> <!-- Close the div container. -->
+                <div class="beat-bubble"> <!-- Group these elements for layout or behavior for beat bubble. -->
+                  <p>that's the tea, fully spilled. now you know why i need a little advance notice — let's talk pre-orders <span aria-hidden="true">👇</span></p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </article> <!-- Close the article container. -->
+
+            </div> <!-- Close the div container. -->
+          </section> <!-- Close the section container. -->
+        </div> <!-- End the Story runway so the next section scrolls normally. -->
+
+        <!-- ===== Menu ===== -->
+        <section class="menu" id="menu" aria-label="Menu"> <!-- Group this section of the page for menu. -->
+          <h2 class="section-heading section-heading--script">the menu</h2> <!-- Display this section heading for section heading section heading  script. -->
+
+          <!-- Cakes -->
+          <div class="menu-category"> <!-- Group these elements for layout or behavior for menu category. -->
+            <h3 class="menu-category-title">Cakes</h3> <!-- Display this subsection heading for menu category title. -->
+            <div class="menu-items" id="menu-cakes"></div> <!-- Group these elements for layout or behavior for menu cakes. -->
+          </div> <!-- Close the div container. -->
+
+          <!-- Brownies -->
+          <div class="menu-category"> <!-- Group these elements for layout or behavior for menu category. -->
+            <h3 class="menu-category-title">Brownies</h3> <!-- Display this subsection heading for menu category title. -->
+            <div class="menu-items" id="menu-brownies"></div> <!-- Group these elements for layout or behavior for menu brownies. -->
+          </div> <!-- Close the div container. -->
+
+          <!-- Cookies -->
+          <div class="menu-category"> <!-- Group these elements for layout or behavior for menu category. -->
+            <h3 class="menu-category-title">Cookies</h3> <!-- Display this subsection heading for menu category title. -->
+            <div class="menu-items" id="menu-cookies"></div> <!-- Group these elements for layout or behavior for menu cookies. -->
+          </div> <!-- Close the div container. -->
+
+          <!-- Butter Biscuits -->
+          <div class="menu-category"> <!-- Group these elements for layout or behavior for menu category. -->
+            <h3 class="menu-category-title">Butter Biscuits</h3> <!-- Display this subsection heading for menu category title. -->
+            <div class="menu-items" id="menu-biscuits"></div> <!-- Group these elements for layout or behavior for menu biscuits. -->
+          </div> <!-- Close the div container. -->
+        </section> <!-- Close the section container. -->
+
+        <!-- ===== Gallery ===== -->
+        <section class="gallery" id="gallery" aria-label="Custom cake gallery"> <!-- Group this section of the page for gallery. -->
+          <h2 class="section-heading section-heading--script">cakes we've made</h2> <!-- Display this section heading for section heading section heading  script. -->
+          <p class="gallery-intro">A few sweet things from this kitchen — tap a photo for a closer look.</p> <!-- Display this message or description for gallery intro. -->
+
+          <div class="gallery-grid" id="gallery-grid"> <!-- Group these elements for layout or behavior for gallery grid. -->
+            <div class="gallery-item"> <!-- Group these elements for layout or behavior for gallery item. -->
+              <img src="gallery/custom-cake-1.webp" alt="Custom Eid cake with Arabic calligraphy and gold leaf detail" loading="lazy"> <!-- Display this image with its accessible description. -->
+            </div> <!-- Close the div container. -->
+            <div class="gallery-item"> <!-- Group these elements for layout or behavior for gallery item. -->
+              <img src="gallery/custom-cake-2.webp" alt="Custom pink birthday cake with a personalized message" loading="lazy"> <!-- Display this image with its accessible description. -->
+            </div> <!-- Close the div container. -->
+            <div class="gallery-item"> <!-- Group these elements for layout or behavior for gallery item. -->
+              <img src="gallery/custom-cake-3.webp" alt="Custom graduation cake with a crumb-coated edge" loading="lazy"> <!-- Display this image with its accessible description. -->
+            </div> <!-- Close the div container. -->
+            <div class="gallery-item"> <!-- Group these elements for layout or behavior for gallery item. -->
+              <img src="gallery/custom-cake-4.webp" alt="Custom caramel cookie-edge cake with a personalized message" loading="lazy"> <!-- Display this image with its accessible description. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+        </section> <!-- Close the section container. -->
+
+        <!-- ===== Pre-Orders ===== -->
+        <section class="pre-orders" id="pre-orders" aria-label="Pre-order policy and process"> <!-- Group this section of the page for pre orders. -->
+
+          <h2 class="section-heading section-heading--script">the pre-order lowdown</h2> <!-- Display this section heading for section heading section heading  script. -->
+
+          <div class="policy-cards"> <!-- Group these elements for layout or behavior for policy cards. -->
+            <div class="policy-card"> <!-- Group these elements for layout or behavior for policy card. -->
+              <div class="policy-card-figure"> <!-- Group these elements for layout or behavior for policy card figure. -->
+                <img src="mascot/pose1.webp" alt="Mascot marking a date on her calendar" loading="lazy"> <!-- Display this image with its accessible description. -->
+              </div> <!-- Close the div container. -->
+              <div class="policy-card-body"> <!-- Group these elements for layout or behavior for policy card body. -->
+                <span class="policy-tag">Standard</span> <!-- Display this short label or decorative element for policy tag. -->
+                <h3>1 day's notice</h3> <!-- Display this subsection heading. -->
+                <p>This is the sweet spot — enough time for the sponge, the chill, the soak, and the finish, without anything getting rushed.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="policy-card"> <!-- Group these elements for layout or behavior for policy card. -->
+              <div class="policy-card-figure"> <!-- Group these elements for layout or behavior for policy card figure. -->
+                <img src="mascot/pose2.webp" alt="Mascot looking at her phone, thinking it over" loading="lazy"> <!-- Display this image with its accessible description. -->
+              </div> <!-- Close the div container. -->
+              <div class="policy-card-body"> <!-- Group these elements for layout or behavior for policy card body. -->
+                <span class="policy-tag policy-tag--accent">Need it sooner?</span> <!-- Display this short label or decorative element for policy tag policy tag  accent. -->
+                <h3>Urgent orders</h3> <!-- Display this subsection heading. -->
+                <p>Sometimes there's room for a last-minute bake — I need at least 6 hours' notice. Message me first and let's see what's possible.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+
+          <!-- ===== The science / process timeline ===== -->
+          <div class="process"> <!-- Group these elements for layout or behavior for process. -->
+            <h3 class="section-heading section-heading--script process-heading">so here's the math</h3> <!-- Display this subsection heading for section heading section heading  script process heading. -->
+            <p class="process-intro">A cake takes a few steps, and each one needs its time. Here's what happens between "order placed" and "cake ready":</p> <!-- Display this message or description for process intro. -->
+
+            <ol class="process-steps reveal-up"> <!-- Start the ordered baking-process list. -->
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">1</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Mixing the batter</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">25 min</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>Sponge batter made from scratch, every single time.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">2</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Baking the sponge</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">35–40 min</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>Low and slow, so it actually cooks through instead of just looking done.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">3</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Cooling down</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">~60 min</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>A warm sponge falls apart the moment you touch it — it needs time to set.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">4</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Locking in the moisture</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">a few hrs–overnight</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>Cling wrapped and chilled so the sponge stays soft, not dry, by the time it's your cake.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">5</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Soaking the sponge</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">2+ hrs, or during coverage</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>Three-milk sponges need at least 2 hours soaking before assembly. Simple sponges (pineapple, fudge, etc.) get soaked the moment coverage starts — no separate wait.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">6</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Prepping the fillings</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">15–20 min</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>Whipping cream, lotus spread, chocolate spread, crushed biscuit — whatever your cake calls for, made fresh.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+
+              <li class="process-step"> <!-- Describe one step in the baking process. -->
+                <span class="process-num">7</span> <!-- Display this short label or decorative element for process num. -->
+                <div class="process-step-body"> <!-- Group these elements for layout or behavior for process step body. -->
+                  <div class="process-step-head"> <!-- Group these elements for layout or behavior for process step head. -->
+                    <h4>Covering &amp; finishing</h4> <!-- Display this smaller heading. -->
+                    <span class="process-duration">up to 30 min</span> <!-- Display this short label or decorative element for process duration. -->
+                  </div> <!-- Close the div container. -->
+                  <p>The actual decorating — piping, spreading, making it look like your cake.</p> <!-- Display this message or description. -->
+                </div> <!-- Close the div container. -->
+              </li> <!-- Close the li container. -->
+            </ol> <!-- Close the ol container. -->
+
+            <div class="process-total reveal-up"> <!-- Group these elements for layout or behavior for process total reveal up. -->
+              <span class="process-total-figure">~5 hrs</span> <!-- Display this short label or decorative element for process total figure. -->
+              <p>of hands-on work — and that's before some cakes go back in the fridge to chill overnight. that's the pre-order math.</p> <!-- Display this message or description. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+
+          <!-- ===== Closing teaser into Place Order ===== -->
+          <div class="order-teaser reveal-up"> <!-- Group these elements for layout or behavior for order teaser reveal up. -->
+            <div class="order-teaser-figure"> <!-- Group these elements for layout or behavior for order teaser figure. -->
+              <img src="mascot/pose3.webp" alt="Mascot holding out an order slip, inviting you to place an order" loading="lazy"> <!-- Display this image with its accessible description. -->
+            </div> <!-- Close the div container. -->
+            <div class="order-teaser-text"> <!-- Group these elements for layout or behavior for order teaser text. -->
+              <p>Got your dates sorted? Let's get it in the books.</p> <!-- Display this message or description. -->
+              <a href="#place-order" class="btn-primary">Place Order</a> <!-- Provide this navigation or contact link. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+
+        </section> <!-- Close the section container. -->
+
+        <!-- ===== Customer Reviews ===== -->
+        <section class="reviews" id="reviews" aria-label="Customer reviews"> <!-- Keep the original review section and airplane waypoint. -->
+          <h2 class="section-heading section-heading--script">sweet things people said</h2> <!-- Preserve the existing handwritten heading. -->
+          <div class="review-actions"> <!-- Offer a clear way to leave a real review. -->
+            <button type="button" class="btn-primary" id="review-open" aria-expanded="false" aria-controls="customer-review-form">Write a review</button> <!-- Open the accessible review form. -->
+          </div> <!-- End the review action. -->
+          <form id="customer-review-form" class="customer-review-form" hidden> <!-- Submit public reviews without leaving the page. -->
+            <h3>how was your treat?</h3> <!-- Give the form a friendly heading. -->
+            <p id="review-public-note">Your name, rating, order and review will be shown publicly. Please leave out phone numbers and other private details.</p> <!-- Explain exactly what will appear on the card. -->
+            <label for="review-name">Your name</label> <!-- Provide an accessible name label. -->
+            <input id="review-name" name="name" autocomplete="name" maxlength="60" required aria-describedby="review-public-note"> <!-- Collect only the public display name. -->
+            <label for="review-item">What did you order?</label> <!-- Label the item shown beneath the reviewer name. -->
+            <input id="review-item" name="item" maxlength="80" minlength="2" placeholder="e.g. Chocolate Fudge Cake" required> <!-- Allow any real order, including custom cakes. -->
+            <fieldset class="review-rating"> <!-- Group the keyboard-accessible rating choices. -->
+              <legend>Your rating</legend> <!-- Give the radio group its accessible name. -->
+              <label><input type="radio" name="rating" value="1" required><span>1 ★</span></label> <!-- Select 1 out of 5 stars. -->
+              <label><input type="radio" name="rating" value="2" required><span>2 ★</span></label> <!-- Select 2 out of 5 stars. -->
+              <label><input type="radio" name="rating" value="3" required><span>3 ★</span></label> <!-- Select 3 out of 5 stars. -->
+              <label><input type="radio" name="rating" value="4" required><span>4 ★</span></label> <!-- Select 4 out of 5 stars. -->
+              <label><input type="radio" name="rating" value="5" required><span>5 ★</span></label> <!-- Select 5 out of 5 stars. -->
+            </fieldset> <!-- End rating choices. -->
+            <label for="review-message">Your review</label> <!-- Label the review text. -->
+            <textarea id="review-message" name="message" rows="4" minlength="10" maxlength="1000" placeholder="Tell us what you enjoyed…" required></textarea> <!-- Keep reviews readable and reasonably sized. -->
+            <div hidden aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div> <!-- Add a simple bot trap without interrupting customers. -->
+            <div class="review-form-actions"> <!-- Keep submit and close actions together. -->
+              <button type="submit" class="btn-primary" id="review-submit">Post review</button> <!-- Publish only after validation and successful storage. -->
+              <button type="button" class="review-secondary" id="review-cancel">Cancel</button> <!-- Close the form without posting. -->
+            </div> <!-- End form actions. -->
+          </form> <!-- End the review form. -->
+          <p id="review-submit-status" class="review-status" role="status" aria-live="polite"></p> <!-- Announce successful submissions and recoverable errors. -->
+          <p id="reviews-status" class="review-status" role="status">Loading customer reviews…</p> <!-- Show honest loading, empty and error states. -->
+          <button id="reviews-retry" class="review-secondary" type="button" hidden>Try loading reviews again</button> <!-- Recover from a connection failure. -->
+          <div class="reviews-track" id="customer-reviews-track" role="region" aria-label="Customer review cards" tabindex="0" hidden></div> <!-- Display real reviews in the original horizontally scrollable card row. -->
+          <p class="reviews-hint" id="customer-reviews-hint" hidden>← scroll or swipe for more →</p> <!-- Show the original hint only when reviews exist. -->
+          <button type="button" class="review-secondary" id="reviews-more" hidden>Load more reviews</button> <!-- Let visitors reach older reviews without loading every card at once. -->
+          <noscript><p class="review-status">Please enable JavaScript to read and post customer reviews.</p></noscript> <!-- Explain the feature when scripts are disabled. -->
+        </section> <!-- End customer reviews. -->
+
+        <!-- ===== FAQ ===== -->
+        <section class="faq" id="faq" aria-label="Frequently asked questions"> <!-- Group this section of the page for faq. -->
+          <h2 class="section-heading section-heading--script">quick answers before you order</h2> <!-- Display this section heading for section heading section heading  script. -->
+
+          <div class="faq-list"> <!-- Group these elements for layout or behavior for faq list. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>How far in advance do I need to order?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>The sweet spot is at least 1 day's notice. The <a href="#pre-orders">pre-order lowdown</a> explains why.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>Do you take same-day or urgent orders?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Sometimes! I need at least 6 hours' notice to bake, cool, and finish your cake. Message me first so I can check whether there's room for your order.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>How do I actually place an order?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Through WhatsApp, the order form on this site, or Instagram DM — whichever's easiest for you.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>What sizes do your cakes come in?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Bento, 1 pound, 2 pound, and 3.5 pound. The right size depends on your guest count and how generous you like your slices. Unsure? Message me and we'll work it out.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>Can I customize the flavor or design?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>I'm keeping customizations simple for now — think flavor swaps and small design tweaks. Elaborate designs aren't available yet, but send me your idea and I'll let you know what's possible.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>Do you do eggless cakes or cater to dietary restrictions?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Not at the moment — but that might change down the line.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>What payment methods do you accept?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Meezan Bank transfer, JazzCash, EasyPaisa, SadaPay, or NayaPay.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>Do you deliver, or is it pickup only?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Both — delivery and pickup are available, but only within Multan for now.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>Can I cancel or change my order after placing it?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>You've got a 1-hour window after placing your order to make changes. After that, it's locked in — so it's worth double checking everything within that hour.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+            <details class="faq-item"> <!-- Provide an expandable FAQ answer. -->
+              <summary> <!-- Provide the clickable FAQ question. -->
+                <span>What goes into a butttercloud bake?</span> <!-- Display this short label or decorative element. -->
+                <span class="faq-icon" aria-hidden="true"></span> <!-- Display this short label or decorative element for faq icon. -->
+              </summary> <!-- Close the summary container. -->
+              <div class="faq-answer"> <!-- Group these elements for layout or behavior for faq answer. -->
+                <p>Your order is made fresh from scratch, with recipes I've tested and refined. From the sponge to the finishing touches, each bake gets my full attention — that's the care behind it.</p> <!-- Display this message or description. -->
+              </div> <!-- Close the div container. -->
+            </details> <!-- Close the details container. -->
+
+          </div> <!-- Close the div container. -->
+        </section> <!-- Close the section container. -->
+
+        <!-- ===== Place Order ===== -->
+        <section class="place-order" id="place-order" aria-label="Place your order"> <!-- Group this section of the page for place order. -->
+          <h2 class="section-heading section-heading--script">let's get you a cake</h2> <!-- Display this section heading for section heading section heading  script. -->
+          <p class="place-order-intro">Check your picks, add your details, and tap Place Order. Then send the ready-to-go WhatsApp message to confirm your order. If anything needs another try, you'll see a message here.</p> <!-- Display this message or description for place order intro. -->
+
+          <div class="checkout-summary" id="checkout-summary"> <!-- Group these elements for layout or behavior for checkout summary. -->
+            <h3 class="checkout-summary-title">your order</h3> <!-- Display this subsection heading for checkout summary title. -->
+            <div id="checkout-summary-body"> <!-- Group these elements for layout or behavior for checkout summary body. -->
+              <p class="cart-empty">Nothing here yet — <a href="#menu">pick something sweet from the menu</a>.</p> <!-- Display this message or description for cart empty. -->
+            </div> <!-- Close the div container. -->
+            <div class="checkout-summary-total" id="checkout-summary-total" hidden> <!-- Group these elements for layout or behavior for checkout summary total. -->
+              <span>Total</span> <!-- Display this short label or decorative element. -->
+              <span id="checkout-total-amount">Rs. 0</span> <!-- Display this short label or decorative element for checkout total amount. -->
+            </div> <!-- Close the div container. -->
+          </div> <!-- Close the div container. -->
+
+          <form class="order-form" id="order-form" action="https://formspree.io/f/xvkokaga" method="POST"> <!-- Collect the customer’s order details. -->
+            <input type="hidden" name="_subject" value="New butttercloud order!"> <!-- Collect or store this form value. -->
+            <input type="hidden" name="cart_items" id="cart-items-field"> <!-- Collect or store this form value for cart items field. -->
+
+            <div class="form-row"> <!-- Group these elements for layout or behavior for form row. -->
+              <label for="of-name">Your name (required)</label> <!-- Name the matching form control. -->
+              <input type="text" id="of-name" name="name" required autocomplete="name"> <!-- Collect or store this form value for of name. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="form-row"> <!-- Group these elements for layout or behavior for form row. -->
+              <label for="of-phone">Phone number (required)</label> <!-- Name the matching form control. -->
+              <input type="tel" id="of-phone" name="phone" required autocomplete="tel" placeholder="03XX XXXXXXX"> <!-- Collect or store this form value for of phone. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="form-row"> <!-- Group these elements for layout or behavior for form row. -->
+              <label for="of-date">Date you need it by (required)</label> <!-- Name the matching form control. -->
+              <input type="date" id="of-date" name="date_needed" required> <!-- Collect or store this form value for of date. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="form-row"> <!-- Group these elements for layout or behavior for form row. -->
+              <span class="form-label">Pickup or delivery? (required)</span> <!-- Display this short label or decorative element for form label. -->
+              <div class="chip-group" role="radiogroup" aria-label="Pickup or delivery"> <!-- Group these elements for layout or behavior for chip group. -->
+                <input type="radio" id="fulfil-pickup" name="fulfillment" value="Pickup" required> <!-- Collect or store this form value for fulfil pickup. -->
+                <label for="fulfil-pickup" class="chip">Pickup</label> <!-- Name the matching form control. -->
+
+                <input type="radio" id="fulfil-delivery" name="fulfillment" value="Delivery" required> <!-- Collect or store this form value for fulfil delivery. -->
+                <label for="fulfil-delivery" class="chip">Delivery (Multan only)</label> <!-- Name the matching form control. -->
+              </div> <!-- Close the div container. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="form-row" id="address-row" hidden> <!-- Group these elements for layout or behavior for address row. -->
+              <label for="of-address">Delivery address</label> <!-- Name the matching form control. -->
+              <textarea id="of-address" name="address" rows="2" placeholder="Full address in Multan"></textarea> <!-- Provide a field for a longer message for of address. -->
+            </div> <!-- Close the div container. -->
+
+            <div class="form-row"> <!-- Group these elements for layout or behavior for form row. -->
+              <label for="of-message">Any little details? <span class="form-optional">(optional)</span></label> <!-- Name the matching form control. -->
+              <textarea id="of-message" name="message" rows="3" placeholder="The occasion, a message on the cake, or anything else I should know"></textarea> <!-- Provide a field for a longer message for of message. -->
+            </div> <!-- Close the div container. -->
+
+            <button type="submit" class="btn-primary order-submit" disabled>Place Order</button> <!-- Provide a clickable or keyboard-accessible button for btn primary order submit. -->
+            <noscript><p>Please turn on JavaScript to use this form, or message me on WhatsApp to order.</p></noscript> <!-- Show help when JavaScript is disabled. -->
+            <p class="order-status" id="order-status" role="status"></p> <!-- Display this message or description for order status. -->
+            <a id="order-whatsapp" class="btn-primary" target="_blank" rel="noopener noreferrer" hidden>Continue on WhatsApp</a> <!-- Provide this navigation or contact link. -->
+
+          </form> <!-- Close the form container. -->
+        </section> <!-- Close the section container. -->
+      </main> <!-- Close the main container. -->
+
+      <!-- ===== Footer ===== -->
+      <footer class="site-footer"> <!-- Start the footer with contact and navigation details. -->
+        <div class="footer-top"> <!-- Group these elements for layout or behavior for footer top. -->
+          <div class="footer-brand"> <!-- Group these elements for layout or behavior for footer brand. -->
+            <img src="logo.png" alt="butttercloud logo" class="footer-logo"> <!-- Display this image with its accessible description. -->
+            <p class="footer-tagline">Homemade. Handmade. Worth the wait.</p> <!-- Display this message or description for footer tagline. -->
+          </div> <!-- Close the div container. -->
+
+          <div class="footer-col"> <!-- Group these elements for layout or behavior for footer col. -->
+            <h4>find your way</h4> <!-- Display this smaller heading. -->
+            <a href="#story">Story</a> <!-- Provide this navigation or contact link. -->
+            <a href="#menu">Menu</a> <!-- Provide this navigation or contact link. -->
+            <a href="#gallery">Gallery</a> <!-- Provide this navigation or contact link. -->
+            <a href="#pre-orders">Pre-Orders</a> <!-- Provide this navigation or contact link. -->
+            <a href="#reviews">Reviews</a> <!-- Provide this navigation or contact link. -->
+            <a href="#faq">FAQ</a> <!-- Provide this navigation or contact link. -->
+            <a href="#place-order">Order Now</a> <!-- Provide this navigation or contact link. -->
+          </div> <!-- Close the div container. -->
+
+          <div class="footer-col"> <!-- Group these elements for layout or behavior for footer col. -->
+            <h4>say hello</h4> <!-- Display this smaller heading. -->
+            <!-- Uses the same WhatsApp number as the order form. -->
+            <a href="#" id="footer-whatsapp-link" target="_blank" rel="noopener">WhatsApp</a> <!-- Provide this navigation or contact link. -->
+            <a href="https://www.instagram.com/butttercloud" target="_blank" rel="noopener">Instagram</a> <!-- Provide this navigation or contact link. -->
+          </div> <!-- Close the div container. -->
+
+          <div class="footer-col"> <!-- Group these elements for layout or behavior for footer col. -->
+            <h4>where to find us</h4> <!-- Display this smaller heading. -->
+            <p>Pickup &amp; delivery available in Multan, Pakistan.</p> <!-- Display this message or description. -->
+          </div> <!-- Close the div container. -->
+        </div> <!-- Close the div container. -->
+
+        <div class="footer-bottom"> <!-- Group these elements for layout or behavior for footer bottom. -->
+          <p>&copy; <span id="footer-year"></span> butttercloud. All rights reserved.</p> <!-- Display this message or description for footer year. -->
+        </div> <!-- Close the div container. -->
+      </footer> <!-- Close the footer container. -->
+
+    <!-- BOTTOM STICKY MOBILE CART BAR -->
+    <div id="mobile-sticky-cart" class="sticky-cart-bar" style="display: none;"> <!-- Group these elements for layout or behavior for mobile sticky cart. -->
+      <div class="sticky-cart-content"> <!-- Group these elements for layout or behavior for sticky cart content. -->
+        <div class="sticky-cart-left"> <!-- Group these elements for layout or behavior for sticky cart left. -->
+          <span class="sticky-cart-badge" id="sticky-cart-count">0</span> <!-- Display this short label or decorative element for sticky cart count. -->
+          <span class="sticky-cart-text">In your cart</span> <!-- Display this short label or decorative element for sticky cart text. -->
+        </div> <!-- Close the div container. -->
+        <div class="sticky-cart-right"> <!-- Group these elements for layout or behavior for sticky cart right. -->
+          <span class="sticky-cart-total" id="sticky-cart-total">Rs. 0</span> <!-- Display this short label or decorative element for sticky cart total. -->
+          <button class="sticky-cart-btn" id="sticky-cart-trigger">View Cart ➔</button> <!-- Provide a clickable or keyboard-accessible button for sticky cart trigger. -->
+        </div> <!-- Close the div container. -->
+      </div> <!-- Close the div container. -->
+    </div> <!-- Close the div container. -->
+    </div><!-- /#smooth-content -->
+  </div><!-- /#smooth-wrapper -->
+
+  <!-- Larger product view; the browser traps focus here while it is open. -->
+  <dialog id="product-viewer" class="product-viewer" aria-labelledby="product-viewer-title" data-lenis-prevent> <!-- Define the accessible enlarged-product photo viewer. -->
+    <section class="product-viewer-panel"> <!-- Group this section of the page for product viewer panel. -->
+      <button type="button" id="product-viewer-close" class="product-viewer-close" aria-label="Close product photos">×</button> <!-- Provide a clickable or keyboard-accessible button for product viewer close. -->
+      <p class="product-viewer-eyebrow">a little closer</p> <!-- Display this message or description for product viewer eyebrow. -->
+      <h2 id="product-viewer-title"></h2> <!-- Display this section heading for product viewer title. -->
+      <div class="product-viewer-frame"> <!-- Group these elements for layout or behavior for product viewer frame. -->
+        <div id="product-viewer-stage" class="product-viewer-stage"></div> <!-- Group these elements for layout or behavior for product viewer stage. -->
+      </div> <!-- Close the div container. -->
+      <p id="product-viewer-count" class="product-viewer-count"></p> <!-- Display this message or description for product viewer count. -->
+      <div class="product-viewer-controls" role="group" aria-label="Photo controls"> <!-- Group these elements for layout or behavior for product viewer controls. -->
+        <button type="button" id="product-viewer-previous" aria-label="Previous photo">←</button> <!-- Provide a clickable or keyboard-accessible button for product viewer previous. -->
+        <button type="button" id="product-viewer-pause" aria-pressed="false">Pause views</button> <!-- Provide a clickable or keyboard-accessible button for product viewer pause. -->
+        <button type="button" id="product-viewer-next" aria-label="Next photo">→</button> <!-- Provide a clickable or keyboard-accessible button for product viewer next. -->
+      </div> <!-- Close the div container. -->
+      <p id="product-viewer-status" class="product-viewer-status" role="status"></p> <!-- Display this message or description for product viewer status. -->
+      <p class="product-viewer-help">Tap outside or close to return to the menu.</p> <!-- Display this message or description for product viewer help. -->
+    </section> <!-- Close the section container. -->
+  </dialog> <!-- Close the dialog container. -->
+
+  <!-- Pinned to the Lenis version specified in design.md; load before site code. -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> <!-- Load this JavaScript file after the page markup. -->
+  <script src="script.js?v=customer-reviews-api-2"></script> <!-- Load this JavaScript file after the page markup. -->
+  <div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true"></div> <!-- Announce cart confirmations to sighted and screen-reader users alike. -->
+</body> <!-- Close the body container. -->
+</html> <!-- Close the html container. -->

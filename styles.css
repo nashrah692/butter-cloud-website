@@ -1,0 +1,3076 @@
+/* ============================================
+   Butter Cloud — Design Tokens
+   ============================================ */
+:root { /* Style the elements or animation stage named here. */
+  --bg: #FEF8E8; /* Set   bg for this element. */
+  --surface-card: #FFFDF8; /* Set   surface card for this element. */
+  --primary: #9BB7D4; /* Set   primary for this element. */
+  --primary-deep: #74899F; /* Set   primary deep for this element. */
+  --text: #3D2D2E; /* Set   text for this element. */
+  --text-soft: #948C8C; /* Set   text soft for this element. */
+  --accent: #F8DE8D; /* Set   accent for this element. */
+  --error: #B3554A; /* Set   error for this element. */
+  --success: #5A9E75; /* Set   success for this element. */
+
+  --border-radius-sm: 6px; /* Set   border radius sm for this element. */
+  --border-radius-md: 12px; /* Set   border radius md for this element. */
+  --border-radius-lg: 18px; /* Set   border radius lg for this element. */
+  --border-radius-full: 999px; /* Set   border radius full for this element. */
+
+  --shadow-flat: 0 2px 0 var(--accent); /* Set   shadow flat for this element. */
+  --shadow-tactile: 0 6px 18px rgba(61, 45, 46, 0.08); /* Set   shadow tactile for this element. */
+  --shadow-hover: 0 22px 32px rgba(61, 45, 46, 0.18); /* Set   shadow hover for this element. */
+  --shadow-sticker: 0 6px 16px rgba(61, 45, 46, 0.08); /* Set   shadow sticker for this element. */
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* Set   ease spring for this element. */
+  --ease-glide: cubic-bezier(0.25, 1, 0.5, 1); /* Set   ease glide for this element. */
+  --transition-spring: transform 0.45s var(--ease-spring); /* Set   transition spring for this element. */
+  --transition-smooth: background 0.25s ease, border-color 0.25s ease, color 0.25s ease; /* Set   transition smooth for this element. */
+
+  --space-1: 4px; /* Set   space 1 for this element. */
+  --space-2: 8px; /* Set   space 2 for this element. */
+  --space-3: 12px; /* Set   space 3 for this element. */
+  --space-4: 16px; /* Set   space 4 for this element. */
+  --space-6: 24px; /* Set   space 6 for this element. */
+  --space-8: 32px; /* Set   space 8 for this element. */
+  --space-12: 48px; /* Set   space 12 for this element. */
+  --space-24: 96px; /* Set   space 24 for this element. */
+
+  --font-display: "Fraunces", serif; /* Set   font display for this element. */
+  --font-body: "Work Sans", sans-serif; /* Set   font body for this element. */
+  --font-script: "Pacifico", cursive; /* Set   font script for this element. */
+
+  --header-height: 68px; /* Set   header height for this element. */
+} /* End this set of style rules. */
+
+* { box-sizing: border-box; } /* Style the elements or animation stage named here. */
+
+/* Guarantee the native `hidden` attribute always wins over any component's
+   own `display` rule — without this, a rule like `.cart-panel { display:
+   flex }` can silently keep a "hidden" element visible. */
+[hidden] { /* Style the elements or animation stage named here. */
+  display: none !important; /* Choose how this element is laid out. */
+} /* End this set of style rules. */
+
+html { /* Style the elements or animation stage named here. */
+  scroll-behavior: smooth; /* Set scroll behavior for this element. */
+} /* End this set of style rules. */
+
+/* Lenis owns smooth scrolling while active; native scrolling remains the fallback. */
+html.lenis, /* Continue selecting the elements that share these styles. */
+html.lenis body { /* Style the elements or animation stage named here. */
+  height: auto; /* Set the height. */
+} /* End this set of style rules. */
+
+.lenis.lenis-smooth { /* Style the elements or animation stage named here. */
+  scroll-behavior: auto !important; /* Set scroll behavior for this element. */
+} /* End this set of style rules. */
+
+.lenis.lenis-smooth [data-lenis-prevent] { /* Style the elements or animation stage named here. */
+  overscroll-behavior: contain; /* Set overscroll behavior for this element. */
+} /* End this set of style rules. */
+
+.lenis.lenis-stopped { /* Style the elements or animation stage named here. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+} /* End this set of style rules. */
+
+.lenis.lenis-scrolling iframe { /* Style the elements or animation stage named here. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  html { scroll-behavior: auto; } /* Style the elements or animation stage named here. */
+  *, *::before, *::after { /* Style the elements or animation stage named here. */
+    animation-duration: 0.01ms !important; /* Set animation duration for this element. */
+    animation-iteration-count: 1 !important; /* Set animation iteration count for this element. */
+    transition-duration: 0.01ms !important; /* Set transition duration for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+body { /* Style the elements or animation stage named here. */
+  margin: 0; /* Set the space outside the element. */
+  background: var(--bg); /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  -webkit-font-smoothing: antialiased; /* Set  webkit font smoothing for this element. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Sticky Header
+   ============================================ */
+.site-header { /* Style the elements or animation stage named here. */
+  position: sticky; /* Choose how this element is positioned. */
+  top: 0; /* Set top for this element. */
+  z-index: 100; /* Set which overlapping layer appears in front. */
+  height: var(--header-height); /* Set the height. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+  padding: 0 clamp(20px, 5vw, 48px); /* Set the space inside the element. */
+  background: rgba(250, 246, 238, 0.9); /* Set the background appearance. */
+  backdrop-filter: blur(8px); /* Set backdrop filter for this element. */
+  -webkit-backdrop-filter: blur(8px); /* Set  webkit backdrop filter for this element. */
+  border-bottom: 1px solid transparent; /* Set border bottom for this element. */
+  transition: border-color 0.25s ease, box-shadow 0.25s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.site-header.is-scrolled { /* Style the elements or animation stage named here. */
+  border-bottom-color: rgba(78, 53, 36, 0.08); /* Set border bottom color for this element. */
+  box-shadow: var(--shadow-tactile); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.brand-mark { /* Style the elements or animation stage named here. */
+  display: inline-flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: 10px; /* Set gap for this element. */
+  text-decoration: none; /* Set text decoration for this element. */
+  color: var(--text); /* Set the text color. */
+  flex: 0 0 auto; /* Set flex for this element. */
+} /* End this set of style rules. */
+
+/* ---- Nav ---- */
+.site-nav { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: clamp(16px, 2.6vw, 26px); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.site-nav a { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.9rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  text-decoration: none; /* Set text decoration for this element. */
+  padding: var(--space-1) 2px; /* Set the space inside the element. */
+  transition: color 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.site-nav a:hover { /* Style the elements or animation stage named here. */
+  color: var(--primary-deep); /* Set the text color. */
+} /* End this set of style rules. */
+
+.site-nav a.nav-cta { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+  font-weight: 600; /* Set font weight for this element. */
+  line-height: 1; /* Set line height for this element. */
+  padding: var(--space-2) var(--space-4); /* Set the space inside the element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+} /* End this set of style rules. */
+
+.site-nav a.nav-cta:hover { /* Style the elements or animation stage named here. */
+  background: var(--primary-deep); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+} /* End this set of style rules. */
+
+.nav-toggle { /* Style the elements or animation stage named here. */
+  display: none; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  gap: var(--space-1); /* Set gap for this element. */
+  background: none; /* Set the background appearance. */
+  border: none; /* Set border for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  padding: var(--space-2); /* Set the space inside the element. */
+  flex: 0 0 auto; /* Set flex for this element. */
+} /* End this set of style rules. */
+
+.nav-toggle span { /* Style the elements or animation stage named here. */
+  width: 22px; /* Set the width. */
+  height: 2px; /* Set the height. */
+  background: var(--text); /* Set the background appearance. */
+  display: block; /* Choose how this element is laid out. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  transition: transform 0.25s ease, opacity 0.25s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { /* Style the elements or animation stage named here. */
+  transform: translateY(7px) rotate(45deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { /* Style the elements or animation stage named here. */
+  opacity: 0; /* Set how visible this element is. */
+} /* End this set of style rules. */
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { /* Style the elements or animation stage named here. */
+  transform: translateY(-7px) rotate(-45deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+@media (max-width: 760px) { /* Apply these rules only on matching devices or motion settings. */
+  .nav-toggle { /* Style the elements or animation stage named here. */
+    display: flex; /* Choose how this element is laid out. */
+  } /* End this set of style rules. */
+
+  .site-nav { /* Style the elements or animation stage named here. */
+    position: fixed; /* Choose how this element is positioned. */
+    top: var(--header-height); /* Set top for this element. */
+    left: 0; /* Set left for this element. */
+    right: 0; /* Set right for this element. */
+    flex-direction: column; /* Set flex direction for this element. */
+    align-items: flex-start; /* Set align items for this element. */
+    gap: var(--space-1); /* Set gap for this element. */
+    background: var(--bg); /* Set the background appearance. */
+    padding: 12px clamp(20px, 5vw, 48px) 20px; /* Set the space inside the element. */
+    border-bottom: 1.5px solid rgba(78, 53, 36, 0.12); /* Set border bottom for this element. */
+    box-shadow: var(--shadow-tactile); /* Add depth beneath the element. */
+    opacity: 0; /* Set how visible this element is. */
+    transform: translateY(-8px); /* Move, resize or rotate this element. */
+    pointer-events: none; /* Choose whether this element can receive pointer input. */
+    transition: opacity 0.2s ease, transform 0.2s ease; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+
+  .site-nav.is-open { /* Style the elements or animation stage named here. */
+    opacity: 1; /* Set how visible this element is. */
+    transform: translateY(0); /* Move, resize or rotate this element. */
+    pointer-events: auto; /* Choose whether this element can receive pointer input. */
+  } /* End this set of style rules. */
+
+  .site-nav a { /* Style the elements or animation stage named here. */
+    width: 100%; /* Set the width. */
+    padding: 10px 2px; /* Set the space inside the element. */
+  } /* End this set of style rules. */
+
+  .site-nav a.nav-cta { /* Style the elements or animation stage named here. */
+    width: auto; /* Set the width. */
+    margin-top: 6px; /* Set margin top for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+.logo-mark { /* Style the elements or animation stage named here. */
+  display: block; /* Choose how this element is laid out. */
+  width: 40px; /* Set the width. */
+  height: 40px; /* Set the height. */
+  border-radius: 50%; /* Round the corners. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  min-height: calc(100svh - var(--header-height)); /* Set min height for this element. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+  padding: 0 var(--space-6); /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.hero-content { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  z-index: 2; /* Set which overlapping layer appears in front. */
+  text-align: center; /* Set text align for this element. */
+  max-width: 640px; /* Set max width for this element. */
+} /* End this set of style rules. */
+
+.btn-primary { /* Style the elements or animation stage named here. */
+  display: inline-block; /* Choose how this element is laid out. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  text-decoration: none; /* Set text decoration for this element. */
+  color: var(--bg); /* Set the text color. */
+  background: var(--text); /* Set the background appearance. */
+  padding: 0.9em 2.2em; /* Set the space inside the element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  transition: background 0.2s ease, transform 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.btn-primary:hover { /* Style the elements or animation stage named here. */
+  background: var(--primary-deep); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+.btn-primary:focus-visible { /* Style the elements or animation stage named here. */
+  outline: 2px solid var(--text); /* Set outline for this element. */
+  outline-offset: 3px; /* Set outline offset for this element. */
+} /* End this set of style rules. */
+
+/* Decorative cloud blobs — subtle, asymmetric, low opacity */
+.hero-blob { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  border-radius: 50%; /* Round the corners. */
+  filter: blur(2px); /* Set filter for this element. */
+  z-index: 1; /* Set which overlapping layer appears in front. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+
+.hero-blob--primary { /* Style the elements or animation stage named here. */
+  width: min(46vw, 520px); /* Set the width. */
+  height: min(46vw, 520px); /* Set the height. */
+  background: var(--primary); /* Set the background appearance. */
+  opacity: 0.35; /* Set how visible this element is. */
+  top: -12%; /* Set top for this element. */
+  right: -10%; /* Set right for this element. */
+} /* End this set of style rules. */
+
+.hero-blob--accent { /* Style the elements or animation stage named here. */
+  width: min(22vw, 260px); /* Set the width. */
+  height: min(22vw, 260px); /* Set the height. */
+  background: var(--accent); /* Set the background appearance. */
+  opacity: 0.3; /* Set how visible this element is. */
+  bottom: -6%; /* Set bottom for this element. */
+  left: -6%; /* Set left for this element. */
+} /* End this set of style rules. */
+
+@media (max-width: 640px) { /* Apply these rules only on matching devices or motion settings. */
+  .hero-blob--primary { top: -8%; right: -22%; } /* Style the elements or animation stage named here. */
+  .hero-blob--accent { bottom: 2%; left: -14%; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ---- Floating 3D cupcake (pure CSS, no image assets) ---- */
+.hero-3d-stage { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 50%; /* Set top for this element. */
+  right: 8%; /* Set right for this element. */
+  z-index: 1; /* Set which overlapping layer appears in front. */
+  width: min(200px, 20vw); /* Set the width. */
+  height: min(200px, 20vw); /* Set the height. */
+  perspective: 900px; /* Set perspective for this element. */
+  transform: translateY(-50%); /* Move, resize or rotate this element. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+
+.hero-cupcake-float { /* Style the elements or animation stage named here. */
+  width: 100%; /* Set the width. */
+  height: 100%; /* Set the height. */
+  transform-style: preserve-3d; /* Set transform style for this element. */
+  animation: cupcake-bob 6s ease-in-out infinite; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+.hero-cupcake-tilt { /* Style the elements or animation stage named here. */
+  width: 100%; /* Set the width. */
+  height: 100%; /* Set the height. */
+  position: relative; /* Choose how this element is positioned. */
+  transform-style: preserve-3d; /* Set transform style for this element. */
+  transition: transform 0.35s ease-out; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+@keyframes cupcake-bob { /* Define the stages of this animation. */
+  0%, 100% { transform: translateY(0) rotateY(-8deg) rotateZ(-2deg); } /* Style the elements or animation stage named here. */
+  50%      { transform: translateY(-16px) rotateY(8deg) rotateZ(2deg); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+.cupcake-wrap { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  left: 50%; /* Set left for this element. */
+  bottom: 0; /* Set bottom for this element. */
+  width: 74%; /* Set the width. */
+  height: 42%; /* Set the height. */
+  transform: translateX(-50%) translateZ(4px); /* Move, resize or rotate this element. */
+  background: repeating-linear-gradient( /* Set the background appearance. */
+    100deg, /* Continue selecting the elements that share these styles. */
+    var(--primary-deep) 0 12%, /* Continue selecting the elements that share these styles. */
+    var(--primary) 12% 24% /* Continue selecting the elements that share these styles. */
+  ); /* Continue selecting the elements that share these styles. */
+  border-radius: 6px 6px 26px 26px; /* Round the corners. */
+  box-shadow: 0 14px 22px rgba(61, 45, 46, 0.24); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.cupcake-icing { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  left: 50%; /* Set left for this element. */
+  bottom: 36%; /* Set bottom for this element. */
+  width: 82%; /* Set the width. */
+  height: 50%; /* Set the height. */
+  transform: translateX(-50%) translateZ(10px); /* Move, resize or rotate this element. */
+  background: linear-gradient(180deg, #FFF8EF 0%, var(--accent) 100%); /* Set the background appearance. */
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%; /* Round the corners. */
+  box-shadow: inset 0 -6px 10px rgba(61, 45, 46, 0.08), 0 10px 16px rgba(61, 45, 46, 0.2); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.cupcake-icing--2 { /* Style the elements or animation stage named here. */
+  bottom: 56%; /* Set bottom for this element. */
+  width: 58%; /* Set the width. */
+  height: 38%; /* Set the height. */
+  transform: translateX(-50%) translateZ(16px); /* Move, resize or rotate this element. */
+  background: linear-gradient(180deg, var(--surface-card) 0%, var(--primary) 100%); /* Set the background appearance. */
+  opacity: 0.92; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.cupcake-cherry { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  left: 50%; /* Set left for this element. */
+  top: 6%; /* Set top for this element. */
+  width: 15%; /* Set the width. */
+  height: 15%; /* Set the height. */
+  transform: translateX(-50%) translateZ(22px); /* Move, resize or rotate this element. */
+  background: radial-gradient(circle at 35% 30%, #FF8A8A, #C24D4D 70%); /* Set the background appearance. */
+  border-radius: 50%; /* Round the corners. */
+  box-shadow: 0 4px 8px rgba(61, 45, 46, 0.25); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.cupcake-sprinkle { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  width: 8%; /* Set the width. */
+  height: 3%; /* Set the height. */
+  border-radius: 3px; /* Round the corners. */
+  transform: translateZ(18px); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+.cupcake-sprinkle.s1 { top: 26%; left: 28%; background: var(--primary-deep); transform: translateZ(18px) rotate(30deg); } /* Style the elements or animation stage named here. */
+.cupcake-sprinkle.s2 { top: 18%; left: 54%; background: var(--accent); transform: translateZ(18px) rotate(-20deg); } /* Style the elements or animation stage named here. */
+.cupcake-sprinkle.s3 { top: 38%; left: 62%; background: #E8C46B; transform: translateZ(18px) rotate(60deg); } /* Style the elements or animation stage named here. */
+.cupcake-sprinkle.s4 { top: 32%; left: 44%; background: var(--text-soft); transform: translateZ(18px) rotate(10deg); } /* Style the elements or animation stage named here. */
+
+@media (max-width: 880px) { /* Apply these rules only on matching devices or motion settings. */
+  .hero-3d-stage { display: none; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .hero-cupcake-float { animation: none; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Story — horizontal stage with scroll runway (Part 2)
+   ============================================ */
+.story { /* Show a readable vertical story by default, including when JavaScript is unavailable. */
+  position: relative; /* Keep the section in normal document flow until horizontal mode is enabled. */
+  box-sizing: border-box; /* Include padding in the section's measurements. */
+  padding: var(--space-24) var(--space-6) 64px; /* Preserve the site's established section spacing. */
+  max-width: 1040px; /* Keep text and illustrations within a comfortable reading width. */
+  margin: 0 auto; /* Center the section on the page. */
+  overflow: visible; /* Let all six vertical beats remain reachable. */
+  display: flex; /* Place the heading above the story track. */
+  flex-direction: column; /* Keep the heading and track stacked. */
+} /* End the default Story section. */
+
+.story-runway { /* Keep any optional pinning distance outside the stage. */
+  position: relative; /* Provide the containing block for desktop sticky positioning. */
+} /* End the default, automatically sized runway. */
+
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) and (not (any-pointer: coarse)) and (prefers-reduced-motion: no-preference) { /* Enable the desktop stage only on roomy mouse-controlled screens with motion allowed. */
+  .story-runway.is-pinned { /* Reserve only the measured horizontal travel distance. */
+    height: calc(var(--story-stage-height) + var(--story-travel)); /* Keep one vertical scroll pixel per horizontal travel pixel. */
+  } /* End the measured desktop runway. */
+  .story.is-horizontal { /* Activate the screen-height stage only after its content fits. */
+    height: calc(100vh - var(--header-height)); /* Leave room for the persistent navigation in older browsers. */
+    height: calc(100svh - var(--header-height)); /* Use a stable viewport height below the navigation. */
+    overflow: hidden; /* Clip only the active horizontal stage. */
+    padding: clamp(20px, 4svh, 40px) var(--space-6) 24px; /* Use compact desktop spacing so laptop-height windows can fit the Story at normal zoom. */
+  } /* End the desktop stage dimensions. */
+  .story.is-horizontal .story-heading { /* Reserve a predictable heading area above the desktop track. */
+    flex: 0 0 auto; /* Keep the heading readable rather than shrinking it to fit the stage. */
+    line-height: 1.25; /* Prevent inherited line spacing from taking unnecessary vertical space. */
+    margin-bottom: clamp(16px, 3svh, 28px); /* Replace the old 72-pixel gap with spacing that fits the viewport. */
+  } /* End the compact desktop heading. */
+  .story.is-horizontal .beat-figure img { /* Fit tall portrait mascots within the available laptop stage. */
+    max-height: max(100px, min(480px, calc(100svh - var(--header-height) - 200px))); /* Reserve space for the heading, padding and entrance movement before sizing the image. */
+    object-fit: contain; /* Preserve the entire mascot and its proportions without cropping. */
+  } /* End responsive desktop mascot sizing. */
+  .story-runway.is-pinned > .story.is-horizontal { /* Hold the section inside its own runway. */
+    position: sticky; /* Let the browser manage pinning without intercepting scroll input. */
+    top: var(--header-height); /* Keep the story below the navigation bar. */
+  } /* End desktop pinning. */
+  .story.is-horizontal .story-track { /* Place beats side by side only in active desktop mode. */
+    flex-direction: row; /* Move through one horizontal row. */
+    flex: 1 1 auto; /* Fill the stage beneath its heading. */
+    align-items: center; /* Center every beat vertically within the available stage. */
+  } /* End the horizontal track. */
+  .story.is-horizontal .beat { /* Give each beat a fixed slot in the moving row. */
+    width: min(760px, calc(100vw - 48px)); /* Preserve the desktop beat width from the earlier parts. */
+    flex: 0 0 min(760px, calc(100vw - 48px)); /* Prevent the row from compressing its beats. */
+  } /* End the horizontal beat widths. */
+} /* End the desktop-only enhancement. */
+
+.story-heading { /* Style the elements or animation stage named here. */
+  font-family: var(--font-script); /* Choose the typeface. */
+  font-weight: 400; /* Set font weight for this element. */
+  font-size: clamp(1.9rem, 4vw, 2.6rem); /* Set the text size. */
+  text-align: center; /* Set text align for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 72px; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.story-thread { /* The old vertical connector no longer matches the horizontal layout. */
+  display: none; /* Hide the vertical line for this horizontal foundation. */
+} /* End the old story connector. */
+
+.story-track { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  z-index: 1; /* Set which overlapping layer appears in front. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Read the six beats vertically unless desktop mode is enabled. */
+  flex-wrap: nowrap; /* Keep every beat in the same horizontal row. */
+  flex: 0 0 auto; /* Let the vertical story use its natural content height. */
+  min-height: 0; /* Let the track fit within the fixed-height stage. */
+  align-items: stretch; /* Let each vertical beat use the available reading width. */
+  gap: clamp(56px, 8vw, 88px); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.beat { /* Give each story beat a fixed, non-shrinking slot. */
+  width: 100%; /* Fit each vertical beat within the page. */
+  flex: 0 0 auto; /* Size vertical beats by their content. */
+  min-width: 0; /* Allow inner text to wrap within its fixed slot. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: clamp(16px, 4vw, 40px); /* Set gap for this element. */
+  opacity: 0; /* Set how visible this element is. */
+  transform: translateY(28px); /* Move, resize or rotate this element. */
+  transition: opacity 0.7s ease, transform 0.7s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.beat.is-visible { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: translateY(0); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+/* Odd beats: figure left, bubble right. Even beats: mirrored. */
+.beat:nth-child(even) { /* Style the elements or animation stage named here. */
+  flex-direction: row-reverse; /* Set flex direction for this element. */
+} /* End this set of style rules. */
+
+.beat-figure { /* Style the elements or animation stage named here. */
+  flex: 0 0 auto; /* Set flex for this element. */
+  width: clamp(150px, 26vw, 230px); /* Set the width. */
+  filter: drop-shadow(0 12px 20px rgba(78, 53, 36, 0.12)); /* Set filter for this element. */
+  opacity: 0; /* Set how visible this element is. */
+  transform: translateX(-44px) rotate(-8deg) scale(0.88); /* Move, resize or rotate this element. */
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); /* Control how smoothly appearance changes. */
+  transition-delay: 0.12s; /* Set transition delay for this element. */
+} /* End this set of style rules. */
+
+.beat:nth-child(even) .beat-figure { /* Style the elements or animation stage named here. */
+  transform: translateX(44px) rotate(8deg) scale(0.88); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.beat.is-visible .beat-figure { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: translateX(0) rotate(0deg) scale(1); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.beat-figure img { /* Style the elements or animation stage named here. */
+  display: block; /* Choose how this element is laid out. */
+  width: 100%; /* Set the width. */
+  height: auto; /* Set the height. */
+} /* End this set of style rules. */
+
+.beat-bubble { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  flex: 1 1 auto; /* Set flex for this element. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: var(--space-6) var(--space-6); /* Set the space inside the element. */
+  box-shadow: var(--shadow-flat); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.beat-bubble p { /* Style the elements or animation stage named here. */
+  margin: 0; /* Set the space outside the element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+/* Speech bubble tail, pointing toward the mascot on each side */
+.beat:nth-child(odd) .beat-bubble::before { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 28px; /* Set top for this element. */
+  left: -9px; /* Set left for this element. */
+  width: 16px; /* Set the width. */
+  height: 16px; /* Set the height. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border-left: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border left for this element. */
+  border-bottom: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border bottom for this element. */
+  transform: rotate(45deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.beat:nth-child(even) .beat-bubble::before { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 28px; /* Set top for this element. */
+  right: -9px; /* Set right for this element. */
+  width: 16px; /* Set the width. */
+  height: 16px; /* Set the height. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border-right: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border right for this element. */
+  border-top: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border top for this element. */
+  transform: rotate(45deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+@media (max-width: 700px) { /* Apply these rules only on matching devices or motion settings. */
+  .story-thread { left: 34px; } /* Style the elements or animation stage named here. */
+
+  .beat, /* Continue selecting the elements that share these styles. */
+  .beat:nth-child(even) { /* Style the elements or animation stage named here. */
+    flex-direction: column; /* Set flex direction for this element. */
+    align-items: flex-start; /* Set align items for this element. */
+    gap: var(--space-4); /* Set gap for this element. */
+    padding-left: 60px; /* Set padding left for this element. */
+  } /* End this set of style rules. */
+
+  .beat-figure { /* Style the elements or animation stage named here. */
+    width: 130px; /* Set the width. */
+    transform: translateY(20px) scale(0.92); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  .beat:nth-child(even) .beat-figure { /* Style the elements or animation stage named here. */
+    transform: translateY(20px) scale(0.92); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  .beat.is-visible .beat-figure { /* Style the elements or animation stage named here. */
+    transform: translateY(0) scale(1); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  .beat:nth-child(odd) .beat-bubble::before, /* Continue selecting the elements that share these styles. */
+  .beat:nth-child(even) .beat-bubble::before { /* Style the elements or animation stage named here. */
+    top: -9px; /* Set top for this element. */
+    left: 30px; /* Set left for this element. */
+    right: auto; /* Set right for this element. */
+    border: none; /* Set border for this element. */
+    border-left: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border left for this element. */
+    border-top: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border top for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .beat, /* Continue selecting the elements that share these styles. */
+  .beat-figure, /* Continue selecting the elements that share these styles. */
+  .beat:nth-child(even) .beat-figure { /* Style the elements or animation stage named here. */
+    opacity: 1; /* Set how visible this element is. */
+    transform: none; /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* Story Part 6: the scroll controller supplies these values from the rendered track position. */
+.story.has-beat-entrances .beat { /* Animate the whole mascot-and-bubble beat separately from its moving parent track. */
+  opacity: var(--beat-opacity, 1); /* Fade according to how far the beat has entered the stage. */
+  transform: translateY(var(--beat-lift, 0px)) scale(var(--beat-scale, 1)); /* Combine a small upward entrance with subtle growth. */
+  transform-origin: center center; /* Keep the scale balanced around the beat's center. */
+  transition: none; /* Follow the eased track frame directly instead of lagging behind it. */
+} /* End the scroll-driven beat appearance. */
+
+.story.has-beat-entrances .beat .beat-figure { /* Let the parent beat animate the mascot and bubble as one unit. */
+  opacity: 1; /* Prevent the old mascot-only fade from hiding the image. */
+  transform: none; /* Remove the old alternating mascot slide and rotation. */
+  transition: none; /* Remove the old delayed transition in both desktop and mobile layouts. */
+} /* End the old mascot-animation override. */
+
+@media (prefers-reduced-motion: reduce) { /* Match the rest of the site's reduced-motion behavior. */
+  .story.has-beat-entrances .beat { /* Keep every beat readable without an entrance effect. */
+    opacity: 1; /* Show the full beat regardless of its cached animation variables. */
+    transform: none; /* Skip entrance scaling and sliding immediately when less motion is requested. */
+    transition: none; /* Do not animate changes to the reduced-motion state. */
+  } /* End the reduced-motion beat styling. */
+} /* End reduced-motion entrance rules. */
+
+.story:not(.is-horizontal) .story-track { /* Clear any previous horizontal position after a mode switch. */
+  transform: none !important; /* Override the cached inline track translation in vertical mode. */
+} /* End the vertical track reset. */
+.story:not(.is-horizontal) .beat, .story:not(.is-horizontal) .beat .beat-figure { /* Show all Story content without relying on a one-time reveal observer. */
+  opacity: 1; /* Keep every mascot and line of text visible in the fallback and without JavaScript. */
+  transform: none; /* Remove entrance scaling, sliding and rotation in the vertical layout. */
+  transition: none; /* Show fallback content immediately. */
+} /* End the plain vertical beat styles. */
+.story .beat-bubble { min-width: 0; overflow-wrap: anywhere; } /* Keep long text within its bubble at narrow widths or larger text sizes. */
+
+@media (max-width: 900px), (hover: none), (any-pointer: coarse), (prefers-reduced-motion: reduce) { /* Switch immediately to the readable vertical fallback for touch, small windows or reduced motion. */
+  .story-runway.is-pinned { height: auto; } /* Remove the runway even before the JavaScript preference callback runs. */
+  .story-runway > .story { height: auto; position: relative; top: auto; overflow: visible; } /* Make every beat reachable with ordinary vertical scrolling. */
+  .story .story-track { flex-direction: column; flex: 0 0 auto; align-items: stretch; transform: none !important; } /* Remove all sideways movement and stacking constraints. */
+  .story .beat { width: 100%; flex: 0 0 auto; } /* Size each beat naturally in the vertical stack. */
+  .story .beat, .story.has-beat-entrances .beat, .story .beat .beat-figure, .story.has-beat-entrances .beat .beat-figure { opacity: 1; transform: none; transition: none; } /* Keep all six beats plainly visible, including while switching preferences. */
+} /* End the immediate responsive and reduced-motion fallback. */
+
+@media (max-width: 700px) { /* Polish the existing small-screen mascot-above-bubble layout. */
+  .story { padding: 56px 20px; } /* Use comfortable side margins and avoid oversized empty space. */
+  .story-heading { margin-bottom: 40px; } /* Bring the first beat closer to its heading. */
+  .story .beat { padding-left: 0; } /* Remove the indentation left over from the old vertical connector. */
+  .story .beat-figure { align-self: center; } /* Center each mascot over its speech bubble. */
+  .story .beat-bubble { width: 100%; } /* Give the text the full available reading width. */
+  .story .beat .beat-bubble::before { left: calc(50% - 8px); } /* Point the speech-bubble tail toward the centered mascot. */
+} /* End small-screen Story spacing. */
+
+@media print { /* Include the whole Story in printed or saved pages. */
+  .story-runway.is-pinned { height: auto !important; } /* Remove the screen-only scrolling distance. */
+  .story-runway > .story { height: auto !important; position: relative !important; overflow: visible !important; } /* Print all beats instead of a clipped stage. */
+  .story .story-track { flex-direction: column !important; transform: none !important; } /* Read the story from top to bottom on paper. */
+  .story .beat { width: 100% !important; flex: 0 0 auto !important; break-inside: avoid; } /* Keep a beat together where page space allows. */
+  .story .beat, .story.has-beat-entrances .beat, .story .beat .beat-figure { opacity: 1 !important; transform: none !important; } /* Print readable content regardless of the current scroll position. */
+} /* End Story print support. */
+
+/* ============================================
+   Pre-Orders
+   ============================================ */
+.pre-orders { /* Style the elements or animation stage named here. */
+  padding: 40px var(--space-6) var(--space-24); /* Set the space inside the element. */
+  max-width: 1040px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.section-heading { /* Style the elements or animation stage named here. */
+  margin: 0 0 var(--space-12); /* Set the space outside the element. */
+  text-align: center; /* Set text align for this element. */
+  color: var(--text); /* Set the text color. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: clamp(1.9rem, 4vw, 2.6rem); /* Set the text size. */
+  line-height: 1.3; /* Set line height for this element. */
+} /* End this set of style rules. */
+
+.section-heading--script { /* Style the elements or animation stage named here. */
+  font-family: var(--font-script); /* Choose the typeface. */
+  font-weight: 400; /* Set font weight for this element. */
+  font-size: clamp(1.7rem, 3.6vw, 2.3rem); /* Set the text size. */
+  line-height: 1.2; /* Set line height for this element. */
+} /* End this set of style rules. */
+
+/* ---- Policy cards ---- */
+.policy-cards { /* Style the elements or animation stage named here. */
+  display: grid; /* Choose how this element is laid out. */
+  grid-template-columns: 1fr 1fr; /* Set grid template columns for this element. */
+  gap: 28px; /* Set gap for this element. */
+  margin-bottom: var(--space-24); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.policy-card { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: 28px var(--space-6) var(--space-6); /* Set the space inside the element. */
+  opacity: 0; /* Set how visible this element is. */
+  transform: translateY(24px); /* Move, resize or rotate this element. */
+  transition: opacity 0.7s ease, transform 0.7s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.policy-card.is-visible { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: translateY(0); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.policy-card:nth-child(1) { transform: translateY(24px) rotate(-0.6deg); } /* Style the elements or animation stage named here. */
+.policy-card:nth-child(2) { transform: translateY(24px) rotate(0.6deg); } /* Style the elements or animation stage named here. */
+.policy-card:nth-child(1).is-visible { transform: translateY(0) rotate(-0.6deg); } /* Style the elements or animation stage named here. */
+.policy-card:nth-child(2).is-visible { transform: translateY(0) rotate(0.6deg); } /* Style the elements or animation stage named here. */
+
+.policy-card-figure { /* Style the elements or animation stage named here. */
+  width: 92px; /* Set the width. */
+  margin: -54px auto var(--space-1); /* Set the space outside the element. */
+  filter: drop-shadow(0 8px 14px rgba(78, 53, 36, 0.14)); /* Set filter for this element. */
+} /* End this set of style rules. */
+
+.policy-card-figure img { /* Style the elements or animation stage named here. */
+  display: block; /* Choose how this element is laid out. */
+  width: 100%; /* Set the width. */
+  height: auto; /* Set the height. */
+} /* End this set of style rules. */
+
+.policy-card-body { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+
+.policy-tag { /* Style the elements or animation stage named here. */
+  display: inline-block; /* Choose how this element is laid out. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.8rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  letter-spacing: 0.04em; /* Set letter spacing for this element. */
+  color: var(--text); /* Set the text color. */
+  background: var(--primary); /* Set the background appearance. */
+  padding: var(--space-1) var(--space-3); /* Set the space inside the element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  margin-bottom: var(--space-3); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.policy-tag--accent { /* Style the elements or animation stage named here. */
+  background: var(--accent); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+.policy-card-body h3 { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.3rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  margin: 0 0 10px; /* Set the space outside the element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.policy-card-body p { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+@media (max-width: 640px) { /* Apply these rules only on matching devices or motion settings. */
+  .policy-cards { /* Style the elements or animation stage named here. */
+    grid-template-columns: 1fr; /* Set grid template columns for this element. */
+    gap: 44px; /* Set gap for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ---- Process / science timeline ---- */
+.process { /* Style the elements or animation stage named here. */
+  margin-bottom: 80px; /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.process-heading { /* Style the elements or animation stage named here. */
+  margin-bottom: var(--space-3); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.process-intro { /* Style the elements or animation stage named here. */
+  max-width: 560px; /* Set max width for this element. */
+  margin: 0 auto var(--space-12); /* Set the space outside the element. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.98rem; /* Set the text size. */
+  line-height: 1.6; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.process-steps { /* Style the elements or animation stage named here. */
+  list-style: none; /* Set list style for this element. */
+  margin: 0; /* Set the space outside the element. */
+  padding: 0; /* Set the space inside the element. */
+  max-width: 640px; /* Set max width for this element. */
+  margin-left: auto; /* Set margin left for this element. */
+  margin-right: auto; /* Set margin right for this element. */
+  position: relative; /* Choose how this element is positioned. */
+} /* End this set of style rules. */
+
+.process-steps::before { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 6px; /* Set top for this element. */
+  bottom: 6px; /* Set bottom for this element. */
+  left: 19px; /* Set left for this element. */
+  width: 1px; /* Set the width. */
+  background-image: linear-gradient( /* Set background image for this element. */
+    to bottom, /* Continue selecting the elements that share these styles. */
+    rgba(78, 53, 36, 0.25) 0, /* Continue selecting the elements that share these styles. */
+    rgba(78, 53, 36, 0.25) 4px, /* Continue selecting the elements that share these styles. */
+    transparent 4px, /* Continue selecting the elements that share these styles. */
+    transparent 9px /* Continue selecting the elements that share these styles. */
+  ); /* Continue selecting the elements that share these styles. */
+  background-size: 1px 9px; /* Set background size for this element. */
+  background-repeat: repeat-y; /* Set background repeat for this element. */
+} /* End this set of style rules. */
+
+.process-step { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  gap: 20px; /* Set gap for this element. */
+  padding-bottom: var(--space-8); /* Set padding bottom for this element. */
+} /* End this set of style rules. */
+
+.process-step:last-child { /* Style the elements or animation stage named here. */
+  padding-bottom: 0; /* Set padding bottom for this element. */
+} /* End this set of style rules. */
+
+.process-num { /* Style the elements or animation stage named here. */
+  flex: 0 0 auto; /* Set flex for this element. */
+  width: 40px; /* Set the width. */
+  height: 40px; /* Set the height. */
+  border-radius: 50%; /* Round the corners. */
+  background: var(--bg); /* Set the background appearance. */
+  border: 1.5px solid var(--text); /* Set border for this element. */
+  color: var(--text); /* Set the text color. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1rem; /* Set the text size. */
+  z-index: 1; /* Set which overlapping layer appears in front. */
+} /* End this set of style rules. */
+
+.process-step-body { /* Style the elements or animation stage named here. */
+  flex: 1 1 auto; /* Set flex for this element. */
+  padding-top: 6px; /* Set padding top for this element. */
+} /* End this set of style rules. */
+
+.process-step-head { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: baseline; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+  gap: var(--space-3); /* Set gap for this element. */
+  flex-wrap: wrap; /* Set flex wrap for this element. */
+  margin-bottom: var(--space-1); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.process-step-head h4 { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.process-duration { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.82rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  background: var(--primary); /* Set the background appearance. */
+  padding: 3px var(--space-3); /* Set the space inside the element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  white-space: nowrap; /* Set white space for this element. */
+} /* End this set of style rules. */
+
+.process-step-body p { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.process-total { /* Style the elements or animation stage named here. */
+  max-width: 640px; /* Set max width for this element. */
+  margin: 44px auto 0; /* Set the space outside the element. */
+  background: var(--text); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: 28px var(--space-8); /* Set the space inside the element. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: var(--space-6); /* Set gap for this element. */
+  flex-wrap: wrap; /* Set flex wrap for this element. */
+} /* End this set of style rules. */
+
+.process-total-figure { /* Style the elements or animation stage named here. */
+  font-family: var(--font-script); /* Choose the typeface. */
+  font-size: 2.1rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  flex: 0 0 auto; /* Set flex for this element. */
+} /* End this set of style rules. */
+
+.process-total p { /* Style the elements or animation stage named here. */
+  flex: 1 1 220px; /* Set flex for this element. */
+  margin: 0; /* Set the space outside the element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  opacity: 0.92; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+@media (max-width: 480px) { /* Apply these rules only on matching devices or motion settings. */
+  .process-steps::before { left: 17px; } /* Style the elements or animation stage named here. */
+  .process-num { width: 34px; height: 34px; font-size: 0.9rem; } /* Style the elements or animation stage named here. */
+  .process-step { gap: 14px; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ---- Order teaser ---- */
+.order-teaser { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  gap: 28px; /* Set gap for this element. */
+  flex-wrap: wrap; /* Set flex wrap for this element. */
+  text-align: center; /* Set text align for this element. */
+  padding-top: var(--space-2); /* Set padding top for this element. */
+} /* End this set of style rules. */
+
+.order-teaser-figure { /* Style the elements or animation stage named here. */
+  width: 120px; /* Set the width. */
+  flex: 0 0 auto; /* Set flex for this element. */
+  filter: drop-shadow(0 10px 16px rgba(78, 53, 36, 0.14)); /* Set filter for this element. */
+} /* End this set of style rules. */
+
+.order-teaser-figure img { /* Style the elements or animation stage named here. */
+  display: block; /* Choose how this element is laid out. */
+  width: 100%; /* Set the width. */
+  height: auto; /* Set the height. */
+} /* End this set of style rules. */
+
+.order-teaser-text { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  align-items: center; /* Set align items for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.order-teaser-text p { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 400; /* Set font weight for this element. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+/* Shared scroll-reveal for non-Story elements */
+.reveal-up { /* Style the elements or animation stage named here. */
+  opacity: 0; /* Set how visible this element is. */
+  transform: translateY(24px); /* Move, resize or rotate this element. */
+  transition: opacity 0.7s ease, transform 0.7s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.reveal-up.is-visible { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: translateY(0); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .policy-card, /* Continue selecting the elements that share these styles. */
+  .reveal-up { /* Style the elements or animation stage named here. */
+    opacity: 1; /* Set how visible this element is. */
+    transform: none !important; /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  .gallery-item, /* Continue selecting the elements that share these styles. */
+  .gallery-item.is-tilting { /* Style the elements or animation stage named here. */
+    transition: none; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+
+  .gallery-item::before { /* Style the elements or animation stage named here. */
+    display: none; /* Choose how this element is laid out. */
+  } /* End this set of style rules. */
+
+  .gallery-lightbox, /* Continue selecting the elements that share these styles. */
+  .gallery-lightbox img { /* Style the elements or animation stage named here. */
+    transition: none; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+
+  .review-card, /* Continue selecting the elements that share these styles. */
+  .review-card.is-tilting { /* Style the elements or animation stage named here. */
+    opacity: 1; /* Set how visible this element is. */
+    transform: rotate(var(--base-rot)) !important; /* Move, resize or rotate this element. */
+    transition: none; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Reviews
+   ============================================ */
+.reviews { /* Style the elements or animation stage named here. */
+  padding: 40px 0 88px; /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.reviews .section-heading { /* Style the elements or animation stage named here. */
+  padding: 0 var(--space-6); /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.reviews-track { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  gap: var(--space-6); /* Set gap for this element. */
+  overflow-x: auto; /* Set overflow x for this element. */
+  scroll-snap-type: x proximity; /* Set scroll snap type for this element. */
+  padding: var(--space-3) var(--space-6) 20px; /* Set the space inside the element. */
+  scrollbar-width: thin; /* Set scrollbar width for this element. */
+  scrollbar-color: rgba(78, 53, 36, 0.25) transparent; /* Set scrollbar color for this element. */
+} /* End this set of style rules. */
+
+.reviews-track::-webkit-scrollbar { /* Style the elements or animation stage named here. */
+  height: 6px; /* Set the height. */
+} /* End this set of style rules. */
+
+.reviews-track::-webkit-scrollbar-thumb { /* Style the elements or animation stage named here. */
+  background: rgba(78, 53, 36, 0.2); /* Set the background appearance. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+} /* End this set of style rules. */
+
+.review-card { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  flex: 0 0 auto; /* Set flex for this element. */
+  width: 260px; /* Set the width. */
+  scroll-snap-align: start; /* Set scroll snap align for this element. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border for this element. */
+  border-radius: var(--border-radius-sm); /* Round the corners. */
+  padding: var(--space-8) 20px 20px; /* Set the space inside the element. */
+  box-shadow: var(--shadow-tactile); /* Add depth beneath the element. */
+  --base-rot: 0deg; /* Set   base rot for this element. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: rotate(var(--base-rot)); /* Move, resize or rotate this element. */
+  transition: transform 0.3s ease, box-shadow 0.35s ease; /* Control how smoothly appearance changes. */
+  transform-style: preserve-3d; /* Set transform style for this element. */
+  will-change: transform, opacity; /* Set will change for this element. */
+} /* End this set of style rules. */
+
+.review-card.is-visible { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  transform: translateY(0) rotate(var(--base-rot)) scale(1); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.review-card.is-tilting { /* Style the elements or animation stage named here. */
+  transition: transform 0.08s linear, box-shadow 0.3s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.review-card:hover { /* Style the elements or animation stage named here. */
+  box-shadow: var(--shadow-hover); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.review-card:nth-child(odd) { --base-rot: -1deg; } /* Style the elements or animation stage named here. */
+.review-card:nth-child(even) { --base-rot: 1deg; } /* Style the elements or animation stage named here. */
+
+.review-tape { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: -10px; /* Set top for this element. */
+  left: 50%; /* Set left for this element. */
+  transform: translateX(-50%) rotate(-3deg); /* Move, resize or rotate this element. */
+  width: 56px; /* Set the width. */
+  height: 20px; /* Set the height. */
+  background: var(--accent); /* Set the background appearance. */
+  opacity: 0.75; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.review-card:nth-child(3n+2) .review-tape { /* Style the elements or animation stage named here. */
+  background: var(--primary); /* Set the background appearance. */
+  transform: translateX(-50%) rotate(2deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.review-stars { /* Style the elements or animation stage named here. */
+  color: var(--primary-deep); /* Set the text color. */
+  font-size: 0.85rem; /* Set the text size. */
+  letter-spacing: 0.15em; /* Set letter spacing for this element. */
+  margin-bottom: var(--space-3); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.review-quote { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.92rem; /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 var(--space-4); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.review-meta { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: 2px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.review-name { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.review-item { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.78rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.reviews-hint { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.8rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  opacity: 0.7; /* Set how visible this element is. */
+  margin: var(--space-1) 0 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+@media (min-width: 900px) { /* Apply these rules only on matching devices or motion settings. */
+  .reviews-hint { display: none; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ============================================
+   FAQ
+   ============================================ */
+.faq { /* Style the elements or animation stage named here. */
+  padding: 40px var(--space-6) 100px; /* Set the space inside the element. */
+  max-width: 700px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.faq-list { /* Style the elements or animation stage named here. */
+  border-top: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border top for this element. */
+} /* End this set of style rules. */
+
+.faq-item { /* Style the elements or animation stage named here. */
+  border-bottom: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border bottom for this element. */
+} /* End this set of style rules. */
+
+.faq-item summary { /* Style the elements or animation stage named here. */
+  list-style: none; /* Set list style for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+  padding: 20px var(--space-1); /* Set the space inside the element. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 1.02rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.faq-item summary::-webkit-details-marker { /* Style the elements or animation stage named here. */
+  display: none; /* Choose how this element is laid out. */
+} /* End this set of style rules. */
+
+.faq-item summary:focus-visible { /* Style the elements or animation stage named here. */
+  outline: 2px solid var(--text); /* Set outline for this element. */
+  outline-offset: 4px; /* Set outline offset for this element. */
+  border-radius: var(--border-radius-sm); /* Round the corners. */
+} /* End this set of style rules. */
+
+.faq-icon { /* Style the elements or animation stage named here. */
+  flex: 0 0 auto; /* Set flex for this element. */
+  position: relative; /* Choose how this element is positioned. */
+  width: 20px; /* Set the width. */
+  height: 20px; /* Set the height. */
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.faq-icon::before, /* Continue selecting the elements that share these styles. */
+.faq-icon::after { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 50%; /* Set top for this element. */
+  left: 50%; /* Set left for this element. */
+  background: var(--primary-deep); /* Set the background appearance. */
+  transform: translate(-50%, -50%); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.faq-icon::before { /* Style the elements or animation stage named here. */
+  width: 14px; /* Set the width. */
+  height: 2px; /* Set the height. */
+} /* End this set of style rules. */
+
+.faq-icon::after { /* Style the elements or animation stage named here. */
+  width: 2px; /* Set the width. */
+  height: 14px; /* Set the height. */
+} /* End this set of style rules. */
+
+.faq-item[open] .faq-icon { /* Style the elements or animation stage named here. */
+  transform: rotate(45deg); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.faq-answer { /* Style the elements or animation stage named here. */
+  display: grid; /* Choose how this element is laid out. */
+  grid-template-rows: 0fr; /* Set grid template rows for this element. */
+  max-width: 58ch; /* Set max width for this element. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+  visibility: hidden; /* Set visibility for this element. */
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.4s; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.faq-item[open] .faq-answer { /* Style the elements or animation stage named here. */
+  grid-template-rows: 1fr; /* Set grid template rows for this element. */
+  visibility: visible; /* Set visibility for this element. */
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.faq-answer p { /* Style the elements or animation stage named here. */
+  min-height: 0; /* Set min height for this element. */
+  margin: 0; /* Set the space outside the element. */
+  padding: 0 var(--space-1) var(--space-6); /* Set the space inside the element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.faq-answer a { /* Style the elements or animation stage named here. */
+  color: var(--text); /* Set the text color. */
+  text-decoration-color: var(--primary); /* Set text decoration color for this element. */
+  text-underline-offset: 3px; /* Set text underline offset for this element. */
+} /* End this set of style rules. */
+
+/* Gentle open animation */
+.faq-item summary { /* Style the elements or animation stage named here. */
+  transition: color 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.faq-item[open] summary { /* Style the elements or animation stage named here. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .faq-answer, /* Continue selecting the elements that share these styles. */
+  .faq-item[open] .faq-answer { /* Style the elements or animation stage named here. */
+    transition-delay: 0s; /* Set transition delay for this element. */
+  } /* End this set of style rules. */
+
+  .faq-icon { /* Style the elements or animation stage named here. */
+    transition: none; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Place Order
+   ============================================ */
+.place-order { /* Style the elements or animation stage named here. */
+  padding: 40px var(--space-6) 110px; /* Set the space inside the element. */
+  max-width: 560px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.place-order-intro { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.95rem; /* Set the text size. */
+  line-height: 1.55; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: -28px 0 40px; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.order-form { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-6); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.form-row { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-2); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.form-row label, /* Continue selecting the elements that share these styles. */
+.form-label { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.85rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.form-optional { /* Style the elements or animation stage named here. */
+  font-weight: 400; /* Set font weight for this element. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.order-form input[type="text"], /* Continue selecting the elements that share these styles. */
+.order-form input[type="tel"], /* Continue selecting the elements that share these styles. */
+.order-form input[type="date"], /* Continue selecting the elements that share these styles. */
+.order-form textarea { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.95rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.22); /* Set border for this element. */
+  border-radius: var(--border-radius-md); /* Round the corners. */
+  padding: var(--space-3) 14px; /* Set the space inside the element. */
+  width: 100%; /* Set the width. */
+  transition: border-color 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.order-form textarea { /* Style the elements or animation stage named here. */
+  resize: vertical; /* Set resize for this element. */
+  font-family: inherit; /* Choose the typeface. */
+} /* End this set of style rules. */
+
+.order-form input:focus, /* Continue selecting the elements that share these styles. */
+.order-form textarea:focus { /* Style the elements or animation stage named here. */
+  outline: none; /* Set outline for this element. */
+  border-color: var(--primary-deep); /* Set border color for this element. */
+} /* End this set of style rules. */
+
+.order-form input[type="file"] { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.88rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.form-hint { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.78rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  opacity: 0.8; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+/* Chip-style radio groups */
+.chip-group { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-wrap: wrap; /* Set flex wrap for this element. */
+  gap: 10px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.chip-group input[type="radio"] { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  opacity: 0; /* Set how visible this element is. */
+  width: 1px; /* Set the width. */
+  height: 1px; /* Set the height. */
+} /* End this set of style rules. */
+
+.chip { /* Style the elements or animation stage named here. */
+  display: inline-flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.88rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.22); /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  padding: var(--space-2) var(--space-4); /* Set the space inside the element. */
+  cursor: pointer; /* Set cursor for this element. */
+  transition: var(--transition-smooth); /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.chip-group input[type="radio"]:checked + .chip { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  border-color: var(--text); /* Set border color for this element. */
+  color: var(--bg); /* Set the text color. */
+} /* End this set of style rules. */
+
+.chip-group input[type="radio"]:focus-visible + .chip { /* Style the elements or animation stage named here. */
+  outline: 2px solid var(--primary-deep); /* Set outline for this element. */
+  outline-offset: 2px; /* Set outline offset for this element. */
+} /* End this set of style rules. */
+
+.order-submit { /* Style the elements or animation stage named here. */
+  border: none; /* Set border for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  margin-top: var(--space-2); /* Set margin top for this element. */
+  align-self: center; /* Set align self for this element. */
+  min-width: 200px; /* Set min width for this element. */
+} /* End this set of style rules. */
+
+.order-status { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.88rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: calc(-1 * var(--space-2)) 0 0; /* Set the space outside the element. */
+  min-height: 1.2em; /* Set min height for this element. */
+} /* End this set of style rules. */
+
+.order-status.is-error { /* Style the elements or animation stage named here. */
+  color: var(--error); /* Set the text color. */
+} /* End this set of style rules. */
+
+.order-status.is-success { /* Style the elements or animation stage named here. */
+  color: var(--success); /* Set the text color. */
+} /* End this set of style rules. */
+
+/* ---- Multi-cake items ---- */
+.cake-items { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.cake-item { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.16); /* Set border for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: var(--space-4) var(--space-4) 20px; /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.cake-item-header { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+} /* End this set of style rules. */
+
+.cake-item-title { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.cake-remove-btn { /* Style the elements or animation stage named here. */
+  border: none; /* Set border for this element. */
+  background: transparent; /* Set the background appearance. */
+  color: var(--text-soft); /* Set the text color. */
+  font-size: 1.3rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  padding: 2px 6px; /* Set the space inside the element. */
+  border-radius: var(--border-radius-sm); /* Round the corners. */
+  transition: color 0.2s ease, background 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.cake-remove-btn:hover { /* Style the elements or animation stage named here. */
+  color: var(--error); /* Set the text color. */
+  background: rgba(179, 85, 74, 0.08); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+.add-cake-btn { /* Style the elements or animation stage named here. */
+  align-self: flex-start; /* Set align self for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.88rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  background: transparent; /* Set the background appearance. */
+  border: 1.5px dashed rgba(78, 53, 36, 0.35); /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  padding: var(--space-2) var(--space-4); /* Set the space inside the element. */
+  cursor: pointer; /* Set cursor for this element. */
+  transition: border-color 0.2s ease, background 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.add-cake-btn:hover { /* Style the elements or animation stage named here. */
+  border-color: var(--text); /* Set border color for this element. */
+  background: rgba(78, 53, 36, 0.04); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+.order-form input[type="number"] { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.95rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.22); /* Set border for this element. */
+  border-radius: var(--border-radius-md); /* Round the corners. */
+  padding: var(--space-3) 14px; /* Set the space inside the element. */
+  width: 100px; /* Set the width. */
+} /* End this set of style rules. */
+
+.order-form input[type="number"]:focus { /* Style the elements or animation stage named here. */
+  outline: none; /* Set outline for this element. */
+  border-color: var(--primary-deep); /* Set border color for this element. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Menu
+   ============================================ */
+.menu { /* Style the elements or animation stage named here. */
+  padding: 40px var(--space-6) var(--space-24); /* Set the space inside the element. */
+  max-width: 900px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.menu-intro { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  opacity: 0.75; /* Set how visible this element is. */
+  margin: -28px 0 var(--space-12); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.menu-intro code { /* Style the elements or animation stage named here. */
+  background: rgba(78, 53, 36, 0.08); /* Set the background appearance. */
+  padding: 1px 6px; /* Set the space inside the element. */
+  border-radius: var(--border-radius-sm); /* Round the corners. */
+  font-size: 0.82em; /* Set the text size. */
+} /* End this set of style rules. */
+
+.menu-category { /* Style the elements or animation stage named here. */
+  margin-bottom: 44px; /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.menu-category-title { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.3rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 var(--space-4); /* Set the space outside the element. */
+  padding-bottom: var(--space-2); /* Set padding bottom for this element. */
+  border-bottom: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border bottom for this element. */
+} /* End this set of style rules. */
+
+.menu-items { /* Style the elements or animation stage named here. */
+  display: grid; /* Choose how this element is laid out. */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Set grid template columns for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.menu-item-card { /* Style the elements or animation stage named here. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: var(--space-4) var(--space-4) 20px; /* Set the space inside the element. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-3); /* Set gap for this element. */
+  position: relative; /* Choose how this element is positioned. */
+  overflow: visible; /* Control what happens to content outside the element. */
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg); /* Move, resize or rotate this element. */
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; /* Control how smoothly appearance changes. */
+  will-change: transform; /* Set will change for this element. */
+} /* End this set of style rules. */
+
+.menu-item-card.is-tilting { /* Style the elements or animation stage named here. */
+  transition: transform 0.08s linear, box-shadow 0.3s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.menu-item-card:hover { /* Style the elements or animation stage named here. */
+  box-shadow: var(--shadow-hover); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+/* All photo angles share one centered frame on desktop and mobile. */
+.menu-item-photo-wrap { /* Style the elements or animation stage named here. */
+  width: 100%; /* Set the width. */
+  aspect-ratio: 4 / 3; /* Set aspect ratio for this element. */
+  margin: 0; /* Set the space outside the element. */
+  position: relative; /* Choose how this element is positioned. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+} /* End this set of style rules. */
+.menu-item-photo { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  width: 100%; /* Set the width. */
+  height: 100%; /* Set the height. */
+  padding: var(--space-2); /* Set the space inside the element. */
+  object-fit: contain; /* Fit the image inside its frame. */
+  object-position: center; /* Position the image within its frame. */
+  display: block; /* Choose how this element is laid out. */
+  filter: drop-shadow(0 10px 14px rgba(78, 53, 36, 0.18)); /* Set filter for this element. */
+  opacity: 0; /* Set how visible this element is. */
+  transition: opacity 0.35s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+.menu-item-photo.is-active { opacity: 1; } /* Style the elements or animation stage named here. */
+
+/* ---- "Coming soon" placeholder (new items with no photos yet) ---- */
+.menu-item-photo-wrap--placeholder { /* Style the elements or animation stage named here. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px dashed rgba(78, 53, 36, 0.2); /* Set border for this element. */
+  border-radius: var(--border-radius-md); /* Round the corners. */
+  flex-direction: column; /* Set flex direction for this element. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  gap: 6px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.menu-item-placeholder-icon { /* Style the elements or animation stage named here. */
+  font-size: 2rem; /* Set the text size. */
+  opacity: 0.5; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.menu-item-placeholder-text { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.8rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.menu-item-name { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.menu-item-note { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.78rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  margin-top: calc(-1 * var(--space-2)); /* Set margin top for this element. */
+} /* End this set of style rules. */
+
+.menu-item-price { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.95rem; /* Set the text size. */
+  color: var(--primary-deep); /* Set the text color. */
+} /* End this set of style rules. */
+
+.menu-size-select { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-wrap: wrap; /* Set flex wrap for this element. */
+  gap: 6px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.menu-size-select button { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.78rem; /* Set the text size. */
+  font-weight: 500; /* Set font weight for this element. */
+  color: var(--text); /* Set the text color. */
+  background: var(--bg); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.2); /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  padding: var(--space-1) var(--space-3); /* Set the space inside the element. */
+  cursor: pointer; /* Set cursor for this element. */
+  transition: var(--transition-smooth); /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.menu-size-select button.is-selected { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  border-color: var(--text); /* Set border color for this element. */
+  color: var(--bg); /* Set the text color. */
+} /* End this set of style rules. */
+
+.menu-item-controls { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+  gap: 10px; /* Set gap for this element. */
+  margin-top: auto; /* Set margin top for this element. */
+} /* End this set of style rules. */
+
+.qty-stepper { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: var(--space-2); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.qty-stepper button { /* Style the elements or animation stage named here. */
+  width: 26px; /* Set the width. */
+  height: 26px; /* Set the height. */
+  border-radius: 50%; /* Round the corners. */
+  border: 1.5px solid rgba(78, 53, 36, 0.25); /* Set border for this element. */
+  background: var(--bg); /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font-size: 1rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+} /* End this set of style rules. */
+
+.qty-stepper span { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.9rem; /* Set the text size. */
+  min-width: 1.4em; /* Set min width for this element. */
+  text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+
+.menu-add-btn { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.88rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  color: var(--bg); /* Set the text color. */
+  background: var(--text); /* Set the background appearance. */
+  border: none; /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  padding: var(--space-2) var(--space-4); /* Set the space inside the element. */
+  cursor: pointer; /* Set cursor for this element. */
+  transition: background 0.2s ease; /* Control how smoothly appearance changes. */
+  white-space: nowrap; /* Set white space for this element. */
+} /* End this set of style rules. */
+
+.menu-add-btn:hover { /* Style the elements or animation stage named here. */
+  background: var(--primary-deep); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Cart — floating button + slide-out panel
+   ============================================ */
+.cart-fab { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  bottom: calc(104px + env(safe-area-inset-bottom, 0px)); /* Set bottom for this element. */
+  right: 22px; /* Set right for this element. */
+  z-index: 200; /* Set which overlapping layer appears in front. */
+  width: 56px; /* Set the width. */
+  height: 56px; /* Set the height. */
+  border-radius: 50%; /* Round the corners. */
+  border: none; /* Set border for this element. */
+  background: var(--text); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  font-size: 1.4rem; /* Set the text size. */
+  cursor: pointer; /* Set cursor for this element. */
+  box-shadow: 0 6px 18px rgba(61, 45, 46, 0.25); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+.cart-fab-count { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: -2px; /* Set top for this element. */
+  right: -2px; /* Set right for this element. */
+  background: var(--accent); /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 700; /* Set font weight for this element. */
+  font-size: 0.72rem; /* Set the text size. */
+  min-width: 20px; /* Set min width for this element. */
+  height: 20px; /* Set the height. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  padding: 0 var(--space-1); /* Set the space inside the element. */
+  border: 1.5px solid var(--bg); /* Set border for this element. */
+} /* End this set of style rules. */
+
+.cart-overlay { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  background: rgba(78, 53, 36, 0.35); /* Set the background appearance. */
+  z-index: 210; /* Set which overlapping layer appears in front. */
+} /* End this set of style rules. */
+
+.cart-panel { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  top: 0; /* Set top for this element. */
+  right: 0; /* Set right for this element. */
+  bottom: 0; /* Set bottom for this element. */
+  z-index: 220; /* Set which overlapping layer appears in front. */
+  width: min(360px, 92vw); /* Set the width. */
+  background: var(--bg); /* Set the background appearance. */
+  box-shadow: -8px 0 24px rgba(61, 45, 46, 0.18); /* Add depth beneath the element. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+} /* End this set of style rules. */
+
+.cart-panel-header { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+  padding: 20px 20px 14px; /* Set the space inside the element. */
+  border-bottom: 1.5px solid rgba(78, 53, 36, 0.12); /* Set border bottom for this element. */
+} /* End this set of style rules. */
+
+.cart-panel-header h3 { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  margin: 0; /* Set the space outside the element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.cart-close-btn { /* Style the elements or animation stage named here. */
+  border: none; /* Set border for this element. */
+  background: transparent; /* Set the background appearance. */
+  font-size: 1.4rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  cursor: pointer; /* Set cursor for this element. */
+  padding: var(--space-1) var(--space-2); /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.cart-panel-body { /* Style the elements or animation stage named here. */
+  flex: 1 1 auto; /* Set flex for this element. */
+  overflow-y: auto; /* Set overflow y for this element. */
+  padding: var(--space-4) 20px; /* Set the space inside the element. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: 14px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.cart-empty { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.9rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  text-align: center; /* Set text align for this element. */
+  margin-top: var(--space-6); /* Set margin top for this element. */
+} /* End this set of style rules. */
+
+.cart-empty a { /* Style the elements or animation stage named here. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.cart-line { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  justify-content: space-between; /* Set justify content for this element. */
+  align-items: flex-start; /* Set align items for this element. */
+  gap: 10px; /* Set gap for this element. */
+  padding-bottom: var(--space-3); /* Set padding bottom for this element. */
+  border-bottom: 1px dashed rgba(78, 53, 36, 0.15); /* Set border bottom for this element. */
+} /* End this set of style rules. */
+
+.cart-line-info { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: 2px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.cart-line-name { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.88rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.cart-line-meta { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.78rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+} /* End this set of style rules. */
+
+.cart-line-right { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  align-items: flex-end; /* Set align items for this element. */
+  gap: 6px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.cart-line-price { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.85rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  white-space: nowrap; /* Set white space for this element. */
+} /* End this set of style rules. */
+
+.cart-line-remove { /* Style the elements or animation stage named here. */
+  border: none; /* Set border for this element. */
+  background: transparent; /* Set the background appearance. */
+  color: var(--text-soft); /* Set the text color. */
+  font-size: 0.75rem; /* Set the text size. */
+  text-decoration: underline; /* Set text decoration for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  padding: 0; /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.cart-panel-footer { /* Style the elements or animation stage named here. */
+  padding: var(--space-4) 20px 20px; /* Set the space inside the element. */
+  border-top: 1.5px solid rgba(78, 53, 36, 0.12); /* Set border top for this element. */
+} /* End this set of style rules. */
+
+.cart-total-row { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  justify-content: space-between; /* Set justify content for this element. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.05rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  margin-bottom: 14px; /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.cart-checkout-btn { /* Style the elements or animation stage named here. */
+  display: block; /* Choose how this element is laid out. */
+  width: 100%; /* Set the width. */
+  text-align: center; /* Set text align for this element. */
+  border: none; /* Set border for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Checkout summary (Place Order section)
+   ============================================ */
+.checkout-summary { /* Style the elements or animation stage named here. */
+  background: var(--surface-card); /* Set the background appearance. */
+  border: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  padding: 20px var(--space-6); /* Set the space inside the element. */
+  margin-bottom: var(--space-8); /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.checkout-summary-title { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.05rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 var(--space-3); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.checkout-summary .cart-line { /* Style the elements or animation stage named here. */
+  padding-bottom: 10px; /* Set padding bottom for this element. */
+  margin-bottom: 10px; /* Set margin bottom for this element. */
+} /* End this set of style rules. */
+
+.checkout-summary .cart-line:last-child { /* Style the elements or animation stage named here. */
+  border-bottom: none; /* Set border bottom for this element. */
+  margin-bottom: 0; /* Set margin bottom for this element. */
+  padding-bottom: 0; /* Set padding bottom for this element. */
+} /* End this set of style rules. */
+
+.checkout-summary-total { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  justify-content: space-between; /* Set justify content for this element. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  margin-top: 14px; /* Set margin top for this element. */
+  padding-top: var(--space-3); /* Set padding top for this element. */
+  border-top: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border top for this element. */
+} /* End this set of style rules. */
+
+@media (min-width: 900px) { /* Apply these rules only on matching devices or motion settings. */
+  .cart-fab { right: 32px; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Footer
+   ============================================ */
+.site-footer { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+  padding: 56px var(--space-6) 0; /* Set the space inside the element. */
+  margin-top: 40px; /* Set margin top for this element. */
+} /* End this set of style rules. */
+
+.footer-top { /* Style the elements or animation stage named here. */
+  max-width: 1040px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+  display: grid; /* Choose how this element is laid out. */
+  grid-template-columns: 1.4fr 1fr 1fr 1fr; /* Set grid template columns for this element. */
+  gap: 36px; /* Set gap for this element. */
+  padding-bottom: 40px; /* Set padding bottom for this element. */
+} /* End this set of style rules. */
+
+.footer-brand { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: var(--space-3); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.footer-logo { /* Style the elements or animation stage named here. */
+  width: 52px; /* Set the width. */
+  height: 52px; /* Set the height. */
+  border-radius: 50%; /* Round the corners. */
+  display: block; /* Choose how this element is laid out. */
+} /* End this set of style rules. */
+
+.footer-tagline { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  color: var(--bg); /* Set the text color. */
+  opacity: 0.75; /* Set how visible this element is. */
+  margin: 0; /* Set the space outside the element. */
+  max-width: 20ch; /* Set max width for this element. */
+} /* End this set of style rules. */
+
+.footer-col { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  gap: 10px; /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.footer-col h4 { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.15rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--bg); /* Set the text color. */
+  margin: 0 0 var(--space-1); /* Set the space outside the element. */
+  opacity: 0.9; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.footer-col a, /* Continue selecting the elements that share these styles. */
+.footer-col p { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  color: var(--bg); /* Set the text color. */
+  opacity: 0.75; /* Set how visible this element is. */
+  text-decoration: none; /* Set text decoration for this element. */
+  margin: 0; /* Set the space outside the element. */
+  transition: opacity 0.2s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.footer-col a:hover { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+  text-decoration: underline; /* Set text decoration for this element. */
+} /* End this set of style rules. */
+
+.footer-bottom { /* Style the elements or animation stage named here. */
+  max-width: 1040px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+  padding: var(--space-4) 0; /* Set the space inside the element. */
+  border-top: 1px solid rgba(250, 246, 238, 0.15); /* Set border top for this element. */
+} /* End this set of style rules. */
+
+.footer-bottom p { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.78rem; /* Set the text size. */
+  color: var(--bg); /* Set the text color. */
+  opacity: 0.6; /* Set how visible this element is. */
+  margin: 0; /* Set the space outside the element. */
+  text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+
+@media (max-width: 700px) { /* Apply these rules only on matching devices or motion settings. */
+  .footer-top { /* Style the elements or animation stage named here. */
+    grid-template-columns: 1fr 1fr; /* Set grid template columns for this element. */
+    row-gap: var(--space-8); /* Set row gap for this element. */
+  } /* End this set of style rules. */
+
+  .footer-brand { /* Style the elements or animation stage named here. */
+    grid-column: 1 / -1; /* Set grid column for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Site-wide micro-animations
+   ============================================ */
+
+/* ---- Ambient floating clouds (fixed, behind all content) ---- */
+.ambient-clouds { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  z-index: -1; /* Set which overlapping layer appears in front. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+
+.ambient-cloud { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  border-radius: 50%; /* Round the corners. */
+  filter: blur(3px); /* Set filter for this element. */
+  opacity: 0.38; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.ambient-cloud--1 { /* Style the elements or animation stage named here. */
+  width: 260px; /* Set the width. */
+  height: 260px; /* Set the height. */
+  background: var(--primary); /* Set the background appearance. */
+  top: 8%; /* Set top for this element. */
+  left: -4%; /* Set left for this element. */
+  animation: drift-a 26s ease-in-out infinite alternate; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+.ambient-cloud--2 { /* Style the elements or animation stage named here. */
+  width: 190px; /* Set the width. */
+  height: 190px; /* Set the height. */
+  background: var(--accent); /* Set the background appearance. */
+  top: 40%; /* Set top for this element. */
+  right: -3%; /* Set right for this element. */
+  animation: drift-b 22s ease-in-out infinite alternate; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+.ambient-cloud--3 { /* Style the elements or animation stage named here. */
+  width: 155px; /* Set the width. */
+  height: 155px; /* Set the height. */
+  background: var(--primary); /* Set the background appearance. */
+  bottom: 12%; /* Set bottom for this element. */
+  left: 6%; /* Set left for this element. */
+  animation: drift-a 30s ease-in-out infinite alternate-reverse; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+@keyframes drift-a { /* Define the stages of this animation. */
+  0%   { transform: translate(0, 0); } /* Style the elements or animation stage named here. */
+  100% { transform: translate(30px, 40px); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+@keyframes drift-b { /* Define the stages of this animation. */
+  0%   { transform: translate(0, 0); } /* Style the elements or animation stage named here. */
+  100% { transform: translate(-25px, -30px); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .ambient-cloud { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* Hide on very small screens to avoid distracting from tight mobile layouts */
+@media (max-width: 480px) { /* Apply these rules only on matching devices or motion settings. */
+  .ambient-clouds { /* Style the elements or animation stage named here. */
+    display: none; /* Choose how this element is laid out. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ---- Cart wiggle on add ---- */
+@keyframes cart-wiggle { /* Define the stages of this animation. */
+  0%, 100% { transform: rotate(0); } /* Style the elements or animation stage named here. */
+  20%      { transform: rotate(-10deg) scale(1.08); } /* Style the elements or animation stage named here. */
+  40%      { transform: rotate(9deg) scale(1.08); } /* Style the elements or animation stage named here. */
+  60%      { transform: rotate(-7deg) scale(1.04); } /* Style the elements or animation stage named here. */
+  80%      { transform: rotate(6deg) scale(1.04); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+.cart-fab.is-wiggling { /* Style the elements or animation stage named here. */
+  animation: cart-wiggle 0.55s ease; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .cart-fab.is-wiggling { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Gallery
+   ============================================ */
+.gallery { /* Style the elements or animation stage named here. */
+  padding: 40px var(--space-6) var(--space-24); /* Set the space inside the element. */
+  max-width: 1040px; /* Set max width for this element. */
+  margin: 0 auto; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.gallery-intro { /* Style the elements or animation stage named here. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.92rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: -28px 0 40px; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.gallery-grid { /* Style the elements or animation stage named here. */
+  display: grid; /* Choose how this element is laid out. */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Set grid template columns for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.gallery-item { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  aspect-ratio: 1 / 1; /* Set aspect ratio for this element. */
+  border-radius: var(--border-radius-lg); /* Round the corners. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+  border: 1.5px solid rgba(78, 53, 36, 0.14); /* Set border for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) scale(1); /* Move, resize or rotate this element. */
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; /* Control how smoothly appearance changes. */
+  will-change: transform; /* Set will change for this element. */
+} /* End this set of style rules. */
+
+.gallery-item.is-tilting { /* Style the elements or animation stage named here. */
+  transition: transform 0.08s linear, box-shadow 0.3s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.gallery-item:hover { /* Style the elements or animation stage named here. */
+  box-shadow: var(--shadow-hover); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+/* Glare/flip sheen that tracks the cursor, layered above the photo */
+.gallery-item::before { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  z-index: 2; /* Set which overlapping layer appears in front. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.4), transparent 55%); /* Set the background appearance. */
+  mix-blend-mode: overlay; /* Set mix blend mode for this element. */
+  opacity: 0; /* Set how visible this element is. */
+  transition: opacity 0.4s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.gallery-item:hover::before { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.gallery-item img { /* Style the elements or animation stage named here. */
+  width: 100%; /* Set the width. */
+  height: 100%; /* Set the height. */
+  object-fit: cover; /* Fit the image inside its frame. */
+  display: block; /* Choose how this element is laid out. */
+} /* End this set of style rules. */
+
+.gallery-item--placeholder { /* Style the elements or animation stage named here. */
+  background: var(--surface-card); /* Set the background appearance. */
+  display: flex; /* Choose how this element is laid out. */
+  flex-direction: column; /* Set flex direction for this element. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  gap: var(--space-2); /* Set gap for this element. */
+  cursor: default; /* Set cursor for this element. */
+} /* End this set of style rules. */
+
+.gallery-item--placeholder:hover { /* Style the elements or animation stage named here. */
+  transform: none; /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.gallery-placeholder-icon { /* Style the elements or animation stage named here. */
+  font-size: 2rem; /* Set the text size. */
+  opacity: 0.5; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.gallery-caption { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.82rem; /* Set the text size. */
+  line-height: 1.4; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.gallery-item:not(.gallery-item--placeholder) .gallery-caption { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  left: 0; /* Set left for this element. */
+  right: 0; /* Set right for this element. */
+  bottom: 0; /* Set bottom for this element. */
+  margin: 0; /* Set the space outside the element. */
+  padding: 20px var(--space-3) 10px; /* Set the space inside the element. */
+  color: var(--bg); /* Set the text color. */
+  background: linear-gradient(to top, rgba(78, 53, 36, 0.75), transparent); /* Set the background appearance. */
+} /* End this set of style rules. */
+
+/* Lightbox */
+.gallery-lightbox { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  z-index: 300; /* Set which overlapping layer appears in front. */
+  background: rgba(78, 53, 36, 0.85); /* Set the background appearance. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  padding: var(--space-6); /* Set the space inside the element. */
+  opacity: 0; /* Set how visible this element is. */
+  transition: opacity 0.35s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.gallery-lightbox.is-open { /* Style the elements or animation stage named here. */
+  opacity: 1; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.gallery-lightbox img { /* Style the elements or animation stage named here. */
+  max-width: min(90vw, 640px); /* Set max width for this element. */
+  max-height: 85vh; /* Set max height for this element. */
+  border-radius: var(--border-radius-md); /* Round the corners. */
+  display: block; /* Choose how this element is laid out. */
+  transform: scale(0.86); /* Move, resize or rotate this element. */
+  opacity: 0; /* Set how visible this element is. */
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.gallery-lightbox.is-open img { /* Style the elements or animation stage named here. */
+  transform: scale(1); /* Move, resize or rotate this element. */
+  opacity: 1; /* Set how visible this element is. */
+} /* End this set of style rules. */
+
+.gallery-lightbox-close { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 20px; /* Set top for this element. */
+  right: 24px; /* Set right for this element. */
+  background: none; /* Set the background appearance. */
+  border: none; /* Set border for this element. */
+  color: var(--bg); /* Set the text color. */
+  font-size: 2rem; /* Set the text size. */
+  line-height: 1; /* Set line height for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Mascot Companion
+   ============================================ */
+.mascot-companion { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  bottom: 22px; /* Set bottom for this element. */
+  left: 22px; /* Set left for this element. */
+  z-index: 150; /* Set which overlapping layer appears in front. */
+  width: 130px; /* Set the width. */
+  height: 130px; /* Set the height. */
+  border: none; /* Set border for this element. */
+  background: none; /* Set the background appearance. */
+  padding: 0; /* Set the space inside the element. */
+  cursor: pointer; /* Set cursor for this element. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: flex-end; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+} /* End this set of style rules. */
+
+.mascot-companion img { /* Style the elements or animation stage named here. */
+  width: 100%; /* Set the width. */
+  height: auto; /* Set the height. */
+  display: block; /* Choose how this element is laid out. */
+  filter: drop-shadow(0 6px 10px rgba(78, 53, 36, 0.15)); /* Set filter for this element. */
+  animation: mascot-bob 3.4s ease-in-out infinite; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+@keyframes mascot-bob { /* Define the stages of this animation. */
+  0%, 100% { transform: translateY(0); } /* Style the elements or animation stage named here. */
+  50%      { transform: translateY(-5px); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+.mascot-companion:hover img, /* Continue selecting the elements that share these styles. */
+.mascot-companion:focus-visible img { /* Style the elements or animation stage named here. */
+  animation: mascot-wave-bounce 0.6s ease; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+@keyframes mascot-wave-bounce { /* Define the stages of this animation. */
+  0%   { transform: translateY(0) rotate(0); } /* Style the elements or animation stage named here. */
+  30%  { transform: translateY(-8px) rotate(-6deg); } /* Style the elements or animation stage named here. */
+  60%  { transform: translateY(-2px) rotate(4deg); } /* Style the elements or animation stage named here. */
+  100% { transform: translateY(0) rotate(0); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .mascot-companion img { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+@media (max-width: 480px) { /* Apply these rules only on matching devices or motion settings. */
+  .mascot-companion { /* Style the elements or animation stage named here. */
+    width: 95px; /* Set the width. */
+    height: 95px; /* Set the height. */
+    bottom: 16px; /* Set bottom for this element. */
+    left: 16px; /* Set left for this element. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+
+/* Hero: the wordmark, tagline and one clear menu action. */
+.hero-section { /* Style the elements or animation stage named here. */
+  position: relative; /* Give the decorative bubble layer a coordinate system to anchor to. */
+  overflow: hidden; /* Keep bubbles from creating horizontal or vertical scroll. */
+  min-height: calc(100vh - var(--header-height)); /* Set min height for this element. */
+  min-height: calc(100svh - var(--header-height)); /* Set min height for this element. */
+  padding: 64px 20px; /* Set the space inside the element. */
+  display: grid; /* Choose how this element is laid out. */
+  place-items: center; /* Set place items for this element. */
+  background: var(--bg); /* Set the background appearance. */
+  text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+.hero-container { position: relative; z-index: 2; width: 100%; max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; } /* Style the elements or animation stage named here. */
+.hero-content { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; text-align: center; } /* Style the elements or animation stage named here. */
+
+/* ---- Hero bubbles: decorative, transparent, theme-colored, roam in Part 3 ---- */
+.hero-bubbles { /* Hold every floating bubble on its own layer, behind the hero text. */
+  position: absolute; /* Take the bubbles out of normal layout flow. */
+  inset: 0; /* Stretch the layer to fill the hero section exactly. */
+  z-index: 1; /* Sit above the plain background but below the hero text and button. */
+  pointer-events: none; /* Let clicks and taps pass straight through to real content. */
+} /* End the bubble layer container. */
+.bubble { /* Give every bubble its shared circular, transparent, low-opacity base — matching the site's existing ambient-cloud style. */
+  position: absolute; /* Let each bubble be placed independently within the hero. */
+  border-radius: 50%; /* Force a perfect circle regardless of size. */
+  background: var(--bubble-color); /* Fill with a flat theme color, same approach as .ambient-cloud. */
+  filter: blur(2px); /* Soften the edge slightly, matching the site's other decorative circles. */
+  opacity: 0.38; /* Keep the fill translucent so the hero background reads through it. */
+} /* End the shared bubble base. */
+
+/* Size variants */
+.bubble--sm { width: 28px; height: 28px; } /* Set the small bubble footprint. */
+.bubble--md { width: 52px; height: 52px; } /* Set the medium bubble footprint. */
+.bubble--lg { width: 84px; height: 84px; } /* Set the large bubble footprint. */
+
+/* Color variants — each maps to a theme color via the --bubble-color custom property used above */
+.bubble--primary { --bubble-color: var(--primary); } /* Tag this bubble to use the primary theme color. */
+.bubble--accent { --bubble-color: var(--accent); } /* Tag this bubble to use the accent theme color. */
+.bubble--deep { --bubble-color: var(--primary-deep); } /* Tag this bubble to use the deeper primary theme color. */
+
+@media (max-width: 640px) { /* Trim bubble scale slightly on small screens so none feel oversized. */
+  .bubble--lg { width: 64px; height: 64px; } /* Shrink large bubbles on mobile. */
+  .bubble--md { width: 40px; height: 40px; } /* Shrink medium bubbles on mobile. */
+  .hero-bubbles .bubble:nth-of-type(5), /* Hide the bubble sitting directly behind the title on narrow screens. */
+  .hero-bubbles .bubble:nth-of-type(6) { display: none; } /* Hide the bubble sitting directly behind the button on narrow screens. */
+} /* End the mobile bubble-size adjustment. */
+
+@media (max-height: 560px) { /* Guard against bubbles crowding very short viewports (e.g. landscape phones). */
+  .hero-bubbles .bubble:nth-of-type(5),
+  .hero-bubbles .bubble:nth-of-type(6) { display: none; } /* Remove the same center-column bubbles when vertical space is tight. */
+  .bubble--lg { width: 52px; height: 52px; } /* Shrink large bubbles further so they fit comfortably in the shorter hero. */
+} /* End the short-viewport bubble adjustment. */
+
+/* ---- Bubble roaming motion: each bubble drifts along its own loose loop ---- */
+.bubble { /* Give every bubble a gentle drifting animation by default. */
+  animation-name: bubble-roam-a; /* Assign a default drift path; individual bubbles override this below. */
+  animation-timing-function: ease-in-out; /* Keep the drift smooth rather than mechanical. */
+  animation-iteration-count: infinite; /* Let the drift loop for as long as the hero is visible. */
+  will-change: transform; /* Hint the browser to optimize the animated property. */
+} /* End the default bubble animation assignment. */
+
+/* Three loosely different drift shapes so bubbles don't all trace the same path */
+@keyframes bubble-roam-a { /* Define a drift loop that leans left, then right, then settles. */
+  0%   { transform: translate(0, 0); } /* Start each bubble at its base position. */
+  25%  { transform: translate(-14px, -18px); } /* Drift up and to the left first. */
+  50%  { transform: translate(10px, -6px); } /* Cross back toward the right while still rising. */
+  75%  { transform: translate(-6px, 14px); } /* Ease down and slightly left. */
+  100% { transform: translate(0, 0); } /* Return to the starting point to loop cleanly. */
+} /* End the first drift path. */
+@keyframes bubble-roam-b { /* Define a second drift loop with a different rhythm. */
+  0%   { transform: translate(0, 0); } /* Start each bubble at its base position. */
+  30%  { transform: translate(16px, 10px); } /* Drift down and to the right first. */
+  60%  { transform: translate(4px, -16px); } /* Rise up while pulling back toward center. */
+  85%  { transform: translate(-12px, 4px); } /* Swing left before returning. */
+  100% { transform: translate(0, 0); } /* Return to the starting point to loop cleanly. */
+} /* End the second drift path. */
+@keyframes bubble-roam-c { /* Define a third drift loop, slower and wider, for large bubbles. */
+  0%   { transform: translate(0, 0) scale(1); } /* Start each bubble at its base position and size. */
+  33%  { transform: translate(-18px, 12px) scale(1.04); } /* Drift left and down while swelling slightly. */
+  66%  { transform: translate(12px, 18px) scale(0.97); } /* Cross right and further down while shrinking slightly. */
+  100% { transform: translate(0, 0) scale(1); } /* Return to the starting point and size to loop cleanly. */
+} /* End the third drift path. */
+
+/* Vary duration/delay per size so motion feels organic, not synchronized */
+.bubble--sm { animation-name: bubble-roam-b; animation-duration: 9s; } /* Small bubbles drift on the second path, fairly quickly. */
+.bubble--md { animation-name: bubble-roam-a; animation-duration: 13s; } /* Medium bubbles drift on the first path, at a middling pace. */
+.bubble--lg { animation-name: bubble-roam-c; animation-duration: 18s; } /* Large bubbles drift on the third, slower and wider path. */
+
+/* Per-bubble delay offsets so identically-sized bubbles don't move in lockstep */
+.hero-bubbles .bubble:nth-of-type(1) { animation-delay: 0s; } /* Stagger the first bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(2) { animation-delay: -2.4s; } /* Stagger the second bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(3) { animation-delay: -5s; } /* Stagger the third bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(4) { animation-delay: -1.1s; } /* Stagger the fourth bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(5) { animation-delay: -7.3s; } /* Stagger the fifth bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(6) { animation-delay: -3.6s; } /* Stagger the sixth bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(7) { animation-delay: -9.8s; } /* Stagger the seventh bubble's start point. */
+.hero-bubbles .bubble:nth-of-type(8) { animation-delay: -4.5s; } /* Stagger the eighth bubble's start point. */
+
+@media (prefers-reduced-motion: reduce) { /* Respect visitors who request less animation. */
+  .bubble { animation: none; } /* Freeze bubbles in place instead of drifting. */
+} /* End the reduced-motion override. */
+.hero-title { /* Style the elements or animation stage named here. */
+  font-family: var(--font-script); /* Choose the typeface. */
+  font-size: clamp(2.4rem, 10vw, 5.5rem); /* Set the text size. */
+  font-weight: 400; /* Set font weight for this element. */
+  line-height: 1.5; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 20px; /* Set the space outside the element. */
+} /* End this set of style rules. */
+.hero-description { /* Style the elements or animation stage named here. */
+  font-size: clamp(1rem, 3vw, 1.25rem); /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  line-height: 1.6; /* Set line height for this element. */
+  margin: 0 auto var(--space-8); /* Set the space outside the element. */
+} /* End this set of style rules. */
+.hero-actions { display: flex; width: 100%; justify-content: center; } /* Style the elements or animation stage named here. */
+.btn-primary { /* Style the elements or animation stage named here. */
+  background-color: var(--text); /* Set the background color. */
+  color: #fff; /* Set the text color. */
+  border: 0; /* Set border for this element. */
+  min-height: 48px; /* Set min height for this element. */
+  cursor: pointer; /* Set cursor for this element. */
+} /* End this set of style rules. */
+.btn-primary:hover { background: var(--primary-deep); } /* Style the elements or animation stage named here. */
+.btn-primary:disabled { opacity: 0.65; cursor: wait; } /* Style the elements or animation stage named here. */
+#order-whatsapp { text-align: center; } /* Style the elements or animation stage named here. */
+.menu-items { grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); } /* Style the elements or animation stage named here. */
+@media (max-width: 760px), (pointer: coarse) { /* Apply these rules only on matching devices or motion settings. */
+  .review-card { max-width: calc(100vw - 64px); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* --- SMALL BLUE CLOUD CURSOR --- */
+.custom-cursor { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  top: 0; /* Set top for this element. */
+  left: 0; /* Set left for this element. */
+  width: 0; /* Set the width. */
+  height: 0; /* Set the height. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+  z-index: 99999; /* Set which overlapping layer appears in front. */
+  visibility: hidden; /* Set visibility for this element. */
+  transform: translate3d(-100px, -100px, 0); /* Move, resize or rotate this element. */
+} /* End this set of style rules. */
+
+.custom-cursor * { pointer-events: none; } /* Style the elements or animation stage named here. */
+
+.cursor-cloud { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  width: 26px; /* Set the width. */
+  height: 20px; /* Set the height. */
+  transform: translate(-50%, -50%); /* Move, resize or rotate this element. */
+  overflow: visible; /* Control what happens to content outside the element. */
+  fill: var(--primary); /* Set fill for this element. */
+  stroke: var(--primary-deep); /* Set stroke for this element. */
+  stroke-width: 1; /* Set stroke width for this element. */
+  stroke-linejoin: round; /* Set stroke linejoin for this element. */
+} /* End this set of style rules. */
+
+.cursor-sparkle { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  width: var(--sparkle-size, 6px); /* Set the width. */
+  height: var(--sparkle-size, 6px); /* Set the height. */
+  background: var(--primary-deep); /* Set the background appearance. */
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); /* Set clip path for this element. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+  z-index: 99998; /* Set which overlapping layer appears in front. */
+  animation: cursor-sparkle-fall 800ms ease-out forwards; /* Run the named visual animation. */
+} /* End this set of style rules. */
+
+@keyframes cursor-sparkle-fall { /* Define the stages of this animation. */
+  from { opacity: 0.95; transform: translate(-50%, 0) scale(1); } /* Style the elements or animation stage named here. */
+  35% { opacity: 0.8; } /* Style the elements or animation stage named here. */
+  to { opacity: 0; transform: translate(calc(-50% + var(--sparkle-drift, 0px)), 26px) scale(0.3) rotate(45deg); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* The normal pointer stays available until the cloud is actually visible. */
+@media (hover: hover) and (pointer: fine) { /* Apply these rules only on matching devices or motion settings. */
+  .custom-cursor.is-visible { visibility: visible; } /* Style the elements or animation stage named here. */
+  html.cloud-cursor-active, /* Continue selecting the elements that share these styles. */
+  html.cloud-cursor-active * { cursor: none !important; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .cursor-sparkle { display: none; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+
+/* --- BOTTOM-STICKY MOBILE CART BAR --- */
+.sticky-cart-bar { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  bottom: calc(104px + env(safe-area-inset-bottom, 0px)); /* Set bottom for this element. */
+  left: 50%; /* Set left for this element. */
+  transform: translateX(-50%); /* Move, resize or rotate this element. */
+  width: calc(100% - 40px); /* Set the width. */
+  max-width: 500px; /* Set max width for this element. */
+  background-color: var(--text); /* Chocolate Plum background */
+  color: #FFFFFF; /* Set the text color. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  padding: var(--space-3) var(--space-6); /* Set the space inside the element. */
+  box-shadow: 0 10px 30px rgba(61, 45, 46, 0.25); /* Add depth beneath the element. */
+  z-index: 999; /* Set which overlapping layer appears in front. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.sticky-cart-content { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: space-between; /* Set justify content for this element. */
+} /* End this set of style rules. */
+
+.sticky-cart-left { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: var(--space-3); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.sticky-cart-badge { /* Style the elements or animation stage named here. */
+  background-color: var(--accent); /* Popcorn Yellow Badge */
+  color: var(--text); /* Set the text color. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 700; /* Set font weight for this element. */
+  border-radius: 50%; /* Round the corners. */
+  width: 24px; /* Set the width. */
+  height: 24px; /* Set the height. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  font-size: 0.85rem; /* Set the text size. */
+} /* End this set of style rules. */
+
+.sticky-cart-text { /* Style the elements or animation stage named here. */
+  font-size: 0.9rem; /* Set the text size. */
+  font-weight: 500; /* Set font weight for this element. */
+} /* End this set of style rules. */
+
+.sticky-cart-right { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: var(--space-4); /* Set gap for this element. */
+} /* End this set of style rules. */
+
+.sticky-cart-total { /* Style the elements or animation stage named here. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 700; /* Set font weight for this element. */
+  font-size: 1.1rem; /* Set the text size. */
+} /* End this set of style rules. */
+
+.sticky-cart-btn { /* Style the elements or animation stage named here. */
+  background-color: var(--text); /* Cerulean Button */
+  border: none; /* Set border for this element. */
+  color: #FFFFFF; /* Set the text color. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 0.9rem; /* Set the text size. */
+  padding: var(--space-2) var(--space-4); /* Set the space inside the element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  cursor: pointer; /* Set cursor for this element. */
+  transition: background-color 0.2s; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+
+.sticky-cart-btn:hover { /* Style the elements or animation stage named here. */
+  background-color: var(--primary-deep); /* Set the background color. */
+} /* End this set of style rules. */
+
+/* Hide on desktop, only display on mobile */
+@media (min-width: 768px) { /* Apply these rules only on matching devices or motion settings. */
+  .sticky-cart-bar { /* Style the elements or animation stage named here. */
+    display: none !important; /* Choose how this element is laid out. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+@media (max-width: 767px) { /* Apply these rules only on matching devices or motion settings. */
+  body.has-cart .cart-fab { bottom: calc(180px + env(safe-area-inset-bottom, 0px)); } /* Style the elements or animation stage named here. */
+  .sticky-cart-bar { padding: 12px 16px; } /* Style the elements or animation stage named here. */
+  .sticky-cart-text { display: none; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Group 3 / item 15 — tactile spring hover states
+   ============================================ */
+.btn-primary, /* Continue selecting the elements that share these styles. */
+.menu-add-btn, /* Continue selecting the elements that share these styles. */
+.site-nav a.nav-cta { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  color: var(--bg); /* Set the text color. */
+  border: 2px solid var(--text); /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  box-shadow: 0 4px 0 var(--text); /* Add depth beneath the element. */
+  transition: var(--transition-spring), var(--transition-smooth), /* Control how smoothly appearance changes. */
+              box-shadow 0.25s var(--ease-glide); /* Continue selecting the elements that share these styles. */
+} /* End this set of style rules. */
+
+/* Run the lift independently of each card's existing tilt and reveal transform. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { /* Apply these rules only on matching devices or motion settings. */
+  :is(.btn-primary, .menu-add-btn, .site-nav a.nav-cta):not(:disabled):not([aria-disabled="true"]):hover { /* Style the elements or animation stage named here. */
+    background: var(--primary-deep); /* Set the background appearance. */
+    transform: translateY(-3px) scale(1.02); /* Move, resize or rotate this element. */
+    box-shadow: 0 7px 0 var(--text); /* Add depth beneath the element. */
+  } /* End this set of style rules. */
+
+  :is(.btn-primary, .menu-add-btn, .site-nav a.nav-cta):not(:disabled):not([aria-disabled="true"]):active { /* Style the elements or animation stage named here. */
+    transform: translateY(1px) scale(0.99); /* Move, resize or rotate this element. */
+    box-shadow: 0 2px 0 var(--text); /* Add depth beneath the element. */
+  } /* End this set of style rules. */
+
+  .chip, /* Continue selecting the elements that share these styles. */
+  .add-cake-btn, /* Continue selecting the elements that share these styles. */
+  .sticky-cart-btn, /* Continue selecting the elements that share these styles. */
+  .qty-stepper button, /* Continue selecting the elements that share these styles. */
+  .menu-size-select button { /* Style the elements or animation stage named here. */
+    transition: var(--transition-spring), var(--transition-smooth); /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+
+  :is(.chip, .add-cake-btn, .sticky-cart-btn):not(:disabled):not([aria-disabled="true"]):hover { /* Style the elements or animation stage named here. */
+    transform: translateY(-2px) scale(1.02); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  :is(.qty-stepper button, .menu-size-select button):not(:disabled):not([aria-disabled="true"]):hover { /* Style the elements or animation stage named here. */
+    transform: scale(1.06); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+
+  .menu-item-card, /* Continue selecting the elements that share these styles. */
+  .review-card, /* Continue selecting the elements that share these styles. */
+  .gallery-item:not(.gallery-item--placeholder), /* Continue selecting the elements that share these styles. */
+  .policy-card.is-visible { /* Style the elements or animation stage named here. */
+    translate: 0 0; /* Set translate for this element. */
+    transition: var(--transition-spring), /* Control how smoothly appearance changes. */
+                opacity 0.7s ease, /* Continue selecting the elements that share these styles. */
+                translate 0.45s var(--ease-spring), /* Continue selecting the elements that share these styles. */
+                box-shadow 0.25s var(--ease-glide); /* Continue selecting the elements that share these styles. */
+  } /* End this set of style rules. */
+
+  :is(.menu-item-card, .review-card, .gallery-item:not(.gallery-item--placeholder), .policy-card.is-visible):hover { /* Style the elements or animation stage named here. */
+    translate: 0 -3px; /* Set translate for this element. */
+    box-shadow: var(--shadow-hover); /* Add depth beneath the element. */
+  } /* End this set of style rules. */
+
+  /* Cursor tracking stays quick; entry, lift and return use the spring. */
+  .menu-item-card.is-tilting, /* Continue selecting the elements that share these styles. */
+  .review-card.is-tilting, /* Continue selecting the elements that share these styles. */
+  .gallery-item.is-tilting { /* Style the elements or animation stage named here. */
+    transition: transform 0.08s linear, /* Control how smoothly appearance changes. */
+                translate 0.45s var(--ease-spring), /* Continue selecting the elements that share these styles. */
+                box-shadow 0.25s var(--ease-glide); /* Continue selecting the elements that share these styles. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* Disabled primary actions do not pick up the hover color from older rules. */
+:is(.btn-primary, .menu-add-btn):disabled:hover, /* Continue selecting the elements that share these styles. */
+:is(.btn-primary, .menu-add-btn, .site-nav a.nav-cta)[aria-disabled="true"]:hover { /* Style the elements or animation stage named here. */
+  background: var(--text); /* Set the background appearance. */
+  transform: none; /* Move, resize or rotate this element. */
+  box-shadow: 0 4px 0 var(--text); /* Add depth beneath the element. */
+} /* End this set of style rules. */
+
+/* Product photographs lift beyond their cards without moving the menu layout. */
+.product-photo-trigger { /* Style the elements or animation stage named here. */
+  border: 0; /* Set border for this element. */
+  padding: 0; /* Set the space inside the element. */
+  background: transparent; /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font: inherit; /* Set font for this element. */
+  overflow: visible; /* Control what happens to content outside the element. */
+  isolation: isolate; /* Set isolation for this element. */
+} /* End this set of style rules. */
+.product-photo-trigger:focus-visible { /* Style the elements or animation stage named here. */
+  outline: 2px solid var(--primary-deep); /* Set outline for this element. */
+  outline-offset: 4px; /* Set outline offset for this element. */
+  border-radius: var(--border-radius-md); /* Round the corners. */
+} /* End this set of style rules. */
+.product-float { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  display: block; /* Choose how this element is laid out. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+  transform: translateY(0) scale(1); /* Move, resize or rotate this element. */
+  transition: transform 650ms var(--ease-spring); /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+.product-float::after { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  z-index: -1; /* Set which overlapping layer appears in front. */
+  width: 62%; /* Set the width. */
+  height: 10%; /* Set the height. */
+  left: 19%; /* Set left for this element. */
+  bottom: 1%; /* Set bottom for this element. */
+  border-radius: 50%; /* Round the corners. */
+  background: var(--text); /* Set the background appearance. */
+  opacity: 0; /* Set how visible this element is. */
+  filter: blur(13px); /* Set filter for this element. */
+  transition: opacity 500ms ease; /* Control how smoothly appearance changes. */
+} /* End this set of style rules. */
+.product-photo-trigger .menu-item-photo, /* Continue selecting the elements that share these styles. */
+.product-viewer-stage .menu-item-photo { /* Style the elements or animation stage named here. */
+  transition: opacity 750ms var(--ease-glide); /* Control how smoothly appearance changes. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+.product-photo-hint { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  bottom: -3px; /* Set bottom for this element. */
+  left: 0; /* Set left for this element. */
+  right: 0; /* Set right for this element. */
+  text-align: center; /* Set text align for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.69rem; /* Set the text size. */
+  color: var(--primary-deep); /* Set the text color. */
+  opacity: 0.9; /* Set how visible this element is. */
+  pointer-events: none; /* Choose whether this element can receive pointer input. */
+} /* End this set of style rules. */
+.menu-item-card.is-product-preview { /* Style the elements or animation stage named here. */
+  z-index: 20; /* Set which overlapping layer appears in front. */
+} /* End this set of style rules. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { /* Apply these rules only on matching devices or motion settings. */
+  .is-product-preview .product-float { /* Style the elements or animation stage named here. */
+    transform: translateY(-52px) scale(1.4); /* Move, resize or rotate this element. */
+  } /* End this set of style rules. */
+  .is-product-preview .product-float::after { opacity: 0.13; } /* Style the elements or animation stage named here. */
+  .is-product-preview .menu-item-photo { /* Style the elements or animation stage named here. */
+    animation: product-hover-float 4500ms ease-in-out infinite; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+@keyframes product-hover-float { /* Define the stages of this animation. */
+  0%, 100% { translate: 0 0; rotate: -0.6deg; } /* Style the elements or animation stage named here. */
+  50% { translate: 0 -7px; rotate: 0.6deg; } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+html.product-view-open, /* Continue selecting the elements that share these styles. */
+html.product-view-open body { /* Style the elements or animation stage named here. */
+  overflow: hidden; /* Control what happens to content outside the element. */
+} /* End this set of style rules. */
+.product-viewer { /* Style the elements or animation stage named here. */
+  position: fixed; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  margin: 0; /* Set the space outside the element. */
+  width: 100%; /* Set the width. */
+  height: 100%; /* Set the height. */
+  height: 100dvh; /* Set the height. */
+  max-width: none; /* Set max width for this element. */
+  max-height: none; /* Set max height for this element. */
+  padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom)); /* Set the space inside the element. */
+  border: 0; /* Set border for this element. */
+  background: transparent; /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  overflow-y: auto; /* Set overflow y for this element. */
+  overscroll-behavior: contain; /* Set overscroll behavior for this element. */
+} /* End this set of style rules. */
+.product-viewer:not([open]) { display: none; } /* Style the elements or animation stage named here. */
+.product-viewer[open] { /* Style the elements or animation stage named here. */
+  display: grid; /* Choose how this element is laid out. */
+  place-items: center; /* Set place items for this element. */
+} /* End this set of style rules. */
+.product-viewer::backdrop { /* Style the elements or animation stage named here. */
+  background: color-mix(in srgb, var(--text) 58%, transparent); /* Set the background appearance. */
+  backdrop-filter: blur(5px); /* Set backdrop filter for this element. */
+} /* End this set of style rules. */
+.product-viewer-panel { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  width: min(100%, 640px); /* Set the width. */
+  min-width: 0; /* Set min width for this element. */
+  padding: 28px 20px 20px; /* Set the space inside the element. */
+  border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent); /* Set border for this element. */
+  border-radius: 28px; /* Round the corners. */
+  background: var(--bg); /* Set the background appearance. */
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--text) 24%, transparent); /* Add depth beneath the element. */
+  text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+.product-viewer-close { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  top: 10px; /* Set top for this element. */
+  right: 10px; /* Set right for this element. */
+  width: 44px; /* Set the width. */
+  height: 44px; /* Set the height. */
+  border: 0; /* Set border for this element. */
+  border-radius: 50%; /* Round the corners. */
+  background: var(--surface-card); /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font-size: 1.7rem; /* Set the text size. */
+} /* End this set of style rules. */
+.product-viewer-eyebrow { /* Style the elements or animation stage named here. */
+  margin: 0 44px 8px; /* Set the space outside the element. */
+  font: 0.9rem var(--font-script); /* Set font for this element. */
+  color: var(--primary-deep); /* Set the text color. */
+} /* End this set of style rules. */
+#product-viewer-title { /* Style the elements or animation stage named here. */
+  margin: 0 24px 8px; /* Set the space outside the element. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-size: clamp(1.2rem, 4vw, 1.8rem); /* Set the text size. */
+  font-weight: 500; /* Set font weight for this element. */
+} /* End this set of style rules. */
+.product-viewer-frame { /* Style the elements or animation stage named here. */
+  position: relative; /* Choose how this element is positioned. */
+  height: clamp(170px, 42vh, 400px); /* Set the height. */
+  margin: 12px 0; /* Set the space outside the element. */
+} /* End this set of style rules. */
+.product-viewer-frame::after { /* Style the elements or animation stage named here. */
+  content: ""; /* Set content for this element. */
+  position: absolute; /* Choose how this element is positioned. */
+  width: 58%; /* Set the width. */
+  height: 10%; /* Set the height. */
+  bottom: 1%; /* Set bottom for this element. */
+  left: 21%; /* Set left for this element. */
+  border-radius: 50%; /* Round the corners. */
+  background: var(--text); /* Set the background appearance. */
+  opacity: 0.12; /* Set how visible this element is. */
+  filter: blur(16px); /* Set filter for this element. */
+} /* End this set of style rules. */
+.product-viewer-stage { /* Style the elements or animation stage named here. */
+  position: absolute; /* Choose how this element is positioned. */
+  inset: 0; /* Set inset for this element. */
+  z-index: 1; /* Set which overlapping layer appears in front. */
+  animation: product-hover-float 4500ms ease-in-out infinite; /* Run the named visual animation. */
+} /* End this set of style rules. */
+.product-viewer-stage .menu-item-photo { /* Style the elements or animation stage named here. */
+  padding: 8px 0 18px; /* Set the space inside the element. */
+  filter: drop-shadow(0 18px 16px color-mix(in srgb, var(--text) 20%, transparent)); /* Set filter for this element. */
+} /* End this set of style rules. */
+.product-viewer-count { /* Style the elements or animation stage named here. */
+  margin: 8px 0 14px; /* Set the space outside the element. */
+  font: 0.82rem var(--font-body); /* Set font for this element. */
+  color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+.product-viewer-controls { /* Style the elements or animation stage named here. */
+  display: flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  justify-content: center; /* Set justify content for this element. */
+  gap: 12px; /* Set gap for this element. */
+} /* End this set of style rules. */
+.product-viewer-controls button { /* Style the elements or animation stage named here. */
+  min-width: 44px; /* Set min width for this element. */
+  min-height: 44px; /* Set min height for this element. */
+  padding: 8px 14px; /* Set the space inside the element. */
+  border: 1px solid var(--primary-deep); /* Set border for this element. */
+  border-radius: var(--border-radius-full); /* Round the corners. */
+  background: var(--surface-card); /* Set the background appearance. */
+  color: var(--text); /* Set the text color. */
+  font: 500 0.84rem var(--font-body); /* Set font for this element. */
+} /* End this set of style rules. */
+.product-viewer-controls button:disabled { opacity: 0.6; } /* Style the elements or animation stage named here. */
+.product-viewer button:focus-visible { /* Style the elements or animation stage named here. */
+  outline: 2px solid var(--primary-deep); /* Set outline for this element. */
+  outline-offset: 3px; /* Set outline offset for this element. */
+} /* End this set of style rules. */
+.product-viewer-help, /* Continue selecting the elements that share these styles. */
+.product-viewer-status { /* Style the elements or animation stage named here. */
+  margin: 12px 0 0; /* Set the space outside the element. */
+  font: 0.76rem/1.5 var(--font-body); /* Set font for this element. */
+} /* End this set of style rules. */
+.product-viewer-status:empty { display: none; } /* Style the elements or animation stage named here. */
+.product-viewer-status { color: var(--error); } /* Style the elements or animation stage named here. */
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .product-float, /* Continue selecting the elements that share these styles. */
+  .product-viewer-stage, /* Continue selecting the elements that share these styles. */
+  .product-photo-trigger .menu-item-photo, /* Continue selecting the elements that share these styles. */
+  .product-viewer-stage .menu-item-photo { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+    transition: none; /* Control how smoothly appearance changes. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: no-preference) { /* Apply these rules only on matching devices or motion settings. */
+  .product-viewer[open] .product-viewer-panel { /* Style the elements or animation stage named here. */
+    animation: product-viewer-enter 400ms var(--ease-spring) both; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+@keyframes product-viewer-enter { /* Define the stages of this animation. */
+  from { opacity: 0; transform: translateY(12px) scale(0.96); } /* Style the elements or animation stage named here. */
+  to { opacity: 1; transform: translateY(0) scale(1); } /* Style the elements or animation stage named here. */
+} /* End this set of style rules. */
+
+/* Responsive flight-route foundation; the Part 3 rules below enable progressive drawing. */
+#smooth-content { /* Anchor the decorative layer to the page content. */
+  position: relative; /* Give the absolute route a stable local coordinate system. */
+} /* End the content anchor. */
+.paper-flight-route { /* Cover the journey from the hero through the footer. */
+  position: absolute; /* Keep the route out of normal document layout. */
+  inset: 0 0 auto; /* Align its origin with the content container. */
+  width: 100%; /* Match the available content width. */
+  z-index: 10; /* Float above ordinary sections but below navigation and overlays. */
+  pointer-events: none; /* Allow every click, tap and scroll gesture through. */
+  overflow: hidden; /* Prevent decorative curves from creating horizontal scrolling. */
+  contain: layout paint; /* Keep the decorative surface independent of page layout. */
+} /* End the route layer. */
+.paper-flight-route svg { /* Render the route at actual page dimensions. */
+  display: block; /* Remove the inline SVG baseline gap. */
+  width: 100%; /* Fit the coordinate system to the content width. */
+  height: 100%; /* Fit the coordinate system to the measured journey height. */
+  pointer-events: none; /* Keep the SVG itself non-interactive. */
+} /* End SVG sizing. */
+.paper-flight-route__path { /* Style the dotted route independently of the progressive reveal mask. */
+  fill: none; /* Draw only the route outline. */
+  stroke: #263d48; /* Echo the dark outline of the blue paper airplane. */
+  stroke-width: 2; /* Keep the desktop trail light over content. */
+  stroke-dasharray: 1 11; /* Separate the small round marks into a dotted trail. */
+  stroke-linecap: round; /* Give each short dash a rounded dot shape. */
+  opacity: 0.48; /* Reduce visual interference where the route crosses text. */
+  vector-effect: non-scaling-stroke; /* Preserve dot thickness when the SVG resizes. */
+} /* End route styling. */
+@media (max-width: 767px) { /* Refine the appearance on narrow screens. */
+  .paper-flight-route__path { /* Use a finer mobile route. */
+    stroke-width: 1.5; /* Scale the dots down for the smaller airplane. */
+    stroke-dasharray: 1 8; /* Keep dot spacing proportional on phones. */
+    opacity: 0.38; /* Keep mobile text easy to read beneath the route. */
+  } /* End mobile route styling. */
+} /* End the mobile breakpoint. */
+@media print { /* Keep a decorative flight path off printed pages. */
+  .paper-flight-route { display: none; } /* Print only the original page content. */
+} /* End print styling. */
+
+/* Part 3: reveal the trail and position the airplane directly from scroll progress. */
+.paper-flight-route.is-scroll-driven .paper-flight-route__path { /* Wait for the reveal mask before showing the route. */
+  visibility: hidden; /* Prevent a flash of the complete trail during setup. */
+} /* End the setup state. */
+.paper-flight-route.is-scroll-driven.is-flight-ready .paper-flight-route__path { /* Show only the portion exposed by the mask. */
+  visibility: visible; /* Keep the original dotted stroke and responsive styling. */
+} /* End the ready state. */
+.paper-flight-plane { /* Position the supplied transparent airplane above its route. */
+  position: absolute; /* Place the airplane in the route's document coordinate system. */
+  top: 0; /* Keep the transform origin relative to the route's top edge. */
+  left: 0; /* Keep the transform origin relative to the route's left edge. */
+  width: 168px; /* Display the desktop asset at a clear but unobtrusive size. */
+  height: auto; /* Preserve the source airplane's aspect ratio. */
+  max-width: none; /* Avoid inherited product-image width restrictions. */
+  display: block; /* Remove inline image spacing. */
+  transform-origin: 0 0; /* Rotate around the attachment point calculated in JavaScript. */
+  pointer-events: none; /* Let all clicks and touch gestures reach page content. */
+  user-select: none; /* Prevent accidental selection while scrolling. */
+  visibility: hidden; /* Wait until the first correct position is calculated. */
+  transition: none; /* Stop immediately when scroll progress stops changing. */
+  animation: none; /* Keep motion entirely controlled by scrolling. */
+} /* End airplane styling. */
+.is-flight-ready .paper-flight-plane { /* Reveal the plane after positioning it. */
+  visibility: visible; /* Show the plane and its revealed trail together. */
+} /* End the visible airplane state. */
+@media (max-width: 767px) { /* Match the responsive path breakpoint. */
+  .paper-flight-plane { width: 92px; } /* Use a smaller airplane on mobile screens. */
+} /* End the mobile airplane rules. */
+@media (prefers-reduced-motion: reduce) { /* Respect visitors who request less animation. */
+  .paper-flight-route.is-scroll-driven { display: none; } /* Remove decorative motion while keeping the website fully usable. */
+} /* End the reduced-motion rules. */
+.paper-flight-route, .paper-flight-route * { /* Protect pointer pass-through for every present and future decorative child. */
+  pointer-events: none !important; /* Keep buttons, links and scrolling reachable beneath the entire animation. */
+} /* End the non-interactive decoration safeguard. */
+
+/* Customer review form: keep the existing taped cards and add a matching input area. */
+.review-actions, .review-status { max-width: 680px; margin: 20px auto; padding: 0 24px; text-align: center; } /* Center the invitation and readable feedback. */
+.customer-review-form { max-width: 632px; margin: 24px auto; padding: 28px; background: var(--surface-card); border: 1px solid rgba(78,53,36,.18); border-radius: 18px; box-shadow: var(--shadow-flat); } /* Match the bakery's paper surfaces. */
+.customer-review-form h3 { margin-top: 0; font-family: var(--font-display); } /* Give the form a clear heading. */
+.customer-review-form p { line-height: 1.6; color: var(--text-soft); } /* Explain public fields without crowding the inputs. */
+.customer-review-form > label { display: block; margin: 18px 0 8px; font-weight: 600; } /* Associate each visible field with its label. */
+.customer-review-form input:not([type="radio"]), .customer-review-form textarea { width: 100%; min-height: 44px; padding: 12px; border: 1px solid var(--primary-deep); border-radius: 8px; background: white; color: var(--text); font: inherit; font-size: 16px; } /* Make text fields readable and touch-friendly. */
+.customer-review-form textarea { resize: vertical; } /* Allow longer reviews to be edited comfortably. */
+.review-rating { border: 0; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; gap: 8px; } /* Lay out five standard radio choices without custom keyboard behavior. */
+.review-rating legend { margin-bottom: 10px; font-weight: 600; } /* Label the rating group. */
+.review-rating label { display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 8px; border: 1px solid var(--primary-deep); border-radius: 8px; cursor: pointer; } /* Keep every star choice easy to tap. */
+.review-rating label:has(input:checked) { background: var(--accent); color: var(--text); } /* Highlight the selected rating visibly. */
+.review-form-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; } /* Keep controls usable on narrow screens. */
+.review-secondary { font: inherit; padding: 10px 18px; min-height: 44px; background: var(--surface-card); color: var(--text); border: 1px solid var(--primary-deep); border-radius: 24px; cursor: pointer; } /* Style the secondary actions consistently. */
+#reviews-retry, #reviews-more { display: block; margin: 20px auto; } /* Center list controls. */
+.reviews :is(button, input, textarea, .reviews-track):focus-visible { outline: 3px solid var(--primary-deep); outline-offset: 4px; } /* Make keyboard focus easy to see. */
+.reviews button:disabled { opacity: .6; cursor: wait; } /* Show when a request is in progress. */
+.review-quote, .review-name, .review-item { overflow-wrap: anywhere; white-space: pre-wrap; } /* Wrap real customer text without allowing it to break the cards. */
+@media (max-width: 700px) { .customer-review-form { margin: 20px; padding: 20px; } } /* Keep the form inside mobile page margins. */
+
+/* ---- Cart toast: brief confirmation shown after adding an item or placing an order ---- */
+.cart-toast { /* Position the toast so it floats above the page without blocking content. */
+  position: fixed; /* Keep the toast anchored to the viewport regardless of scroll. */
+  top: 18px; /* Sit near the top of the screen, out of the way of the cart FAB. */
+  left: 50%; /* Start centering the toast horizontally. */
+  transform: translate(-50%, -140%); /* Rest the toast just above the visible area until it's triggered. */
+  z-index: 300; /* Sit above the cart FAB (200) and other floating elements. */
+  max-width: calc(100vw - 32px); /* Prevent the toast from overflowing narrow screens. */
+  padding: 12px 20px; /* Set the space inside the toast. */
+  border-radius: var(--border-radius-full); /* Use the site's pill-shaped radius token. */
+  background: var(--text); /* Match the cart FAB's dark fill by default for cart-add confirmations. */
+  color: var(--bg); /* Keep toast text readable against the dark fill. */
+  font-family: var(--font-body); /* Match the site's body typeface instead of the browser default. */
+  font-size: 0.95rem; /* Set a comfortable, compact reading size. */
+  font-weight: 600; /* Make the confirmation text stand out slightly. */
+  box-shadow: var(--shadow-hover); /* Reuse the site's existing elevated-shadow token. */
+  display: flex; /* Lay out the icon and message side by side. */
+  align-items: center; /* Vertically center the icon with the text. */
+  gap: 8px; /* Set the space between the icon and the message text. */
+  pointer-events: none; /* Let clicks pass through so the toast never blocks the page. */
+  opacity: 0; /* Start fully hidden until the toast is shown. */
+  transition: transform 0.4s var(--ease-spring), opacity 0.3s var(--ease-glide); /* Match the site's springy, gliding motion language. */
+} /* End the base toast styling. */
+.cart-toast.is-visible { /* Define the toast's on-screen resting state. */
+  transform: translate(-50%, 0); /* Slide the toast down into full view. */
+  opacity: 1; /* Fade the toast fully into view. */
+} /* End the visible toast state. */
+.cart-toast.is-order-success { /* Give the more significant order-confirmation moment its own distinct look. */
+  background: var(--success); /* Use the site's success-green token instead of the neutral cart-add color. */
+  color: var(--bg); /* Keep the message readable against the green fill. */
+} /* End the order-success toast variant. */
+.cart-toast-icon { /* Style the small icon shown inside the toast. */
+  font-size: 1rem; /* Match the icon size to the surrounding text. */
+  line-height: 1; /* Keep the icon vertically tight against the text. */
+} /* End the toast icon styling. */
+
+@media (max-width: 480px) { /* Adjust the toast for narrow phone screens. */
+  .cart-toast { top: 12px; padding: 10px 16px; font-size: 0.88rem; } /* Shrink spacing slightly to fit smaller screens. */
+} /* End the mobile toast adjustment. */
+
+@media (prefers-reduced-motion: reduce) { /* Respect visitors who request less animation. */
+  .cart-toast { transition: opacity 0.2s ease; transform: translate(-50%, 0); } /* Keep the toast in place and only fade it, instead of sliding it. */
+} /* End the reduced-motion toast override. */
