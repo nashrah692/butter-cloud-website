@@ -1329,6 +1329,20 @@ body { /* Style the elements or animation stage named here. */
   color: var(--text-soft); /* Set the text color. */
 } /* End this set of style rules. */
 
+.order-policy-note { /* Style the Order Policy reminder shown just above the submit button. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  line-height: 1.5; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  text-align: center; /* Set text align for this element. */
+  margin: 0; /* Let the form's own gap handle spacing instead of extra margins. */
+} /* End this set of style rules. */
+
+.order-policy-note a { /* Style the Order Policy link inside that reminder. */
+  color: var(--primary-deep); /* Match the site's link color. */
+  font-weight: 500; /* Make the link easier to spot against the muted note text. */
+} /* End this set of style rules. */
+
 .order-form input[type="text"], /* Continue selecting the elements that share these styles. */
 .order-form input[type="tel"], /* Continue selecting the elements that share these styles. */
 .order-form input[type="date"], /* Continue selecting the elements that share these styles. */
@@ -1633,12 +1647,85 @@ body { /* Style the elements or animation stage named here. */
   color: var(--text-soft); /* Set the text color. */
 } /* End this set of style rules. */
 
+/* ---- Flying add-to-cart photo (Part 1: clone + position only, no motion yet) ---- */
+.flying-cart-photo { /* Style the elements or animation stage named here. */
+  position: fixed; /* Position relative to the viewport so the pixel coordinates set in JS line up exactly with the real photo. */
+  margin: 0; /* Remove default spacing so positioning stays exact. */
+  z-index: 9999; /* Float above the page content, the cart button and the toast, but below the decorative custom cursor. */
+  pointer-events: none; /* Let clicks pass straight through — this clone is purely visual. */
+  overflow: visible; /* Don't clip the cloned photo's drop shadow. */
+  transform-origin: center center; /* Scale and move from the middle throughout, so the clone never drifts off-anchor while popping, shrinking or flying. */
+  --flying-cart-photo-settled-scale: 0.42; /* Share the "shrunk" scale between the pop and flight animations below so it only needs to change in one place. */
+  --fly-x: 0px; /* Final horizontal distance to the cart icon, filled in by JS right before the flight animation starts. */
+  --fly-y: 0px; /* Final vertical distance to the cart icon, filled in by JS right before the flight animation starts. */
+  --fly-x-25: 0px; /* Curve waypoints (25%/50%/75%/90% of the way there), also filled in by JS — defaulting to 0px keeps things sane if a trip is ever too short to bother curving. */
+  --fly-y-25: 0px; /* See --fly-x-25 above. */
+  --fly-x-50: 0px; /* See --fly-x-25 above. */
+  --fly-y-50: 0px; /* See --fly-x-25 above. */
+  --fly-x-75: 0px; /* See --fly-x-25 above. */
+  --fly-y-75: 0px; /* See --fly-x-25 above. */
+  --fly-x-90: 0px; /* See --fly-x-25 above. */
+  --fly-y-90: 0px; /* See --fly-x-25 above. */
+} /* End this set of style rules. */
+
+.flying-cart-photo .menu-item-photo-wrap { /* Style the elements or animation stage named here. */
+  width: 100%; /* Fill the exact box the stage div was given in JS. */
+  height: 100%; /* Fill the exact box the stage div was given in JS. */
+  aspect-ratio: auto; /* The stage div already carries the correct on-screen size, so skip the aspect-ratio calculation the real card uses. */
+} /* End this set of style rules. */
+
+/* ---- Flying add-to-cart photo: pop-then-shrink starting beat (Part 2) ---- */
+@keyframes flying-cart-photo-pop { /* Define the stages of this animation. */
+  0%   { transform: scale(1); } /* Start at the exact size of the real photo. */
+  20%  { transform: scale(1.16); } /* Pop up slightly larger, like the photo is lifting off the page. */
+  45%  { transform: scale(1.04); } /* Settle back a touch, giving the pop a bit of bounce. */
+  100% { transform: scale(var(--flying-cart-photo-settled-scale)); } /* Shrink down to the small size it'll travel toward the cart at. */
+} /* End this set of style rules. */
+
+.flying-cart-photo.is-popping { /* Style the elements or animation stage named here. */
+  animation: flying-cart-photo-pop 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* Play the pop-and-shrink beat once, then hold at its shrunk size ready for the flight animation. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .flying-cart-photo.is-popping { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
+/* ---- Flying add-to-cart photo: curved flight to the cart icon, shrinking away on arrival (Part 4) ---- */
+@keyframes flying-cart-photo-fly { /* Define the stages of this animation. Each stop moves through a JS-calculated waypoint, so the path bows into a curve instead of sliding in a straight line — like the cart is pulling it in rather than the photo just sliding across. */
+  0%   { transform: translate(0, 0) scale(var(--flying-cart-photo-settled-scale)); opacity: 1; } /* Start from wherever the pop-and-shrink beat left the clone. */
+  25%  { transform: translate(var(--fly-x-25), var(--fly-y-25)) scale(var(--flying-cart-photo-settled-scale)); opacity: 1; } /* First step along the curve. */
+  50%  { transform: translate(var(--fly-x-50), var(--fly-y-50)) scale(var(--flying-cart-photo-settled-scale)); opacity: 1; } /* Midpoint of the curve, at its widest bow away from a straight line. */
+  75%  { transform: translate(var(--fly-x-75), var(--fly-y-75)) scale(var(--flying-cart-photo-settled-scale)); opacity: 1; } /* Curve starts bending back in toward the cart icon. */
+  90%  { transform: translate(var(--fly-x-90), var(--fly-y-90)) scale(calc(var(--flying-cart-photo-settled-scale) * 0.5)); opacity: 0.5; } /* Right as it nears the cart, start shrinking and fading away rather than staying full size all the way in. */
+  100% { transform: translate(var(--fly-x), var(--fly-y)) scale(0); opacity: 0; } /* Shrink to nothing and fully fade out exactly as it reaches the cart icon. */
+} /* End this set of style rules. */
+
+.flying-cart-photo.is-flying { /* Style the elements or animation stage named here. */
+  animation: flying-cart-photo-fly 0.6s cubic-bezier(0.5, 0, 0.75, 0) forwards; /* Move at an accelerating pace, like the cart is magnetically pulling the photo in, then hold at fully shrunk/faded once the animation ends. */
+} /* End this set of style rules. */
+
+@media (prefers-reduced-motion: reduce) { /* Apply these rules only on matching devices or motion settings. */
+  .flying-cart-photo.is-flying { /* Style the elements or animation stage named here. */
+    animation: none; /* Run the named visual animation. */
+  } /* End this set of style rules. */
+} /* End this set of style rules. */
+
 .menu-item-name { /* Style the elements or animation stage named here. */
   font-family: var(--font-display); /* Choose the typeface. */
   font-weight: 600; /* Set font weight for this element. */
   font-size: 1.15rem; /* Set the text size. */
   line-height: 1.4; /* Set line height for this element. */
   color: var(--text); /* Set the text color. */
+} /* End this set of style rules. */
+
+.menu-item-description { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  line-height: 1.5; /* Set line height for this element. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: 0; /* Remove default paragraph spacing so it sits close to the item name. */
 } /* End this set of style rules. */
 
 .menu-item-note { /* Style the elements or animation stage named here. */
@@ -2056,6 +2143,83 @@ body { /* Style the elements or animation stage named here. */
   opacity: 0.6; /* Set how visible this element is. */
   margin: 0; /* Set the space outside the element. */
   text-align: center; /* Set text align for this element. */
+} /* End this set of style rules. */
+
+.footer-bottom a { /* Style the Privacy Policy link inside the footer copyright line. */
+  color: inherit; /* Match the surrounding copyright text instead of default link blue. */
+  text-decoration: underline; /* Keep it visibly tappable even at reduced opacity. */
+} /* End this set of style rules. */
+
+.footer-bottom a:hover, /* Continue selecting the elements that share these styles. */
+.footer-bottom a:focus-visible { /* Style the elements or animation stage named here. */
+  color: var(--accent); /* Highlight the link on hover/focus. */
+} /* End this set of style rules. */
+
+/* ============================================
+   Legal Pages (Privacy Policy, Order Policy)
+   ============================================ */
+.legal-page { /* Style the shared content wrapper used by standalone legal pages. */
+  max-width: 720px; /* Keep policy text at a comfortable reading width. */
+  margin: 0 auto; /* Center the content column. */
+  padding: var(--space-12) var(--space-6) var(--space-24); /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.legal-back-link { /* Style the "back to home" link at the top of a legal page. */
+  display: inline-flex; /* Choose how this element is laid out. */
+  align-items: center; /* Set align items for this element. */
+  gap: 6px; /* Set gap for this element. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-weight: 500; /* Set font weight for this element. */
+  font-size: 0.9rem; /* Set the text size. */
+  color: var(--primary-deep); /* Set the text color. */
+  text-decoration: none; /* Set text decoration for this element. */
+  margin-bottom: var(--space-6); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.legal-back-link:hover { /* Style the elements or animation stage named here. */
+  text-decoration: underline; /* Set text decoration for this element. */
+} /* End this set of style rules. */
+
+.legal-page h1 { /* Style the main heading of a legal page. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: clamp(1.9rem, 4vw, 2.6rem); /* Set the text size. */
+  line-height: 1.3; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 var(--space-2); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.legal-updated { /* Style the small "last updated" date line. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 0.85rem; /* Set the text size. */
+  color: var(--text-soft); /* Set the text color. */
+  margin: 0 0 var(--space-8); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.legal-page h2 { /* Style each policy subheading. */
+  font-family: var(--font-display); /* Choose the typeface. */
+  font-weight: 600; /* Set font weight for this element. */
+  font-size: 1.3rem; /* Set the text size. */
+  color: var(--text); /* Set the text color. */
+  margin: var(--space-8) 0 var(--space-2); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.legal-page p, /* Continue selecting the elements that share these styles. */
+.legal-page li { /* Style the elements or animation stage named here. */
+  font-family: var(--font-body); /* Choose the typeface. */
+  font-size: 1rem; /* Set the text size. */
+  line-height: 1.65; /* Set line height for this element. */
+  color: var(--text); /* Set the text color. */
+  margin: 0 0 var(--space-4); /* Set the space outside the element. */
+} /* End this set of style rules. */
+
+.legal-page ul { /* Style the bullet lists inside policy pages. */
+  margin: 0 0 var(--space-4); /* Set the space outside the element. */
+  padding-left: 1.2em; /* Set the space inside the element. */
+} /* End this set of style rules. */
+
+.legal-page a { /* Style inline links inside policy text. */
+  color: var(--primary-deep); /* Set the text color. */
 } /* End this set of style rules. */
 
 @media (max-width: 700px) { /* Apply these rules only on matching devices or motion settings. */
@@ -3030,6 +3194,194 @@ html.product-view-open body { /* Style the elements or animation stage named her
 .reviews button:disabled { opacity: .6; cursor: wait; } /* Show when a request is in progress. */
 .review-quote, .review-name, .review-item { overflow-wrap: anywhere; white-space: pre-wrap; } /* Wrap real customer text without allowing it to break the cards. */
 @media (max-width: 700px) { .customer-review-form { margin: 20px; padding: 20px; } } /* Keep the form inside mobile page margins. */
+
+/* ---- Receipt modal: Part 1 static paper design; Part 4 adds the open/close animation below. ---- */
+.receipt-modal { /* Keep the native dialog outside the smooth-scroll wrappers. */
+  width: min(460px, calc(100% - 32px)); /* Center a narrow receipt with breathing room on phones. */
+  max-width: none; /* Let the explicit responsive width control the paper size. */
+  max-height: calc(100vh - 32px); /* Provide a height limit in browsers without dynamic viewport units. */
+  max-height: calc(100dvh - 32px); /* Keep the paper inside the visible mobile viewport. */
+  margin: auto; /* Center the native modal in the viewport. */
+  padding: 0; /* Let the printer graphic and paper own their own spacing. */
+  border: none; /* Remove the dialog's default border; the paper itself carries the edge now. */
+  border-radius: 0; /* Let the printer and paper define their own shapes instead of a boxed dialog. */
+  background: transparent; /* Keep the dialog itself invisible so only the printer and paper show. */
+  color: var(--text); /* Match the site's warm brand text color instead of plain black. */
+  box-shadow: none; /* Move all shadow onto the paper itself so the dialog box stays invisible. */
+  overflow: visible; /* Let doodles and the printer sit outside the scrollable paper without being clipped. */
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace; /* Use a crisp receipt typeface for the tabular parts. */
+  font-size: 12px; /* Keep the printed-receipt proportions readable. */
+  line-height: 1.6; /* Separate tightly arranged lines for comfortable reading. */
+  font-variant-numeric: tabular-nums; /* Align the digits in price columns. */
+  color-scheme: light; /* Preserve the light paper even when the device uses dark mode. */
+} /* Do not add a display rule: the browser keeps an unopened dialog hidden. */
+.receipt-modal::backdrop { /* Style the native full-page overlay behind the receipt. */
+  background: rgb(20 20 20 / 35%); /* Dim the current page gently while keeping it recognizable. */
+  cursor: default; /* Keep the pointer visible over the overlay. */
+} /* End the receipt backdrop. */
+
+.receipt-modal, .receipt-modal * { cursor: auto !important; } /* Restore a normal pointer inside the top-layer dialog, above the custom cloud cursor. */
+.receipt-modal .cursor-sparkle { display: none; } /* Keep existing pointer sparkles off the minimal receipt paper. */
+
+/* The paper scrolls on its own inside the dialog, so the printer graphic and doodles around it never move or get clipped. */
+.receipt-scroll { /* Wrap only the printed card in a scrollable box. */
+  max-height: calc(100vh - 32px); /* Keep the paper within the viewport in browsers without dynamic units. */
+  max-height: calc(100dvh - 32px); /* Prefer the dynamic viewport height on supporting mobile browsers. */
+  overflow-x: hidden; /* Keep the paper free of sideways scrolling. */
+  overflow-y: auto; /* Allow a tall receipt to scroll on shorter screens. */
+  overscroll-behavior: contain; /* Keep paper scrolling from chaining into the page behind it. */
+} /* End the scrollable paper wrapper. */
+
+/* A small thermal-printer graphic the paper appears to feed out from, echoing the printer reference image.
+   The housing is the same width as the paper (real receipt printers are exactly as wide as their paper), sits
+   flush on top with no rounded lip at the seam, and the paper tucks well up behind it — so a later part can
+   animate the card sliding down from underneath the housing without any restructuring. */
+.receipt-printer { /* Sit directly on top of the paper's straight top edge, spanning its full width. */
+  position: relative; /* Keep the slot and shadow positioned against this bar. */
+  z-index: 2; /* Layer the printer above the paper's top edge. */
+  width: 100%; /* Match the paper's own width, like a real thermal printer's output slot. */
+  height: 26px; /* Give the printer body a slim, compact profile. */
+  border-radius: 8px 8px 0 0; /* Round only the top corners; the bottom stays flush and square against the paper. */
+  background: linear-gradient(180deg, #eef0f2 0%, #cfd3d8 55%, #b7bcc3 100%); /* Give the housing a brushed-metal gradient. */
+  box-shadow: 0 6px 10px -4px rgb(0 0 0 / 35%); /* Cast the housing's own shadow down onto the paper feeding out beneath it. */
+} /* End the printer housing. */
+.receipt-printer-slot { /* Draw the dark slot the paper feeds out of. */
+  position: absolute; /* Place the slot within the printer housing. */
+  left: 50%; /* Center the slot horizontally. */
+  bottom: 5px; /* Sit the slot near the base of the housing, right above the paper. */
+  transform: translateX(-50%); /* Keep the slot centered regardless of its width. */
+  width: calc(100% - 32px); /* Keep the slot narrower than the housing around it. */
+  height: 6px; /* Give the slot a thin, believable opening. */
+  border-radius: 3px; /* Soften the slot's corners. */
+  background: #2b2e33; /* Make the opening read as a dark gap. */
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 60%); /* Add depth so the slot looks recessed. */
+} /* End the printer slot. */
+
+.receipt-card { /* Style the paper itself, fed out from directly beneath the printer housing. */
+  position: relative; /* Keep the paper above and behind other elements in a predictable order. */
+  z-index: 1; /* Sit the paper's top edge just behind the printer housing. */
+  margin-top: -18px; /* Pull the paper's blank top margin well up behind the housing, closing the gap completely. */
+  padding: 34px 32px 26px; /* Provide even paper margins around all receipt content. */
+  background: var(--surface-card); /* Use the site's own warm paper tone instead of stark white. */
+  border: 1px solid #e7e0cf; /* Give the paper a soft, warm edge instead of a stark line. */
+  border-top: none; /* Remove the top edge so the paper reads as continuous with the printer slot. */
+  border-radius: 0 0 2px 2px; /* Keep the top corners square under the printer, matching a torn sheet. */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 93.75% calc(100% - 7px), 87.5% 100%, 81.25% calc(100% - 7px), 75% 100%, 68.75% calc(100% - 7px), 62.5% 100%, 56.25% calc(100% - 7px), 50% 100%, 43.75% calc(100% - 7px), 37.5% 100%, 31.25% calc(100% - 7px), 25% 100%, 18.75% calc(100% - 7px), 12.5% 100%, 6.25% calc(100% - 7px), 0% 100%); /* Cut a jagged, torn-off bottom edge like a real receipt strip. */
+  filter: drop-shadow(0 16px 28px rgb(61 45 46 / 18%)); /* Cast a soft shadow that follows the jagged paper outline, since box-shadow can't follow a clip-path. */
+} /* End the paper card. */
+
+/* Small decorative doodle placed only in the empty space around the paper, never on top of the printed columns. */
+.receipt-doodle { /* Share base positioning for every doodle. */
+  position: absolute; /* Float each doodle relative to the dialog, outside the scrollable paper. */
+  z-index: 3; /* Keep doodles above both the printer and the paper. */
+  pointer-events: none; /* Keep doodles purely decorative. */
+  filter: drop-shadow(0 4px 8px rgb(61 45 46 / 16%)); /* Lift each doodle gently off the page behind it. */
+} /* End the shared doodle styling. */
+.receipt-doodle-heart { width: 22px; height: 22px; } /* Size the small heart doodle. */
+.receipt-doodle-heart { bottom: 18px; left: -20px; fill: var(--error); transform: rotate(-14deg); } /* Tuck a small heart beside the paper's lower-left edge. */
+
+/* The visible close control, placed beside the printer housing so it stays clear of both the doodles and the printed columns. */
+.receipt-close { /* Style the round close button pinned to the printer's top-right corner. */
+  position: absolute; /* Float the button relative to the dialog, like the doodles and printer. */
+  z-index: 5; /* Keep the close button above the printer, paper and every doodle. */
+  top: -8px; /* Perch the button just above the printer housing's top edge. */
+  right: -8px; /* Perch the button just past the printer housing's right edge. */
+  width: 32px; /* Give the button a comfortable, tappable size. */
+  height: 32px; /* Keep the button perfectly round. */
+  padding: 0; /* Remove default button padding so the × sits centered. */
+  display: flex; /* Center the × glyph both ways. */
+  align-items: center; /* Center the × glyph vertically. */
+  justify-content: center; /* Center the × glyph horizontally. */
+  border: none; /* Remove the default button border. */
+  border-radius: 50%; /* Match the round close buttons used elsewhere on the site. */
+  background: var(--surface-card); /* Use the site's own paper tone so the button reads as part of the design. */
+  color: var(--text); /* Keep the × in the site's main text color. */
+  font-size: 1.3rem; /* Size the × glyph clearly without enlarging the button. */
+  line-height: 1; /* Keep the glyph vertically centered. */
+  box-shadow: 0 4px 10px rgb(61 45 46 / 25%); /* Lift the button slightly above the printer and paper beneath it. */
+} /* End the close button. */
+.receipt-close:focus-visible { outline: 2px solid var(--primary-deep); outline-offset: 3px; } /* Match the site's existing keyboard-focus styling on other dialogs. */
+
+.receipt-letterhead { text-align: center; } /* Center the letterhead like the reference. */
+.receipt-brand { margin: 0; font-size: clamp(28px, 8vw, 34px); line-height: 1.15; } /* Keep the brand prominent at desktop and mobile widths. */
+.receipt-brand-word { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.5px; } /* Give the wordmark the site's own bold display typeface. */
+.receipt-brand-word-a { color: var(--primary-deep); } /* Color the first half of the name in the brand's deep blue. */
+.receipt-brand-word-b { color: var(--accent); } /* Color the second half of the name in the brand's warm gold, echoing the two-tone reference logo. */
+.receipt-tagline { margin: 8px 0 24px; font-size: 10px; color: var(--text-soft); } /* Place the bakery tagline directly beneath the wordmark in a softer tone. */
+.receipt-title { margin: 0 0 20px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--primary-deep); } /* Tint the receipt heading with the brand's deep blue. */
+.receipt-title:focus-visible { outline: 2px solid var(--primary-deep); outline-offset: 4px; border-radius: 2px; } /* Show a clear focus ring on the heading, since script.js sends keyboard/assistive-tech focus there first when the receipt opens. */
+.receipt-summary-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } /* Keep this description available to screen readers without duplicating visible text on the printed paper. */
+.receipt-meta { margin: 0; padding: 16px 0; border-top: 2px solid var(--primary); border-bottom: 2px solid var(--primary); } /* Separate order information with colored rules instead of plain grey. */
+.receipt-meta > div, .receipt-totals > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; } /* Pair labels with right-aligned values. */
+.receipt-meta > div + div { margin-top: 4px; } /* Add a small gap between the reference and date. */
+.receipt-meta dt, .receipt-totals dt { font-weight: 400; color: var(--text-soft); } /* Keep ordinary labels soft and light. */
+.receipt-meta dd, .receipt-totals dd { margin: 0; text-align: right; overflow-wrap: anywhere; } /* Remove definition-list indentation and wrap long values safely. */
+.receipt-items { width: 100%; border-collapse: collapse; table-layout: fixed; } /* Fit the complete item table within the paper. */
+.receipt-items caption { padding: 19px 0 10px; text-align: left; font-size: 10px; color: var(--text-soft); } /* Add a small currency label above the column headings. */
+.receipt-col-item { width: 42%; } /* Give item names and sizes the largest column, leaving a little extra room for the three numeric columns below. */
+.receipt-col-qty { width: 12%; } /* Reserve a compact but comfortable quantity column. */
+.receipt-col-price { width: 22%; } /* Fit unit prices without repeated currency symbols. */
+.receipt-col-amount { width: 24%; } /* Give line totals slightly more room. */
+.receipt-items th, .receipt-items td { padding: 12px 0; vertical-align: top; text-align: right; overflow-wrap: anywhere; word-break: break-word; } /* Align numeric entries and let exceptionally long content wrap without overflowing its column. */
+.receipt-items th:first-child { padding-right: 8px; text-align: left; } /* Separate descriptive text from the numeric columns. */
+.receipt-items thead th { padding-top: 0; padding-bottom: 9px; border-bottom: 2px solid var(--primary); font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--primary-deep); } /* Use a colored rule and tinted labels over the items. */
+.receipt-items tbody tr { border-bottom: 1px dashed #d8cfae; } /* Divide each sample line with a warm dashed hairline instead of solid grey. */
+.receipt-items tbody th { font-weight: 400; } /* Keep names as light as the other receipt text. */
+.receipt-item-size { display: block; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--text-soft); } /* Show each item's size beneath its name in a softer tone, close enough to read as one unit without crowding the row below. */
+.receipt-totals { margin: 0; padding-top: 16px; } /* Align the totals section with the table's outer edges. */
+.receipt-totals .receipt-total-row { margin-top: 13px; padding: 10px 12px; border-top: none; border-radius: var(--border-radius-sm); background: var(--accent); font-size: 16px; } /* Highlight the final total with a warm accent block instead of a plain rule. */
+.receipt-total-row dt, .receipt-total-row dd { font-weight: 700; color: var(--text); } /* Emphasize both the total label and amount. */
+.receipt-footer { margin-top: 26px; text-align: center; font-size: 10px; color: var(--text-soft); } /* Add a quiet closing line at the bottom of the receipt. */
+.receipt-footer p { margin: 0; } /* Remove default footer paragraph spacing. */
+.receipt-thankyou { margin-bottom: 6px; font-family: var(--font-script); font-size: 20px; color: var(--error); } /* Echo the reference's handwritten-style "Thank you!" in the brand's script font. */
+.receipt-footer .receipt-preview-note { margin-top: 8px; font-size: 9px; } /* Keep the dummy-data notice visible without competing with the total. */
+
+/* The download button lives on the paper for easy reach, but is excluded from the captured image itself
+   (see script.js's use of html2canvas's ignoreElements) so the saved receipt shows only the printed content. */
+.receipt-download { /* Style the button that saves the receipt as an image. */
+  display: flex; /* Center the icon and label together. */
+  align-items: center; /* Vertically align the icon with the label text. */
+  justify-content: center; /* Center the button's contents horizontally. */
+  gap: 8px; /* Set the space between the icon and the label. */
+  width: 100%; /* Give the button a comfortable, full-width tap target on the narrow paper. */
+  min-height: 44px; /* Keep the button comfortably tappable on phones. */
+  margin-top: 22px; /* Separate the button from the footer note above it. */
+  padding: 11px 16px; /* Set the space inside the button. */
+  border: 1px solid var(--primary-deep); /* Give the button a defined edge like the site's other secondary actions. */
+  border-radius: var(--border-radius-full); /* Match the pill shape used by buttons elsewhere on the site. */
+  background: var(--surface-card); /* Keep the button in the paper's own tone rather than introducing a new color. */
+  color: var(--primary-deep); /* Tint the label and icon with the brand's deep blue. */
+  font: 600 11px var(--font-body); /* Use the site's own body typeface instead of the receipt's monospace type. */
+  letter-spacing: 0.4px; /* Give the compact label a little extra breathing room. */
+  text-transform: uppercase; /* Match the uppercase treatment used by the receipt's own headings. */
+  cursor: pointer; /* Show a normal pointer since .receipt-modal * already overrides the site's custom cursor. */
+  transition: background 0.2s var(--ease-glide), transform 0.2s var(--ease-glide); /* Match the site's standard hover motion language. */
+} /* End the download button. */
+.receipt-download:hover { background: var(--accent); } /* Give the button a warm hover state, echoing the site's other secondary buttons. */
+.receipt-download:active { transform: scale(0.97); } /* Give the button a light press feedback on tap. */
+.receipt-download:focus-visible { outline: 2px solid var(--primary-deep); outline-offset: 3px; } /* Match the site's existing keyboard-focus styling on other receipt controls. */
+.receipt-download:disabled { opacity: 0.65; cursor: wait; } /* Show plainly that a download is in progress. */
+.receipt-download-icon { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } /* Draw the arrow icon in the button's own text color. */
+/* While script.js captures the paper as an image, this class briefly turns off the paper's drop-shadow so the
+   saved picture ends in a crisp, clean edge instead of a shadow that gets sliced off partway through. */
+.receipt-card.is-capturing { filter: none; } /* Remove the shadow only for the moment the screenshot is taken. */
+@media (max-width: 480px) { /* Adjust paper spacing for phone screens. */
+  .receipt-card { padding: 30px 18px 20px; } /* Keep all four table columns visible at narrow widths. */
+  .receipt-modal { font-size: 11px; } /* Keep names and amounts readable within the smaller card. */
+  .receipt-items thead th { font-size: 9px; } /* Fit the compact table headings on small phones. */
+  .receipt-doodle-heart { left: -10px; } /* Keep the heart doodle from spilling off narrow screens. */
+} /* End the receipt's mobile adjustments. */
+@media (max-width: 360px) { /* Give the very smallest phone screens (down to 320px wide) their own tighter column split. */
+  .receipt-card { padding: 26px 14px 18px; } /* Reclaim a little extra horizontal room on the narrowest paper. */
+  .receipt-col-item { width: 40%; } /* Shrink the item column slightly to make more room for the numeric columns beside it. */
+  .receipt-col-qty { width: 11%; } /* Keep the quantity column just wide enough for a two-digit count. */
+  .receipt-col-price { width: 23%; } /* Give unit prices a touch more breathing room than the item column can spare. */
+  .receipt-col-amount { width: 26%; } /* Give line totals the most room, since they're usually the largest numbers on the row. */
+  .receipt-items th, .receipt-items td { padding: 10px 0; } /* Tighten row spacing slightly so more of a long order fits without excess scrolling. */
+} /* End the smallest-phone adjustments. */
+@media (prefers-reduced-motion: reduce) { /* Follow the site's existing reduced-motion preference. */
+  .receipt-modal, .receipt-modal::backdrop, .receipt-modal * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } /* Keep the receipt and its overlay completely still. */
+} /* End the receipt's reduced-motion styling. */
 
 /* ---- Cart toast: brief confirmation shown after adding an item or placing an order ---- */
 .cart-toast { /* Position the toast so it floats above the page without blocking content. */

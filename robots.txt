@@ -1,0 +1,7 @@
+# robots.txt for butttercloud — tells search engine crawlers what they may visit.
+
+User-agent: * # Apply these rules to every search engine crawler.
+Allow: / # Allow the whole website to be crawled and indexed.
+Disallow: /.netlify/functions/ # Keep the reviews API endpoint out of search results; it returns data, not a readable page.
+
+Sitemap: https://butttercloud.netlify.app/sitemap.xml # Point crawlers at the full list of pages on this site.

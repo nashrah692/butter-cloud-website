@@ -1,4 +1,8 @@
 const scrollMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)'); // Store scroll motion preference for this part of the page.
+function listenToMediaQuery(query, callback) { // Attach a media-query listener in both modern and older mobile Safari.
+  if (typeof query.addEventListener === 'function') query.addEventListener('change', callback); // Use the current MediaQueryList API when available.
+  else if (typeof query.addListener === 'function') query.addListener(callback); // Fall back to the legacy API used by older iOS browsers.
+} // Finish the mobile-compatible media-query listener helper.
 let lenis = null; // Keep track of lenis for this part of the page.
 let lenisFrame = null; // Keep track of lenis frame for this part of the page.
 function configureSmoothScroll() { // Set up smooth page scrolling while respecting reduced motion.
@@ -15,7 +19,7 @@ function configureSmoothScroll() { // Set up smooth page scrolling while respect
     touchMultiplier: 2, // Set the touch multiplier value.
     syncTouch: false // Set the sync touch value.
   }); // Finish and connect this callback or setup block.
-  if (document.querySelector('#cart-panel:not([hidden]), #product-viewer[open]')) lenis.stop(); // Continue only when the condition in brackets is met.
+  if (document.querySelector('#cart-panel:not([hidden]), #product-viewer[open], #receipt-modal[open]')) lenis.stop(); // Continue only when the condition in brackets is met.
   function animateScroll(time) { // Update smooth scrolling for the next screen refresh.
     lenis.raf(time); // Continue the current calculation, element setup or callback.
     lenisFrame = requestAnimationFrame(animateScroll); // Update on the next screen refresh for smooth movement.
@@ -23,7 +27,7 @@ function configureSmoothScroll() { // Set up smooth page scrolling while respect
   lenisFrame = requestAnimationFrame(animateScroll); // Update on the next screen refresh for smooth movement.
 } // Finish this block or collection.
 configureSmoothScroll(); // Set up smooth page scrolling while respecting reduced motion.
-scrollMotionPreference.addEventListener('change', configureSmoothScroll); // Respond when this value or device preference changes.
+listenToMediaQuery(scrollMotionPreference, configureSmoothScroll); // Respond when this value or device preference changes.
 document.addEventListener('click', event => { // Respond when this control is clicked.
   const anchor = event.target.closest('a[href^="#"]'); // Store anchor for this part of the page.
   if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || anchor.hasAttribute('download') || anchor.target && anchor.target !== '_self') return; // Continue only when the condition in brackets is met.
@@ -98,6 +102,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
     type: "cake", // Set the type value.
     items: [{ // Set the items value.
       name: "Lotus Three Milk Cake", // Set the name value.
+      description: "Three milks deep, Lotus crunch on top. This one doesn't play fair.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/lotus-three-milk-cake-hero.webp", "photos/lotus-three-milk-cake-top-down.webp", "photos/lotus-three-milk-cake-close-up.webp", "photos/lotus-three-milk-cake-slice.webp"], // Set the images value.
       sizePricing: { // Set the size pricing value.
         "Bento": 659, // Provide this text or value to the surrounding code.
@@ -107,6 +112,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
       } // Finish this block or collection.
     }, { // Continue the current calculation, element setup or callback.
       name: "Chocolate Three Milk Cake", // Set the name value.
+      description: "Deep, dark, and soaked through. Chocolate does tres leches better than you'd expect.", // Add a short natural-language description for on-page content and richer product info.
       images: [], // Set the images value.
       sizePricing: { // Set the size pricing value.
         "Bento": 579, // Provide this text or value to the surrounding code.
@@ -116,6 +122,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
       } // Finish this block or collection.
     }, { // Continue the current calculation, element setup or callback.
       name: "Pineapple Cake", // Set the name value.
+      description: "Light, fruity, and stupidly refreshing. The cake equivalent of good weather.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/pineapple-cake-hero.webp", "photos/pineapple-cake-top-down.webp", "photos/pineapple-cake-close-up.webp", "photos/pineapple-cake-slice.webp"], // Set the images value.
       sizePricing: { // Set the size pricing value.
         "Bento": 499, // Provide this text or value to the surrounding code.
@@ -125,6 +132,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
       } // Finish this block or collection.
     }, { // Continue the current calculation, element setup or callback.
       name: "Chocolate Chip Cake", // Set the name value.
+      description: "Classic vanilla base, loaded with chocolate chips in every slice. No notes needed.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/chocolate-chip-cake-hero.webp", "photos/chocolate-chip-cake-top-down.webp", "photos/chocolate-chip-cake-close-up.webp", "photos/chocolate-chip-cake-slice.webp"], // Set the images value.
       sizePricing: { // Set the size pricing value.
         "Bento": 469, // Provide this text or value to the surrounding code.
@@ -134,6 +142,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
       } // Finish this block or collection.
     }, { // Continue the current calculation, element setup or callback.
       name: "Fudge Cake", // Set the name value.
+      description: "Dense, rich, fudgy. This one's for the serious chocolate people.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/fudge-cake-hero.webp", "photos/fudge-cake-top-down.webp", "photos/fudge-cake-close-up.webp", "photos/fudge-cake-slice.webp"], // Set the images value.
       sizePricing: { // Set the size pricing value.
         "Bento": 839, // Provide this text or value to the surrounding code.
@@ -151,6 +160,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
     note: "3×3 inches each · order 6 or more", // Set the note value.
     items: [{ // Set the items value.
       name: "Chocolate Brownies", // Set the name value.
+      description: "Dense, rich, and gone before you know it. Sold in batches for a reason.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/chocolate-brownies-hero.webp", "photos/chocolate-brownies-top-down.webp", "photos/chocolate-brownies-bite.webp"] // Set the images value.
     }] // Finish this block or collection.
   }, // Finish this block or collection.
@@ -161,10 +171,12 @@ const MENU_DATA = { // Store menu data for this part of the page.
     note: "order 4 or more", // Set the note value.
     items: [{ // Set the items value.
       name: "Lotus Cookies", // Set the name value.
+      description: "Your favorite biscuit spread, reimagined as a cookie. Trouble in the best way.", // Add a short natural-language description for on-page content and richer product info.
       unitPrice: 249, // Set the unit price value.
       images: ["photos/lotus-cookies-hero.webp", "photos/lotus-cookies-top-down.webp", "photos/lotus-cookies-close-up.webp", "photos/lotus-cookies-bite.webp"] // Set the images value.
     }, { // Continue the current calculation, element setup or callback.
       name: "Chocolate Chip Cookies", // Set the name value.
+      description: "Bakery-style, chewy in the middle, loaded with chips. The one you'll keep reordering.", // Add a short natural-language description for on-page content and richer product info.
       unitPrice: 169, // Set the unit price value.
       images: ["photos/chocolate-cookies-hero.webp", "photos/chocolate-cookies-top-down.webp", "photos/chocolate-cookies-bite.webp"] // Set the images value.
     }] // Finish this block or collection.
@@ -177,6 +189,7 @@ const MENU_DATA = { // Store menu data for this part of the page.
     note: "order 15 or more", // Set the note value.
     items: [{ // Set the items value.
       name: "Butter Biscuits", // Set the name value.
+      description: "Light, crisp, and dangerously moreish. Great with chai.", // Add a short natural-language description for on-page content and richer product info.
       images: ["photos/butter-biscuits-hero.webp", "photos/butter-biscuits-close-up.webp", "photos/butter-biscuits-top-down.webp"] // Set the images value.
     }] // Finish this block or collection.
   } // Finish this block or collection.
@@ -206,6 +219,147 @@ function cartLineTotal(line) { // Calculate the total for one cart item.
 function cartTotal() { // Calculate the total price of all cart items.
   return cart.reduce((sum, line) => sum + cartLineTotal(line), 0); // Send this result back to the code that called this function.
 } // Finish this block or collection.
+/* ---- Flying add-to-cart photo (Part 1: clone the clicked photo and float it in place — no motion or cart targeting yet). ---- */
+function spawnFlyingItemPhoto(card) { // Clone the given menu card's photo (or placeholder icon) and float it exactly on top of the original, ready for later parts to animate.
+  if (!card) return null; // Bail out if we weren't given a card to read a photo from.
+  const sourcePhoto = card.querySelector('.menu-item-photo-wrap'); // Store source photo for this part of the page — this single selector covers both real photos and the "coming soon" placeholder, since both use this wrap class.
+  if (!sourcePhoto) return null; // Bail out if this card somehow has no photo area at all.
+  const rect = sourcePhoto.getBoundingClientRect(); // Read the photo's exact current position and size on screen.
+  if (!rect.width || !rect.height) return null; // Skip floating a clone if the source has no visible size (e.g. hidden behind another tab).
+
+  const clone = sourcePhoto.cloneNode(true); // Copy the photo (or placeholder) exactly as it currently looks, including whichever image or icon is showing.
+  clone.removeAttribute('id'); // Drop any id so we never end up with two elements sharing one id.
+  clone.removeAttribute('aria-label'); // Strip interactive labelling — this clone is purely decorative.
+  clone.removeAttribute('aria-haspopup'); // Strip interactive semantics carried over from the real photo button.
+  clone.setAttribute('aria-hidden', 'true'); // Hide the floating clone from screen readers.
+  clone.tabIndex = -1; // Keep the clone out of the keyboard tab order.
+  if (clone.tagName === 'BUTTON') clone.disabled = true; // If the source was a clickable photo button, make sure the clone can never actually be clicked.
+
+  const flyer = document.createElement('div'); // Store flyer for this part of the page — a fixed-position stage that holds the clone at the exact spot the real photo sits.
+  flyer.className = 'flying-cart-photo'; // Update flyer class name so styles.css can position and layer it correctly.
+  flyer.style.top = rect.top + 'px'; // Line the clone up with the real photo's current top edge on screen.
+  flyer.style.left = rect.left + 'px'; // Line the clone up with the real photo's current left edge on screen.
+  flyer.style.width = rect.width + 'px'; // Match the real photo's current on-screen width.
+  flyer.style.height = rect.height + 'px'; // Match the real photo's current on-screen height.
+  flyer.appendChild(clone); // Put the cloned photo inside the positioned stage.
+  document.body.appendChild(flyer); // Float the clone above everything else on the page.
+
+  return flyer; // Send the floating element back so the caller can animate or remove it. (Part 2 will add the pop + flight animation; Part 3 will add cart targeting.)
+} // Finish this block or collection.
+
+/* ---- Flying add-to-cart photo (Part 2: play the "pop then shrink" starting beat on a floating clone). ---- */
+function playFlyingPhotoPop(flyer, onSettled) { // Play the pop-and-shrink beat on a floating photo clone, then hand it back once it's settled at its smaller size.
+  if (!flyer) return; // Nothing to animate if a clone wasn't created.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; // Check the visitor's motion preference the same way the rest of the site does.
+  if (reducedMotion) { // Continue only when the condition in brackets is met.
+    if (typeof onSettled === 'function') onSettled(flyer); // Skip straight to "settled" with no motion for reduced-motion visitors.
+    return; // Stop here — no animation to play.
+  } // Finish this block or collection.
+  let settled = false; // Guard against ever handing the clone back twice — see the safety-net timer below.
+  const settle = () => { // Define how to hand the popped-and-shrunk clone back to the caller, but only the first time this runs.
+    if (settled) return; // Continue only when the condition in brackets is met.
+    settled = true; // Update settled.
+    if (typeof onSettled === 'function') onSettled(flyer); // Hand the now-shrunk clone back to the caller.
+  }; // Finish this block or collection.
+  flyer.classList.add('is-popping'); // Kick off the pop-then-shrink keyframe animation defined in styles.css.
+  flyer.addEventListener('animationend', settle, { once: true }); // Respond once the pop-and-shrink animation finishes playing.
+  setTimeout(settle, 550); // Safety net: if 'animationend' is ever missed (e.g. the tab was backgrounded and animations paused), move on anyway rather than leaving this clone stuck mid-sequence — matters most when someone is clicking rapidly.
+} // Finish this block or collection.
+
+/* ---- Flying add-to-cart photo (Part 3: calculate the path to the cart icon and translate the clone toward it). ---- */
+function getCartFabCenter() { // Find the exact on-screen center point of the cart icon — the flight animation's destination.
+  const cartFab = document.getElementById('cart-fab'); // Store cart fab for this part of the page.
+  if (!cartFab) return null; // Bail out if the cart icon isn't on the page for some reason.
+  const rect = cartFab.getBoundingClientRect(); // Read the cart icon's exact position and size on screen, at this moment.
+  if (!rect.width || !rect.height) return null; // Skip if the cart icon has no visible size right now (e.g. hidden by a responsive layout change).
+  return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }; // Send back the icon's center point.
+} // Finish this block or collection.
+
+/* ---- Flying add-to-cart photo (Part 4: bow the straight-line path into a curve). ---- */
+function computeCurvedFlightWaypoints(dx, dy) { // Work out a few points along a curved path from the clone's start to the cart icon, so the flight reads as being pulled in rather than sliding flat.
+  const distance = Math.hypot(dx, dy); // Measure the straight-line distance being covered.
+  if (!distance) return null; // Nothing to curve if the start and end points are the same spot.
+  const dirX = dx / distance; // Store dir x for this part of the page — the straight-line direction, x component.
+  const dirY = dy / distance; // Store dir y for this part of the page — the straight-line direction, y component.
+  let perpX = -dirY; // Rotate the straight-line direction 90° to find the line the curve will bow out along...
+  let perpY = dirX; // ...giving a direction perpendicular to the direct path.
+  if (perpY > 0) { perpX = -perpX; perpY = -perpY; } // Always bow the curve upward on screen (whichever corner the cart icon is in), so the motion reads consistently as one arc rather than sometimes dipping down.
+  const bow = Math.min(distance * 0.3, 170); // Scale how far the path bows out with the trip length, capped so very long trips don't look exaggerated.
+  const controlX = dx / 2 + perpX * bow; // Store control x for this part of the page — the curve's control point, offset out from the straight path's midpoint.
+  const controlY = dy / 2 + perpY * bow; // Store control y for this part of the page — the curve's control point, offset out from the straight path's midpoint.
+  const pointAt = t => { // Define how to work out where the clone should be at a given point in the trip (0 = just launched, 1 = arrived).
+    const inv = 1 - t; // Store inv for this part of the page.
+    return { x: 2 * inv * t * controlX + t * t * dx, y: 2 * inv * t * controlY + t * t * dy }; // Quadratic Bézier point — blends the control point and the destination as t goes from 0 to 1, tracing a curve instead of a straight line.
+  }; // Finish this block or collection.
+  return { p25: pointAt(0.25), p50: pointAt(0.5), p75: pointAt(0.75), p90: pointAt(0.9) }; // Send back a handful of waypoints along the curve for the CSS keyframes to move through.
+} // Finish this block or collection.
+
+function playFlyingPhotoFlight(flyer, onArrived) { // Move an already-popped, shrunk photo clone from where it's sitting over to the cart icon along a curved path, shrinking away as it lands.
+  if (!flyer) return; // Nothing to move if there's no clone.
+  const cartCenter = getCartFabCenter(); // Find where the clone needs to end up, measured right now.
+  if (!cartCenter) { // Continue only when the condition in brackets is met.
+    if (typeof onArrived === 'function') onArrived(flyer); // If the cart icon can't be found, skip straight to "arrived" so the caller can still clean up.
+    return; // Stop here — nothing to animate toward.
+  } // Finish this block or collection.
+
+  // Read back the clone's own starting position, exactly as set when it was spawned in Part 1 — this stays reliable even though
+  // the pop-and-shrink animation has since applied a scale() transform on top of it (getBoundingClientRect() would report the
+  // already-shrunk box instead of the true starting spot, so we go back to the original inline values rather than re-measuring).
+  const startLeft = parseFloat(flyer.style.left) || 0; // Read back the clone's original left position.
+  const startTop = parseFloat(flyer.style.top) || 0; // Read back the clone's original top position.
+  const startWidth = parseFloat(flyer.style.width) || 0; // Read back the clone's original width.
+  const startHeight = parseFloat(flyer.style.height) || 0; // Read back the clone's original height.
+  const startCenterX = startLeft + startWidth / 2; // Find the clone's own center point, in the same coordinate space as the cart icon's center.
+  const startCenterY = startTop + startHeight / 2; // Find the clone's own center point, in the same coordinate space as the cart icon's center.
+  const dx = cartCenter.x - startCenterX; // Work out how far the clone needs to travel horizontally to land on the cart icon.
+  const dy = cartCenter.y - startCenterY; // Work out how far the clone needs to travel vertically to land on the cart icon.
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; // Check the visitor's motion preference the same way the rest of the site does.
+  if (reducedMotion) { // Continue only when the condition in brackets is met.
+    if (typeof onArrived === 'function') onArrived(flyer); // Skip the flight itself for reduced-motion visitors and go straight to "arrived".
+    return; // Stop here — no animation to play.
+  } // Finish this block or collection.
+
+  const waypoints = computeCurvedFlightWaypoints(dx, dy); // Work out the in-between points that bow this trip into a curve.
+  if (waypoints) { // Continue only when the condition in brackets is met. (skipped only in the vanishingly rare case the clone is already sitting exactly on the cart icon)
+    flyer.style.setProperty('--fly-x-25', waypoints.p25.x + 'px'); // Hand the first curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-y-25', waypoints.p25.y + 'px'); // Hand the first curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-x-50', waypoints.p50.x + 'px'); // Hand the midpoint curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-y-50', waypoints.p50.y + 'px'); // Hand the midpoint curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-x-75', waypoints.p75.x + 'px'); // Hand the later curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-y-75', waypoints.p75.y + 'px'); // Hand the later curve waypoint to the CSS animation.
+    flyer.style.setProperty('--fly-x-90', waypoints.p90.x + 'px'); // Hand the near-arrival waypoint to the CSS animation, just before the shrink-to-nothing beat takes over.
+    flyer.style.setProperty('--fly-y-90', waypoints.p90.y + 'px'); // Hand the near-arrival waypoint to the CSS animation, just before the shrink-to-nothing beat takes over.
+  } // Finish this block or collection.
+  flyer.style.setProperty('--fly-x', dx + 'px'); // Hand the final destination to the CSS animation.
+  flyer.style.setProperty('--fly-y', dy + 'px'); // Hand the final destination to the CSS animation.
+  let arrived = false; // Guard against ever handing the clone back twice — see the safety-net timer below.
+  const arrive = () => { // Define how to let the caller know the clone has arrived, but only the first time this runs.
+    if (arrived) return; // Continue only when the condition in brackets is met.
+    arrived = true; // Update arrived.
+    if (typeof onArrived === 'function') onArrived(flyer); // Let the caller know the clone has arrived, so it can be removed from the page.
+  }; // Finish this block or collection.
+  flyer.classList.add('is-flying'); // Kick off the curved flight-and-shrink animation defined in styles.css.
+  flyer.addEventListener('animationend', arrive, { once: true }); // Respond once the flight animation finishes playing (i.e. the clone has shrunk away right as it reaches the cart icon).
+  setTimeout(arrive, 750); // Safety net: if 'animationend' is ever missed, move on anyway rather than leaving a clone stranded on screen — matters most when several add-to-cart clicks are firing in quick succession.
+} // Finish this block or collection.
+
+/* ---- Flying add-to-cart photo (Part 5: wire the animation into both "Add to Cart" buttons and sync it with the existing wiggle + toast). ---- */
+function triggerAddToCartAnimation(card, line) { // Run the full flying-photo sequence for one add-to-cart click, then update the cart and fire the site's existing feedback at the right moments. Shared by both the cake and simple-item click handlers so the sequence only has to be wired up in one place.
+  const flyer = spawnFlyingItemPhoto(card); // Clone this item's photo in place. Can come back null in the unlikely case the card has no photo element to clone — handled below.
+  if (flyer) { // Continue only when the condition in brackets is met.
+    playFlyingPhotoPop(flyer, settledFlyer => { // Play the pop-then-shrink beat, then...
+      playFlyingPhotoFlight(settledFlyer, arrivedFlyer => { // ...fly the shrunk clone along the curved path to the cart icon, where it shrinks and fades away, then...
+        arrivedFlyer.remove(); // Clean up the clone now that it's made the trip — every clone removes only itself, so rapid clicking never leaves earlier ones stuck behind or interferes with later ones.
+        triggerCartWiggle(); // Wiggle the cart icon right as the photo visually lands on it — the flying photo is now the main visual cue, with the wiggle acting as the "impact" moment rather than firing the instant the button is clicked.
+      }); // Finish and connect this callback or setup block.
+    }); // Finish and connect this callback or setup block.
+  } else { // Handle the alternative case.
+    triggerCartWiggle(); // No photo clone to animate toward the cart, so wiggle right away — same timing as before this feature existed.
+  } // Finish this block or collection.
+  addToCart(line); // Update the cart data and show the confirmation toast immediately — this shouldn't wait on how long the flying animation takes, so the cart is always accurate the instant someone clicks.
+} // Finish this block or collection.
+
 function addToCart(line) { // Define how to add to cart.
   const existing = cart.find(l => l.name === line.name && l.size === line.size); // Store existing for this part of the page.
   if (existing) { // Continue only when the condition in brackets is met.
@@ -215,7 +369,6 @@ function addToCart(line) { // Define how to add to cart.
   } // Finish this block or collection.
   saveCart(); // Save the current cart on this device.
   renderCart(); // Refresh the cart count, total and checkout summary.
-  triggerCartWiggle(); // Run trigger cart wiggle.
   showCartToast('Added ' + line.name + ' to cart', { icon: '✓' }); // Confirm to the shopper that their item was added.
 } // Finish this block or collection.
 let cartToastTimeout = null; // Track the active toast's hide timer so rapid triggers don't stack messages.
@@ -250,6 +403,119 @@ function removeFromCart(index) { // Define how to remove from cart.
   saveCart(); // Save the current cart on this device.
   renderCart(); // Refresh the cart count, total and checkout summary.
 } // Finish this block or collection.
+
+/* ---- Order receipt: build the popup's content from the real cart at checkout (Part 2). ---- */
+const RECEIPT_ORDER_SEQ_KEY = 'butttercloud_receipt_order_seq'; // Store the localStorage key that remembers the last order number used.
+function nextReceiptOrderNumber() { // Generate a simple, human-readable order number that increases with every completed order.
+  let seq = 1; // Default to the first order number if nothing has been saved yet.
+  try { // Attempt this operation and handle any failure below.
+    const stored = parseInt(localStorage.getItem(RECEIPT_ORDER_SEQ_KEY), 10); // Store stored for this part of the page.
+    seq = Number.isInteger(stored) && stored > 0 ? stored + 1 : 1; // Continue the current calculation, element setup or callback.
+    localStorage.setItem(RECEIPT_ORDER_SEQ_KEY, String(seq)); // Remember this order number so the next order continues counting up.
+  } catch (_) {} // Handle a failure so a receipt can still be shown even if storage is unavailable.
+  return "BC-" + String(seq).padStart(4, '0'); // Send this result back to the code that called this function, e.g. "BC-0001".
+} // Finish this block or collection.
+function formatReceiptDateTime(date) { // Format a Date as a short, readable date and time for the receipt.
+  const datePart = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); // Store date part for this part of the page, e.g. "15 Sep 2026".
+  const timePart = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); // Store time part for this part of the page, e.g. "3:45 PM".
+  return datePart + ', ' + timePart; // Send this result back to the code that called this function.
+} // Finish this block or collection.
+function buildReceiptOrderFromCart() { // Snapshot the current cart into a plain order object the receipt can render from.
+  return { // Send this result back to the code that called this function.
+    orderNumber: nextReceiptOrderNumber(), // Give this order its own simple order number.
+    placedAt: new Date(), // Record the exact moment the order was placed.
+    items: cart.map(line => ({ // Copy each cart line so later cart changes can never affect an already-placed order's receipt.
+      name: line.name, // Keep the item's name.
+      size: line.size, // Keep the item's size, or null when it doesn't have one.
+      qty: line.qty, // Keep the quantity ordered.
+      unitPrice: line.unitPrice, // Keep the price for a single unit.
+      lineTotal: cartLineTotal(line) // Keep this line's extended total.
+    })), // Finish and connect this callback or setup block.
+    total: cartTotal() // Keep the order's grand total; there are no separate fees or discounts to subtotal against yet.
+  }; // Finish this block or collection.
+} // Finish this block or collection.
+function renderReceipt(order) { // Fill the receipt popup with a real, already-placed order's details.
+  const modal = document.getElementById('receipt-modal'); // Store modal for this part of the page.
+  if (!modal) return; // Continue only when the condition in brackets is met.
+  modal.querySelector('#receipt-order-no').textContent = order.orderNumber; // Show this order's own order number.
+  const dateEl = modal.querySelector('#receipt-date'); // Store date el for this part of the page.
+  dateEl.dateTime = order.placedAt.toISOString(); // Keep the machine-readable timestamp in sync with the order.
+  dateEl.textContent = formatReceiptDateTime(order.placedAt); // Show the order's real date and time instead of the sample date.
+  const tbody = document.getElementById('receipt-items-body'); // Store tbody for this part of the page.
+  tbody.innerHTML = ''; // Clear out the placeholder rows before adding the order's real items.
+  order.items.forEach(item => { // Repeat this work for each item in the order.
+    const row = document.createElement('tr'); // Store row for this part of the page.
+    row.innerHTML = "\n      <th scope=\"row\">" + item.name + (item.size ? "<span class=\"receipt-item-size\">" + item.size + "</span>" : '') + "</th>\n      <td>" + item.qty + "</td><td>" + formatPrice(item.unitPrice) + "</td><td>" + formatPrice(item.lineTotal) + "</td>\n    "; // Build the visible contents of this element, working the same for a single item or many.
+    tbody.appendChild(row); // Add this element to its visible container.
+  }); // Finish and connect this callback or setup block.
+  modal.querySelector('#receipt-subtotal').textContent = formatPrice(order.total); // Show the order's real subtotal; there are no extra fees yet to separate it from the total below.
+  modal.querySelector('#receipt-total').textContent = formatPrice(order.total); // Show the order's real, final total.
+  const summaryOrderNo = modal.querySelector('#receipt-summary-order-no'); // Store summary order no for this part of the page.
+  if (summaryOrderNo) summaryOrderNo.textContent = order.orderNumber; // Keep the screen-reader-only summary in sync with the real order number.
+  const summaryTotal = modal.querySelector('#receipt-summary-total'); // Store summary total for this part of the page.
+  if (summaryTotal) summaryTotal.textContent = formatPrice(order.total); // Keep the screen-reader-only summary in sync with the real total.
+  const previewNote = modal.querySelector('#receipt-preview-note'); // Store preview note for this part of the page.
+  if (previewNote) previewNote.hidden = true; // Hide the "sample data" disclaimer now that the receipt shows a real order.
+} // Finish this block or collection.
+
+/* ---- Order receipt: open/close behavior (Part 3). ---- */
+const receiptModal = document.getElementById('receipt-modal'); // Store receipt modal for this part of the page.
+function openReceipt(order) { // Fill in and reveal the receipt popup for a just-placed order.
+  renderReceipt(order); // Show this order's real items, totals and order number before the popup appears.
+  if (receiptModal.open) return; // Continue only when the condition in brackets is met.
+  receiptModal.showModal(); // Reveal the receipt as a modal popup over the current page.
+  const heading = document.getElementById('receipt-title'); // Store heading for this part of the page.
+  if (heading) heading.focus({ preventScroll: true }); // Send keyboard and screen-reader focus to the receipt's own heading first, instead of defaulting straight to the close button.
+  if (lenis) lenis.stop(); // Pause smooth-scrolling of the page behind the receipt, matching the cart and product viewer.
+} // Finish this block or collection.
+function closeReceipt() { // Close the receipt popup.
+  if (receiptModal.open) receiptModal.close(); // Continue only when the condition in brackets is met.
+} // Finish this block or collection.
+receiptModal.addEventListener('close', () => { // Respond when the receipt closes, however that happened (button, backdrop tap, or Esc).
+  if (lenis && document.getElementById('cart-panel').hidden && !document.getElementById('product-viewer').open) lenis.start(); // Resume smooth-scrolling only if no other overlay is still holding it paused.
+}); // Finish and connect this callback or setup block.
+receiptModal.addEventListener('click', event => { // Respond when this control is clicked.
+  if (event.target === receiptModal) closeReceipt(); // Close the receipt when the tap lands on the dimmed backdrop rather than the paper itself.
+}); // Finish and connect this callback or setup block.
+document.getElementById('receipt-close').addEventListener('click', closeReceipt); // Respond when this control is clicked.
+
+/* ---- Order receipt: download as an image (Part 5). Captures only the printed paper itself, not the printer graphic, doodles, close button or dimmed backdrop behind it. ---- */
+const receiptDownloadBtn = document.getElementById('receipt-download'); // Store receipt download btn for this part of the page.
+if (receiptDownloadBtn) { // Continue only when the condition in brackets is met.
+  receiptDownloadBtn.addEventListener('click', async () => { // Respond when this control is clicked.
+    if (typeof html2canvas !== 'function') { // Continue only when the condition in brackets is met.
+      showCartToast('Could not download right now, please try again.', { icon: '⚠️', duration: 3200 }); // Reuse the site's existing toast for this unlikely failure (e.g. the download script was blocked), using its real icon/duration options.
+      return; // Stop this function because no more work is needed.
+    } // Finish this block or collection.
+    const paper = receiptModal.querySelector('.receipt-card'); // Capture only the printed paper itself, not the printer housing or floating doodles around it.
+    const orderNo = receiptModal.querySelector('#receipt-order-no').textContent.trim() || 'receipt'; // Name the file after this order's own receipt number.
+    const originalLabel = receiptDownloadBtn.innerHTML; // Remember the button's normal contents so they can be restored afterward.
+    receiptDownloadBtn.disabled = true; // Prevent extra taps while the image is being generated.
+    receiptDownloadBtn.textContent = 'Preparing…'; // Show plainly that the download is in progress.
+    paper.classList.add('is-capturing'); // Briefly drop the paper's soft shadow so the saved image has a clean, uncut edge instead of a shadow sliced off at the boundary.
+    try { // Attempt this operation and handle any failure below.
+      const canvas = await html2canvas(paper, { // Render just the paper element to an off-screen canvas.
+        backgroundColor: '#FFFDF8', // Fill in the paper's own tone (matching --surface-card) behind the torn clip-path edge, so no transparent or black seams appear.
+        scale: Math.max(2, window.devicePixelRatio || 1), // Capture at a sharp resolution so the saved image looks crisp, not blurry, when shared or zoomed into.
+        useCORS: true, // Allow the bakery's own same-site mascot images to be drawn into the canvas.
+        ignoreElements: el => el.hasAttribute && el.hasAttribute('data-html2canvas-ignore') // Leave the download button itself out of its own screenshot.
+      }); // Finish and connect this callback or setup block.
+      const link = document.createElement('a'); // Store link for this part of the page.
+      link.href = canvas.toDataURL('image/png'); // Turn the captured canvas into a downloadable PNG image.
+      link.download = 'butttercloud-receipt-' + orderNo + '.png'; // Give the saved file a clear, order-specific name.
+      document.body.appendChild(link); // Add this element to its visible container so Safari and older browsers will follow the download link.
+      link.click(); // Trigger the actual file download.
+      link.remove(); // Continue the current calculation, element setup or callback.
+    } catch (err) { // Handle a failure so a broken image never leaves the receipt stuck mid-download.
+      showCartToast('Could not download right now, please try again.', { icon: '⚠️', duration: 3200 }); // Let the visitor know the download didn't go through this time, using the toast's real icon/duration options.
+    } finally { // Run this cleanup regardless of whether the download succeeded.
+      paper.classList.remove('is-capturing'); // Bring the paper's normal shadow back for its regular on-screen look.
+      receiptDownloadBtn.disabled = false; // Make the button tappable again either way.
+      receiptDownloadBtn.innerHTML = originalLabel; // Restore the button's normal icon and label.
+    } // Finish this block or collection.
+  }); // Finish and connect this callback or setup block.
+} // Finish this block or collection.
+
 function renderMenu() { // Build the product cards with photos, prices and quantity controls.
   Object.entries(MENU_DATA).forEach(([key, category]) => { // Repeat this work for each item in the collection.
     const container = document.getElementById("menu-" + key); // Store container for this part of the page.
@@ -260,12 +526,13 @@ function renderMenu() { // Build the product cards with photos, prices and quant
       const card = document.createElement('div'); // Store card for this part of the page.
       card.className = 'menu-item-card'; // Update card class name.
       const images = item.images || []; // Store images for this part of the page.
-      const photoHtml = images.length ? "<button type=\"button\" class=\"menu-item-photo-wrap product-photo-trigger\" aria-label=\"View photos of " + itemName + "\" aria-haspopup=\"dialog\">\n             <span class=\"product-float\">" + images.map((src, i) => "<img " + (i === 0 ? 'src' : 'data-src') + "=\"" + src + "\" alt=\"" + itemName + " — " + photoAngle(src) + "\" class=\"menu-item-photo" + (i === 0 ? ' is-active' : '') + "\" loading=\"lazy\" decoding=\"async\">").join('') + "</span>\n             <span class=\"product-photo-hint\">Take a closer look</span>\n           </button>" : "<div class=\"menu-item-photo-wrap menu-item-photo-wrap--placeholder\">\n             <span class=\"menu-item-placeholder-icon\" aria-hidden=\"true\">🍰</span>\n             <span class=\"menu-item-placeholder-text\">Photo coming soon</span>\n           </div>"; // Store photo html for this part of the page.
+      const photoHtml = images.length ? "<button type=\"button\" class=\"menu-item-photo-wrap product-photo-trigger\" aria-label=\"View photos of " + itemName + "\" aria-haspopup=\"dialog\">\n             <span class=\"product-float\">" + images.map((src, i) => "<img " + (i === 0 ? 'src' : 'data-src') + "=\"" + src + "\" alt=\"" + itemName + ", " + photoAngle(src) + "\" class=\"menu-item-photo" + (i === 0 ? ' is-active' : '') + "\" loading=\"lazy\" decoding=\"async\">").join('') + "</span>\n             <span class=\"product-photo-hint\">Take a closer look</span>\n           </button>" : "<div class=\"menu-item-photo-wrap menu-item-photo-wrap--placeholder\">\n             <span class=\"menu-item-placeholder-icon\" aria-hidden=\"true\">🍰</span>\n             <span class=\"menu-item-placeholder-text\">Photo coming soon</span>\n           </div>"; // Store photo html for this part of the page.
       if (category.type === 'cake') { // Continue only when the condition in brackets is met.
         const sizes = Object.keys(item.sizePricing); // Store sizes for this part of the page.
         let selectedSize = sizes[0]; // Keep track of selected size for this part of the page.
         let qty = 1; // Keep track of qty for this part of the page.
-        card.innerHTML = "\n          " + photoHtml + "\n          <span class=\"menu-item-name\">" + itemName + "</span>\n          <div class=\"menu-size-select\" role=\"group\" aria-label=\"" + itemName + " size\"></div>\n          <span class=\"menu-item-price\" data-price-display></span>\n          <div class=\"menu-item-controls\">\n            <div class=\"qty-stepper\">\n              <button type=\"button\" data-qty-minus aria-label=\"Decrease quantity\">−</button>\n              <span data-qty-display>1</span>\n              <button type=\"button\" data-qty-plus aria-label=\"Increase quantity\">+</button>\n            </div>\n            <button type=\"button\" class=\"menu-add-btn\" data-add-btn>Add to Cart</button>\n          </div>\n        "; // Build the visible contents of this element.
+        const descHtml = item.description ? "<p class=\"menu-item-description\">" + item.description + "</p>" : ''; // Render the short flavor description when one is provided, so each card carries real descriptive copy for visitors and search engines.
+        card.innerHTML = "\n          " + photoHtml + "\n          <span class=\"menu-item-name\">" + itemName + "</span>\n          " + descHtml + "\n          <div class=\"menu-size-select\" role=\"group\" aria-label=\"" + itemName + " size\"></div>\n          <span class=\"menu-item-price\" data-price-display></span>\n          <div class=\"menu-item-controls\">\n            <div class=\"qty-stepper\">\n              <button type=\"button\" data-qty-minus aria-label=\"Decrease quantity\">−</button>\n              <span data-qty-display>1</span>\n              <button type=\"button\" data-qty-plus aria-label=\"Increase quantity\">+</button>\n            </div>\n            <button type=\"button\" class=\"menu-add-btn\" data-add-btn>Add to Cart</button>\n          </div>\n        "; // Build the visible contents of this element.
         const sizeGroup = card.querySelector('.menu-size-select'); // Store size group for this part of the page.
         sizes.forEach(size => { // Repeat this work for each item in the collection.
           const btn = document.createElement('button'); // Store btn for this part of the page.
@@ -296,7 +563,7 @@ function renderMenu() { // Build the product cards with photos, prices and quant
           qtyDisplay.textContent = qty; // Update the words or number shown in this element.
         }); // Finish and connect this callback or setup block.
         card.querySelector('[data-add-btn]').addEventListener('click', () => { // Respond when this control is clicked.
-          addToCart({ // Run add to cart.
+          triggerAddToCartAnimation(card, { // Play the flying-photo animation and add this cake to the cart, in sync with the cart-icon wiggle and toast.
             name: itemName, // Set the name value.
             size: selectedSize, // Set the size value.
             qty: qty, // Set the qty value.
@@ -309,7 +576,8 @@ function renderMenu() { // Build the product cards with photos, prices and quant
       } else { // Handle the alternative case.
         const unitPrice = item.unitPrice !== undefined ? item.unitPrice : category.unitPrice; // Store unit price for this part of the page.
         let qty = category.minQty; // Keep track of qty for this part of the page.
-        card.innerHTML = "\n          " + photoHtml + "\n          <span class=\"menu-item-name\">" + itemName + "</span>\n          " + (category.note ? "<span class=\"menu-item-note\">" + category.note + "</span>" : '') + "\n          <span class=\"menu-item-price\">" + formatPrice(unitPrice) + " each</span>\n          <div class=\"menu-item-controls\">\n            <div class=\"qty-stepper\">\n              <button type=\"button\" data-qty-minus aria-label=\"Decrease quantity\">−</button>\n              <span data-qty-display>" + qty + "</span>\n              <button type=\"button\" data-qty-plus aria-label=\"Increase quantity\">+</button>\n            </div>\n            <button type=\"button\" class=\"menu-add-btn\" data-add-btn>Add to Cart</button>\n          </div>\n        "; // Build the visible contents of this element.
+        const descHtml = item.description ? "<p class=\"menu-item-description\">" + item.description + "</p>" : ''; // Render the short flavor description when one is provided, so each card carries real descriptive copy for visitors and search engines.
+        card.innerHTML = "\n          " + photoHtml + "\n          <span class=\"menu-item-name\">" + itemName + "</span>\n          " + descHtml + "\n          " + (category.note ? "<span class=\"menu-item-note\">" + category.note + "</span>" : '') + "\n          <span class=\"menu-item-price\">" + formatPrice(unitPrice) + " each</span>\n          <div class=\"menu-item-controls\">\n            <div class=\"qty-stepper\">\n              <button type=\"button\" data-qty-minus aria-label=\"Decrease quantity\">−</button>\n              <span data-qty-display>" + qty + "</span>\n              <button type=\"button\" data-qty-plus aria-label=\"Increase quantity\">+</button>\n            </div>\n            <button type=\"button\" class=\"menu-add-btn\" data-add-btn>Add to Cart</button>\n          </div>\n        "; // Build the visible contents of this element.
         const qtyDisplay = card.querySelector('[data-qty-display]'); // Store qty display for this part of the page.
         card.querySelector('[data-qty-minus]').addEventListener('click', () => { // Respond when this control is clicked.
           qty = Math.max(category.minQty, qty - 1); // Update qty.
@@ -320,7 +588,7 @@ function renderMenu() { // Build the product cards with photos, prices and quant
           qtyDisplay.textContent = qty; // Update the words or number shown in this element.
         }); // Finish and connect this callback or setup block.
         card.querySelector('[data-add-btn]').addEventListener('click', () => { // Respond when this control is clicked.
-          addToCart({ // Run add to cart.
+          triggerAddToCartAnimation(card, { // Play the flying-photo animation and add this item to the cart, in sync with the cart-icon wiggle and toast.
             name: itemName, // Set the name value.
             size: null, // Set the size value.
             qty: qty, // Set the qty value.
@@ -520,8 +788,8 @@ productDialog.addEventListener('keydown', event => { // Respond when a key is pr
     if (event.key === 'ArrowRight') modalProductPlayer?.next();else modalProductPlayer?.previous(); // Continue only when the condition in brackets is met.
   } // Finish this block or collection.
 }); // Finish and connect this callback or setup block.
-productHoverQuery.addEventListener('change', stopDesktopPreview); // Respond when this value or device preference changes.
-prefersReducedMotionQuery.addEventListener('change', () => { // Respond when this value or device preference changes.
+listenToMediaQuery(productHoverQuery, stopDesktopPreview); // Respond when this value or device preference changes.
+listenToMediaQuery(prefersReducedMotionQuery, () => { // Respond when this value or device preference changes.
   stopDesktopPreview(); // Return the active product photo to its menu card.
   if (modalProductPlayer) modalProductPlayer.setPaused(true); // Continue only when the condition in brackets is met.
   updateProductPause(); // Keep the pause button in sync with playback.
@@ -539,14 +807,14 @@ function renderCartLines(container, { // Display the items in the cart or order 
   if (cart.length === 0) { // Continue only when the condition in brackets is met.
     const empty = document.createElement('p'); // Store empty for this part of the page.
     empty.className = 'cart-empty'; // Update empty class name.
-    empty.innerHTML = 'Nothing here yet — <a href="#menu">pick something sweet from the menu</a>.'; // Build the visible contents of this element.
+    empty.innerHTML = 'Nothing here yet, <a href="#menu">pick something sweet from the menu</a>.'; // Build the visible contents of this element.
     container.appendChild(empty); // Add this element to its visible container.
     return; // Stop this function because no more work is needed.
   } // Finish this block or collection.
   cart.forEach((line, index) => { // Repeat this work for each item in the collection.
     const row = document.createElement('div'); // Store row for this part of the page.
     row.className = 'cart-line'; // Update row class name.
-    row.innerHTML = "\n      <div class=\"cart-line-info\">\n        <span class=\"cart-line-name\">" + line.name + (line.size ? " — " + line.size : '') + "</span>\n        <span class=\"cart-line-meta\">Qty " + line.qty + " × " + formatPrice(line.unitPrice) + "</span>\n      </div>\n      <div class=\"cart-line-right\">\n        <span class=\"cart-line-price\">" + formatPrice(cartLineTotal(line)) + "</span>\n        " + (showRemove ? '<button type="button" class="cart-line-remove">Remove</button>' : '') + "\n      </div>\n    "; // Build the visible contents of this element.
+    row.innerHTML = "\n      <div class=\"cart-line-info\">\n        <span class=\"cart-line-name\">" + line.name + (line.size ? " (" + line.size + ")" : '') + "</span>\n        <span class=\"cart-line-meta\">Qty " + line.qty + " × " + formatPrice(line.unitPrice) + "</span>\n      </div>\n      <div class=\"cart-line-right\">\n        <span class=\"cart-line-price\">" + formatPrice(cartLineTotal(line)) + "</span>\n        " + (showRemove ? '<button type="button" class="cart-line-remove">Remove</button>' : '') + "\n      </div>\n    "; // Build the visible contents of this element.
     if (showRemove) { // Continue only when the condition in brackets is met.
       row.querySelector('.cart-line-remove').addEventListener('click', () => removeFromCart(index)); // Respond when this control is clicked.
     } // Finish this block or collection.
@@ -670,7 +938,7 @@ if (orderForm) { // Continue only when the condition in brackets is met.
   function buildWhatsAppMessage(form) { // Prepare the order details for the customer’s WhatsApp message.
     const get = name => (form.elements[name] ? form.elements[name].value : '').trim(); // Store get for this part of the page.
     const fulfillment = form.querySelector('input[name="fulfillment"]:checked'); // Store fulfillment for this part of the page.
-    const lines = ["Hi! I'd like to place an order with butttercloud 🍰", "", "Name: " + get('name'), "Phone: " + get('phone'), "Date needed: " + get('date_needed'), "", "Order:", ...cart.map(line => "- " + line.name + (line.size ? " (" + line.size + ")" : '') + " x" + line.qty + " — " + formatPrice(cartLineTotal(line))), "Total: " + formatPrice(cartTotal()), "", "" + (fulfillment ? fulfillment.value : '') + (fulfillment && fulfillment.value === 'Delivery' ? " — " + get('address') : '')]; // Store lines for this part of the page.
+    const lines = ["Hi! I'd like to place an order with butttercloud 🍰", "", "Name: " + get('name'), "Phone: " + get('phone'), "Date needed: " + get('date_needed'), "", "Order:", ...cart.map(line => "- " + line.name + (line.size ? " (" + line.size + ")" : '') + " x" + line.qty + " (" + formatPrice(cartLineTotal(line)) + ")"), "Total: " + formatPrice(cartTotal()), "", "" + (fulfillment ? fulfillment.value : '') + (fulfillment && fulfillment.value === 'Delivery' ? ": " + get('address') : '')]; // Store lines for this part of the page.
     const message = get('message'); // Store message for this part of the page.
     if (message) { // Continue only when the condition in brackets is met.
       lines.push("Notes: " + message); // Continue the current calculation, element setup or callback.
@@ -705,7 +973,7 @@ if (orderForm) { // Continue only when the condition in brackets is met.
     if (!orderForm.reportValidity()) return; // Continue only when the condition in brackets is met.
     const message = buildWhatsAppMessage(orderForm); // Store message for this part of the page.
     const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message); // Store wa url for this part of the page.
-    const items = cart.map(line => "" + line.name + (line.size ? " (" + line.size + ")" : '') + " — Qty " + line.qty + " × " + formatPrice(line.unitPrice) + " = " + formatPrice(cartLineTotal(line))).join('\n'); // Store items for this part of the page.
+    const items = cart.map(line => "" + line.name + (line.size ? " (" + line.size + ")" : '') + ", Qty " + line.qty + " × " + formatPrice(line.unitPrice) + " = " + formatPrice(cartLineTotal(line))).join('\n'); // Store items for this part of the page.
     document.getElementById('cart-items-field').value = items; // Continue the current calculation, element setup or callback.
     const formData = new FormData(orderForm); // Store form data for this part of the page.
     formData.set('total', formatPrice(cartTotal())); // Continue the current calculation, element setup or callback.
@@ -714,7 +982,7 @@ if (orderForm) { // Continue only when the condition in brackets is met.
     submitting = true; // Update submitting.
     submitButton.disabled = true; // Update submit button disabled.
     submitButton.textContent = 'Sending…'; // Update the words or number shown in this element.
-    statusEl.textContent = 'Sending your order details — just a moment…'; // Update the words or number shown in this element.
+    statusEl.textContent = 'Sending your order details, just a moment…'; // Update the words or number shown in this element.
     let whatsappWindow = null; // Keep track of whatsapp window for this part of the page.
     try { // Attempt this operation and handle any failure below.
       whatsappWindow = window.open('about:blank', '_blank'); // Update whatsapp window.
@@ -732,6 +1000,7 @@ if (orderForm) { // Continue only when the condition in brackets is met.
         } // Finish this block or collection.
       }); // Finish and connect this callback or setup block.
       if (!response.ok) throw new Error('Order submission failed'); // Continue only when the condition in brackets is met.
+      const placedOrder = buildReceiptOrderFromCart(); // Snapshot the real order now, while the cart still holds it, to show on the receipt below.
       orderForm.reset(); // Continue the current calculation, element setup or callback.
       document.getElementById('cart-items-field').value = ''; // Continue the current calculation, element setup or callback.
       updateAddressVisibility(); // Run update address visibility.
@@ -743,7 +1012,7 @@ if (orderForm) { // Continue only when the condition in brackets is met.
       whatsappLink.hidden = false; // Update whatsapp link hidden.
       statusEl.textContent = 'Your order details are saved! Send the ready-to-go WhatsApp message to confirm your order. If WhatsApp did not open, tap Continue on WhatsApp below.'; // Update the words or number shown in this element.
       statusEl.classList.add('is-success'); // Update the styling state of this element.
-      showCartToast('Order placed! Check WhatsApp to confirm.', { icon: '🎉', duration: 3200, isOrderSuccess: true }); // Give a clearly visible confirmation even after the cart panel has closed.
+      openReceipt(placedOrder); // Show the printed receipt as the order-success confirmation, right after the cart panel closes so nothing overlaps it.
       if (whatsappWindow && !whatsappWindow.closed) { // Continue only when the condition in brackets is met.
         try { // Attempt this operation and handle any failure below.
           whatsappWindow.location.replace(waUrl); // Continue the current calculation, element setup or callback.
@@ -958,8 +1227,9 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
     sparkles.set(sparkle, timer); // Continue the current calculation, element setup or callback.
   } // Finish this block or collection.
   document.addEventListener('pointermove', event => { // Respond when the pointer moves.
-    if (!cursorMedia.matches || event.pointerType !== 'mouse') { // Continue only when the condition in brackets is met.
-      hideCursor(); // Hide the custom cloud and remove leftover sparkles.
+    const openDialog = document.querySelector('dialog[open]'); // Check whether any native dialog (receipt, cart, product viewer) is currently the active modal.
+    if (!cursorMedia.matches || event.pointerType !== 'mouse' || openDialog) { // Continue only when the condition in brackets is met; also bail out over an open dialog, since it sits in the browser's top layer where this fixed cursor element can never reliably paint above it.
+      hideCursor(); // Hide the custom cloud and remove leftover sparkles, letting the real system pointer take over instead.
       return; // Stop this function because no more work is needed.
     } // Finish this block or collection.
     mouseX = event.clientX; // Update mouse x.
@@ -978,8 +1248,8 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
   document.addEventListener('visibilitychange', () => { // Respond when the page becomes hidden or visible.
     if (document.hidden) hideCursor(); // Continue only when the condition in brackets is met.
   }); // Finish and connect this callback or setup block.
-  cursorMedia.addEventListener('change', hideCursor); // Respond when this value or device preference changes.
-  reducedMotion.addEventListener('change', clearSparkles); // Respond when this value or device preference changes.
+  listenToMediaQuery(cursorMedia, hideCursor); // Respond when this value or device preference changes.
+  listenToMediaQuery(reducedMotion, clearSparkles); // Respond when this value or device preference changes.
 })(); // Finish and connect this callback or setup block.
 (function () { // Continue the current calculation, element setup or callback.
   const isMobile = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768; // Store is mobile for this part of the page.
@@ -1162,9 +1432,9 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
   }); // End page-restoration handling.
   window.addEventListener('resize', scheduleStoryMeasurement, { passive: true }); // Recalculate the runway when the viewport changes.
   window.addEventListener('load', scheduleStoryMeasurement, { once: true }); // Recheck after the initial assets finish loading.
-  desktop.addEventListener('change', scheduleStoryMeasurement); // Re-evaluate width, hover and touch capability changes; ordinary resizing still checks content fit.
+  listenToMediaQuery(desktop, scheduleStoryMeasurement); // Re-evaluate width, hover and touch capability changes; ordinary resizing still checks content fit.
   story.addEventListener('load', scheduleStoryMeasurement, true); // Check the fit again when lazy-loaded mascot dimensions become available.
-  preference.addEventListener('change', scheduleStoryMeasurement); // Remove or restore the runway when motion preferences change.
+  listenToMediaQuery(preference, scheduleStoryMeasurement); // Remove or restore the runway when motion preferences change.
   if (document.fonts) document.fonts.ready.then(scheduleStoryMeasurement); // Recheck after the site's fonts finish loading.
   if ('ResizeObserver' in window) { // Follow size changes without adding another scroll listener.
     const observer = new ResizeObserver(scheduleStoryMeasurement); // Observe layout only, never scroll position.
@@ -1379,7 +1649,7 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
   window.addEventListener('scroll', scheduleFlight, { passive: true }); // Follow native scrolling, Lenis scrolling, keyboard navigation and touch gestures.
   window.addEventListener('resize', refreshFlight, { passive: true }); // Recalculate the scroll range even when only viewport height changes.
   window.addEventListener('pageshow', refreshFlight); // Restore the correct position after back-forward navigation.
-  preference.addEventListener('change', () => { // Respond immediately if the visitor changes motion preferences.
+  listenToMediaQuery(preference, () => { // Respond immediately if the visitor changes motion preferences.
     if (pendingFrame) cancelAnimationFrame(pendingFrame); // Cancel a queued animation frame when the preference changes.
     pendingFrame = 0; // Reset the scheduler so motion can resume if requested later.
     refreshFlight(); // Synchronize the current position when motion becomes available again.
@@ -1463,7 +1733,7 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
     event.preventDefault(); // Keep the customer beside the review section.
     if (posting || !form.reportValidity()) return; // Require accessible browser validation and block double-click posts.
     const fields = new FormData(form); // Read values before temporarily disabling the form.
-    submissionId ||= crypto.randomUUID(); // Reuse this ID if a saved response is lost and the customer retries.
+    submissionId ||= (window.crypto && typeof window.crypto.randomUUID === 'function' ? window.crypto.randomUUID() : `review-${Date.now()}-${Math.random().toString(36).slice(2)}`); // Reuse this ID if a saved response is lost and support mobile browsers without randomUUID.
     const payload = { id: submissionId, name: fields.get('name'), item: fields.get('item'), rating: Number(fields.get('rating')), message: fields.get('message'), website: fields.get('website') }; // Send only the public review fields and the bot trap.
     posting = true; Array.from(form.elements).forEach(control => { control.disabled = true; }); // Freeze the submitted values while saving.
     submit.textContent = 'Posting…'; submitStatus.textContent = 'Saving your review…'; // Announce the in-progress request.
@@ -1472,9 +1742,9 @@ if (heroSection && heroStage && heroCupcakeTilt) { // Continue only when the con
       const card = createCard(data.review); if (card) track.prepend(card); // Display the new review first in the same taped-card style.
       updateList(); status.textContent = ''; // Replace the empty message with the real card row.
       form.reset(); submissionId = null; form.hidden = true; open.setAttribute('aria-expanded', 'false'); // Prepare a clean form after successful storage.
-      submitStatus.textContent = 'Thank you! Your review is now published.'; open.focus({ preventScroll: true }); // Announce publication and restore keyboard focus.
+      submitStatus.textContent = 'Thank you! Your review is now published.'; try { open.focus({ preventScroll: true }); } catch (_) { open.focus(); } // Announce publication and restore keyboard focus across mobile browsers.
       track.scrollTo({ left: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); // Bring the new card into view without forcing vertical page movement.
-    } catch (error) { submitStatus.textContent = error.name === 'AbortError' ? 'The connection timed out. Your text is still here—please try again.' : error.message; } // Preserve the text and submission ID for a safe retry.
+    } catch (error) { submitStatus.textContent = error.name === 'AbortError' ? 'The connection timed out. Your text is still here, please try again.' : error.message; } // Preserve the text and submission ID for a safe retry.
     finally { posting = false; Array.from(form.elements).forEach(control => { control.disabled = false; }); submit.textContent = 'Post review'; } // Restore the form after both success and failure.
   }); // End customer submissions.
   loadReviews(); // Load real shared reviews when the page opens.

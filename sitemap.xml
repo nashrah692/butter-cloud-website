@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- sitemap.xml for butttercloud — the list of pages search engines should know about. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url> <!-- The homepage, which holds the menu, gallery, reviews, FAQ and order form. -->
+    <loc>https://butttercloud.netlify.app/</loc> <!-- The full public address of this page. -->
+    <lastmod>2026-09-15</lastmod> <!-- The date this page was last meaningfully updated. -->
+  </url>
+
+  <url> <!-- The Privacy Policy page added in Part 1. -->
+    <loc>https://butttercloud.netlify.app/privacy-policy.html</loc> <!-- The full public address of this page. -->
+    <lastmod>2026-09-15</lastmod> <!-- The date this page was last meaningfully updated. -->
+  </url>
+
+  <url> <!-- The Order Policy page added in Part 2. -->
+    <loc>https://butttercloud.netlify.app/order-policy.html</loc> <!-- The full public address of this page. -->
+    <lastmod>2026-09-15</lastmod> <!-- The date this page was last meaningfully updated. -->
+  </url>
+
+</urlset>
